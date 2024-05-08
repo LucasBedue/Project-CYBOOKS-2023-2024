@@ -7,7 +7,7 @@ public abstract class Person {
     private String LastName;
     private String FirstName;
     private String Mail;
-    private double Telephone;
+    private double Phone;
     private String Address;
     private Date DOB;
 
@@ -21,32 +21,47 @@ public abstract class Person {
      * @param address
      * @param DOB
      */
-    public Person(int ID, String lastName, String firstName, String mail, double telephone, String address, Date DOB) {
-        this.ID = ID;
-        this.LastName = lastName;
-        this.FirstName = firstName;
+    public Person(int ID, String lastName, String firstName, String mail, double phone, String address, Date DOB) {
+        this.ID = generateUserID();
+        this.LastName=lastName;
+        this.FirstName=firstName;
         this.Mail = mail;
-        this.Telephone = telephone;
+        this.Phone = phone;
         this.Address = address;
         this.DOB = DOB;
     }
-
-    /**
-     * TEMPORARY ---------------------------------------------------------------------------------
-     * DATE NOT FIGURED OUT YET
-     * @param ID
-     * @param lastName
-     * @param firstName
-     * @param mail
-     * @param telephone
-     * @param address
-     */
-    public Person(int ID, String lastName, String firstName, String mail, double telephone, String address) {
-        this.ID = ID;
-        LastName = lastName;
-        FirstName = firstName;
-        Mail = mail;
-        Telephone = telephone;
-        Address = address;
+    
+    public Person(int ID, String lastName, String firstName, String mail, double phone, String address) {
+        this.ID = generateUserID();
+        this.LastName=lastName;
+        this.FirstName=firstName;
+        this.Mail = mail;
+        this.Phone = phone;
+        this.Address = address;
     }
+
+    private int generateUserID() {
+        return ++ID;
+    }
+    public int getID() {
+		return ID;
+	}
+	public String getLastName() {
+		return LastName;
+	}
+	public String getFirstName() {
+		return FirstName;
+	}
+	public String getMail() {
+		return Mail;
+	}
+	public double getphone() {
+		return Phone;
+	}
+	public String getAdress() {
+		return Address;
+	}
+	public Date getDOB() {	
+		return DOB;
+	}
 }

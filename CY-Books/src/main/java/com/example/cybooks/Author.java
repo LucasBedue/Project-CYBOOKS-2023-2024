@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Author extends Person {
     private Date DOD;
-
     /**
      * Constructor for an Author who has passed
      * @param ID

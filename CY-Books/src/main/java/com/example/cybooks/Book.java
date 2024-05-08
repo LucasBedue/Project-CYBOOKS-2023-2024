@@ -160,7 +160,7 @@ public class Book {
             System.out.println("This book isn't currently available");
             return false;
         }
-    }
+    }    
 
     /**
      * Function to set a returned book as available
