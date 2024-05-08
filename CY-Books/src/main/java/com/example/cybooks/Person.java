@@ -30,4 +30,23 @@ public abstract class Person {
         this.Address = address;
         this.DOB = DOB;
     }
+
+    /**
+     * TEMPORARY ---------------------------------------------------------------------------------
+     * DATE NOT FIGURED OUT YET
+     * @param ID
+     * @param lastName
+     * @param firstName
+     * @param mail
+     * @param telephone
+     * @param address
+     */
+    public Person(int ID, String lastName, String firstName, String mail, double telephone, String address) {
+        this.ID = ID;
+        LastName = lastName;
+        FirstName = firstName;
+        Mail = mail;
+        Telephone = telephone;
+        Address = address;
+    }
 }

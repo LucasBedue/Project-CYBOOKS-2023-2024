@@ -33,6 +33,25 @@ public class Book {
     }
 
     /**
+     * TEMPORARY ----------------------------------------------------------------
+     * DATE NOT FUNCTIONAL
+     * @param ISBN
+     * @param title
+     * @param author
+     * @param genre
+     * @param edition
+     * @param available
+     */
+    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, String edition, boolean available) {
+        this.ISBN = ISBN;
+        Title = title;
+        Author = author;
+        Genre = genre;
+        Edition = edition;
+        Available = available;
+    }
+
+    /**
      * Constructor when no edition is given
      * @param ISBN
      * @param title
@@ -124,8 +143,8 @@ public class Book {
      * @return this book's genre
      */
 
-    public com.example.cybooks.Genre getGenre() {
-        return this.Genre.getGenre();
+    public Genre getGenre() {
+        return this.Genre;
     }
 
     /**
@@ -156,5 +175,10 @@ public class Book {
      */
     public Book getBook(){
         return this;
+    }
+
+    @Override
+    public String toString(){
+        return "This book is " + this.Title + " written by " + (Author) this.Author + " and it's genre is " + (Genre) this.getGenre();
     }
 }

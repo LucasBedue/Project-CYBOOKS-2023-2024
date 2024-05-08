@@ -36,6 +36,21 @@ public class Author extends Person {
     }
 
     /**
+     * TEMPORARY ---------------------------------------------------------
+     *
+     * DATE NOT FIGURED OUT YET
+     * @param ID
+     * @param lastName
+     * @param firstName
+     * @param mail
+     * @param telephone
+     * @param address
+     */
+    public Author(int ID, String lastName, String firstName, String mail, double telephone, String address) {
+        super(ID, lastName, firstName, mail, telephone, address);
+    }
+
+    /**
      * Function to return this author
      * @return this author
      */
