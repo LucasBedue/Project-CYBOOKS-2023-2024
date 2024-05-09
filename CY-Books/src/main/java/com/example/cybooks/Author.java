@@ -1,9 +1,10 @@
 package com.example.cybooks;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Author extends Person {
-    private Date DOD;
+    private LocalDate DOD;
     /**
      * Constructor for an Author who has passed
      * @param ID
@@ -15,7 +16,7 @@ public class Author extends Person {
      * @param DOB
      * @param DOD
      */
-    public Author(int ID, String lastName, String firstName, String mail, double telephone, String address, Date DOB, Date DOD) {
+    public Author(int ID, String lastName, String firstName, String mail, double telephone, String address, LocalDate DOB, LocalDate DOD) {
         super(ID, lastName, firstName, mail, telephone, address, DOB);
         this.DOD = DOD;
     }
@@ -30,24 +31,11 @@ public class Author extends Person {
      * @param address
      * @param DOB
      */
-    public Author(int ID, String lastName, String firstName, String mail, double telephone, String address, Date DOB) {
+    public Author(int ID, String lastName, String firstName, String mail, double telephone, String address, LocalDate DOB) {
         super(ID, lastName, firstName, mail, telephone, address, DOB);
     }
 
-    /**
-     * TEMPORARY ---------------------------------------------------------
-     *
-     * DATE NOT FIGURED OUT YET
-     * @param ID
-     * @param lastName
-     * @param firstName
-     * @param mail
-     * @param telephone
-     * @param address
-     */
-    public Author(int ID, String lastName, String firstName, String mail, double telephone, String address) {
-        super(ID, lastName, firstName, mail, telephone, address);
-    }
+
 
     /**
      * Function to return this author

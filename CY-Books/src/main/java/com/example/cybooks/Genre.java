@@ -15,7 +15,7 @@ public class Genre {
      * Getter for the genre
      * @return this genre
      */
-    public Genre getGenre(){
-        return this;
+    public String getGenre(){
+        return this.Genre;
     }
 }

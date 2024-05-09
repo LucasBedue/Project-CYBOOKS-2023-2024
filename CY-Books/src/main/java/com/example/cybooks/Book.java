@@ -1,5 +1,6 @@
 package com.example.cybooks;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Book {
@@ -7,7 +8,7 @@ public class Book {
     private String Title;
     private Author Author;
     private Genre Genre;
-    private Date PublishingDate;
+    private LocalDate PublishingDate;
     private String Edition;
     private boolean Available;
 
@@ -22,7 +23,7 @@ public class Book {
      * @param available
      */
 
-    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, Date publishingDate, String edition, boolean available) {
+    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, String edition, boolean available) {
         this.ISBN = ISBN;
         this.Title = title;
         this.Author = author;
@@ -32,24 +33,6 @@ public class Book {
         this.Available = available;
     }
 
-    /**
-     * TEMPORARY ----------------------------------------------------------------
-     * DATE NOT FUNCTIONAL
-     * @param ISBN
-     * @param title
-     * @param author
-     * @param genre
-     * @param edition
-     * @param available
-     */
-    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, String edition, boolean available) {
-        this.ISBN = ISBN;
-        Title = title;
-        Author = author;
-        Genre = genre;
-        Edition = edition;
-        Available = available;
-    }
 
     /**
      * Constructor when no edition is given
@@ -60,7 +43,7 @@ public class Book {
      * @param publishingDate
      * @param available
      */
-    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, Date publishingDate, boolean available) {
+    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, boolean available) {
         this.ISBN = ISBN;
         this.Title = title;
         this.Author = author;
@@ -80,7 +63,7 @@ public class Book {
      * @param publishingDate
      * @param edition
      */
-    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, Date publishingDate, String edition) {
+    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, String edition) {
         this.ISBN = ISBN;
         this.Title = title;
         this.Author = author;
@@ -110,7 +93,7 @@ public class Book {
      * Publishing date getter
      * @return this book's publishing date
      */
-    public Date getPublishingDate() {
+    public LocalDate getPublishingDate() {
         return this.PublishingDate;
     }
 
@@ -179,6 +162,6 @@ public class Book {
 
     @Override
     public String toString(){
-        return "This book is " + this.Title + " written by " + (Author) this.Author + " and it's genre is " + (Genre) this.getGenre();
+        return "This book is " + this.Title + " written by " + this.Author.getFirstName() + " " + this.Author.getLastName() + " , its genre is " + this.Genre.getGenre() + " , it came out in " + this.PublishingDate.toString();
     }
 }
