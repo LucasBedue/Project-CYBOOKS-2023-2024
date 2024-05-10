@@ -35,6 +35,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <Label text="Title" />
@@ -42,6 +43,7 @@
                               <Label text="ISBN" GridPane.rowIndex="2" />
                               <Label text="Publishing Date" GridPane.rowIndex="3" />
                               <Label text="Edition" GridPane.rowIndex="4" />
+                              <Label text="Status" GridPane.rowIndex="5" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -56,7 +58,7 @@
                             <TableColumn prefWidth="244.0" text="Title" />
                               <TableColumn prefWidth="165.0" text="Author" />
                               <TableColumn prefWidth="133.0" text="Publishing Date" />
-                              <TableColumn prefWidth="122.0" text="Edition" />
+                              <TableColumn prefWidth="122.0" text="Available" />
                           </columns>
                         </TableView>
                      </children>

@@ -1,5 +1,7 @@
 package com.example.cybooks;
 
+import javafx.beans.property.IntegerProperty;
+
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -81,6 +83,7 @@ public class Book {
         return this.ISBN;
     }
 
+
     /**
      * Title getter
      * @return this book's title
@@ -129,6 +132,8 @@ public class Book {
     public Genre getGenre() {
         return this.Genre;
     }
+
+
 
     /**
      * Function to verify if a chosen book can be borrowed and if so setting it as borrowed

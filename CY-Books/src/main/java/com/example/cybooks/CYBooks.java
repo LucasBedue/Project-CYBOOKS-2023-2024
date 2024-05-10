@@ -35,10 +35,12 @@ public class CYBooks extends Application {
         book1.Borrow();
         System.out.println(book1.toString());
 
-        Borrow newborrow = new Borrow(LocalDate.of(2024,12,1));
+        Borrow newborrow = new Borrow(LocalDate.of(2024,12,1),Fontaine, book1);
         newborrow.Return(LocalDate.of(2024,12,11));
         newborrow.Return(LocalDate.of(2024,12,21));
         newborrow.Return(LocalDate.of(2024,12,22));
+
+
         //launch();
     }
 }

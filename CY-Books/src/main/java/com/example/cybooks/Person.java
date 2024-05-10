@@ -63,7 +63,7 @@ public abstract class Person {
      * @return
      */
     public int getID() {
-		return ID;
+		return this.ID;
 	}
 
     /**
@@ -71,28 +71,28 @@ public abstract class Person {
      * @return user's last name
      */
 	public String getLastName() {
-		return LastName;
+		return this.LastName;
 	}
     /**
      * User first name getter
      * @return user's first name
      */
 	public String getFirstName() {
-		return FirstName;
+		return this.FirstName;
 	}
     /**
      * User email getter
      * @return user's email
      */
 	public String getMail() {
-		return Mail;
+		return this.Mail;
 	}
     /**
      * User phone number getter
      * @return user's phone number
      */
 	public double getphone() {
-		return Phone;
+		return this.Phone;
 	}
 
     /**
@@ -100,13 +100,13 @@ public abstract class Person {
      * @return user's address
      */
 	public String getAdress() {
-		return Address;
+		return this.Address;
 	}
     /**
      * User date of birth getter
      * @return user's date of birth
      */
 	public LocalDate getDOB() {
-		return DOB;
+		return this.DOB;
 	}
 }

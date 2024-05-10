@@ -6,13 +6,21 @@ public class Borrow {
     private LocalDate BorrowingDate;
     private LocalDate DateToBeReturnedBy;
 
+    private Person person;
+    private Book book;
+
+
     /**
      * Constructor for borrowing a book
      * @param borrowingDate
+     * @param person
+     * @param book
      */
-    public Borrow(LocalDate borrowingDate) {
-        BorrowingDate = borrowingDate;
-        DateToBeReturnedBy = borrowingDate.plusDays(20);
+    public Borrow(LocalDate borrowingDate, Person person, Book book) {
+        this.BorrowingDate = borrowingDate;
+        this.person = person;
+        this.book = book;
+        this.DateToBeReturnedBy = borrowingDate.plusDays(20);
     }
 
     /**
