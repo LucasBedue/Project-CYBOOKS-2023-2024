@@ -13,7 +13,7 @@ public class Request {
 
     /** Default constructor for the Request class. */
     public Request() {
-        // Default constructor
+
     }
 
     /**
@@ -40,7 +40,7 @@ public class Request {
      */
     public String searchByISBN(String isbn) {
         try {
-            String query = "(bib.isbn adj \"" + isbn + "\")";
+            String query = "(bib.isbn all \"" + isbn + "\")";
             return executeQuery(query);
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +56,7 @@ public class Request {
      */
     public String searchByGenre(String genre) {
         try {
-            String query = "(bib.genre adj \"" + genre + "\")";
+            String query = "(bib.genre all \"" + genre + "\")";
             return executeQuery(query);
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,7 +72,7 @@ public class Request {
      */
     public String searchByPublisher(String publisher) {
         try {
-            String query = "(bib.publisher adj \"" + publisher + "\")";
+            String query = "(bib.publisher all \"" + publisher + "\")";
             return executeQuery(query);
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,7 +88,7 @@ public class Request {
      */
     public String searchByDatePublishing(int date) {
         try {
-            String query = "(bib.date adj \"" + date + "\")";
+            String query = "(bib.date all \"" + date + "\")";
             return executeQuery(query);
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,7 +111,7 @@ public class Request {
             return null;
         }
     }
-
+    
     /**
      * Executes an HTTP request to the BNF API and retrieves the response.
      * 
@@ -123,6 +123,8 @@ public class Request {
         String encodedQuery = URLEncoder.encode(query, "UTF-8");
         String apiUrl = baseUrl + encodedQuery;
 
+        System.out.println("\n" + apiUrl);
+        
         URL url = new URL(apiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -144,6 +146,49 @@ public class Request {
             return null;
         }
     }
+    
+    public String search(Search query) {
+        try {
+            StringBuilder fullQuery = new StringBuilder();
+
+            // Build the full query based on the provided search criteria
+            if (query.getTitle() != null) {
+                fullQuery.append("bib.title adj \"").append(query.getTitle()).append("\" ");
+            }
+            if (query.getIsbn() != null) {
+                fullQuery.append("and bib.isbn adj \"").append(query.getIsbn()).append("\" ");
+            }
+            if (query.getGenre() != null) {
+                fullQuery.append("and bib.genre adj \"").append(query.getGenre()).append("\" ");
+            }
+            if (query.getPublisher() != null) {
+                fullQuery.append("and bib.publisher adj \"").append(query.getPublisher()).append("\" ");
+            }
+            if (query.getDatePublishing() != 0) {
+                fullQuery.append("and bib.date adj \"").append(query.getDatePublishing()).append("\" ");
+            }
+            if (query.getAuthor() != null) {
+                fullQuery.append("and bib.author adj \"").append(query.getAuthor()).append("\" ");
+            }
+
+            // Remove leading "and" if present
+            String finalQuery = fullQuery.toString().trim();
+            if (finalQuery.startsWith("and")) {
+                finalQuery = finalQuery.substring(4); // 4 char avec " and"
+            }
+
+            // Encode the query part
+            String encodedQuery = URLEncoder.encode(finalQuery, "UTF-8");
+
+
+            // Execute the combined query
+            return executeQuery(encodedQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
 
 
