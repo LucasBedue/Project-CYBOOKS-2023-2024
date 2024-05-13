@@ -11,7 +11,7 @@ public class Librarian extends Person {
 
     /**
      * Constructor for a librarian with all fields given
-     * @param ID
+
      * @param lastName
      * @param firstName
      * @param mail
@@ -19,8 +19,8 @@ public class Librarian extends Person {
      * @param address
      * @param DOB
      */
-    public Librarian(int ID, String lastName, String firstName, String mail, double telephone, String address, LocalDate DOB) {
-        super(ID, lastName, firstName, mail, telephone, address, DOB);
+    public Librarian(String lastName, String firstName, String mail, double telephone, String address, LocalDate DOB) {
+        super(lastName, firstName, mail, telephone, address, DOB);
         this.users = new ArrayList<>();
     }
 

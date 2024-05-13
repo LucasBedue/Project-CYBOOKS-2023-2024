@@ -1,18 +1,18 @@
 package com.example.cybooks;
 
-import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.*;
 
 import java.time.LocalDate;
 import java.util.Date;
 
 public class Book {
-    private int ISBN;
-    private String Title;
-    private Author Author;
-    private Genre Genre;
-    private LocalDate PublishingDate;
-    private String Edition;
-    private boolean Available;
+    private IntegerProperty ISBN;
+    private StringProperty Title;
+    private ObjectProperty<Author> Author;
+    private ObjectProperty<Genre> Genre;
+    private ObjectProperty<LocalDate> PublishingDate;
+    private StringProperty Edition;
+    private BooleanProperty Available;
 
     /**
      * Constructor when all parameters are given
@@ -26,13 +26,13 @@ public class Book {
      */
 
     public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, String edition, boolean available) {
-        this.ISBN = ISBN;
-        this.Title = title;
-        this.Author = author;
-        this.Genre = genre;
-        this.PublishingDate = publishingDate;
-        this.Edition = edition;
-        this.Available = available;
+        this.ISBN = new SimpleIntegerProperty(ISBN);
+        this.Title = new SimpleStringProperty(title);
+        this.Author = new SimpleObjectProperty<Author>(author);
+        this.Genre = new SimpleObjectProperty<Genre>(genre);
+        this.PublishingDate = new SimpleObjectProperty<LocalDate>(publishingDate);
+        this.Edition = new SimpleStringProperty(edition);
+        this.Available = new SimpleBooleanProperty(available);
     }
 
 
@@ -46,13 +46,13 @@ public class Book {
      * @param available
      */
     public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, boolean available) {
-        this.ISBN = ISBN;
-        this.Title = title;
-        this.Author = author;
-        this.Genre = genre;
-        this.PublishingDate = publishingDate;
-        this.Edition = "";
-        this.Available = available;
+        this.ISBN = new SimpleIntegerProperty(ISBN);
+        this.Title = new SimpleStringProperty(title);
+        this.Author = new SimpleObjectProperty<Author>(author);
+        this.Genre = new SimpleObjectProperty<Genre>(genre);
+        this.PublishingDate = new SimpleObjectProperty<LocalDate>(publishingDate);
+        this.Edition = this.Edition = new SimpleStringProperty("");
+        this.Available = new SimpleBooleanProperty(available);
     }
 
     /**
@@ -66,13 +66,13 @@ public class Book {
      * @param edition
      */
     public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, String edition) {
-        this.ISBN = ISBN;
-        this.Title = title;
-        this.Author = author;
-        this.Genre = genre;
-        this.PublishingDate = publishingDate;
-        this.Edition = edition;
-        this.Available = true;
+        this.ISBN = new SimpleIntegerProperty(ISBN);
+        this.Title = new SimpleStringProperty(title);
+        this.Author = new SimpleObjectProperty<Author>(author);
+        this.Genre = new SimpleObjectProperty<Genre>(genre);
+        this.PublishingDate = new SimpleObjectProperty<LocalDate>(publishingDate);
+        this.Edition = new SimpleStringProperty(edition);
+        this.Available = new SimpleBooleanProperty(true);
     }
 
     /**
@@ -80,7 +80,15 @@ public class Book {
      * @return this book's ISBN
      */
     public int getISBN() {
+        return this.ISBN.get();
+    }
+
+    public IntegerProperty ISBNProperty() {
         return this.ISBN;
+    }
+
+    public void setISBN(int ISBN){
+        this.ISBN.set(ISBN);
     }
 
 
@@ -89,7 +97,15 @@ public class Book {
      * @return this book's title
      */
     public String getTitle() {
+        return this.Title.get();
+    }
+
+    public StringProperty TitleProperty() {
         return this.Title;
+    }
+
+    public void setTitle(String Title){
+        this.Title.set(Title);
     }
 
     /**
@@ -97,31 +113,61 @@ public class Book {
      * @return this book's publishing date
      */
     public LocalDate getPublishingDate() {
+        return this.PublishingDate.get();
+    }
+
+    public ObjectProperty<LocalDate> PublishingProperty() {
         return this.PublishingDate;
     }
 
+    public void setPublishingDate(LocalDate PublishingDate) {
+        this.PublishingDate.set(PublishingDate);
+    }
     /**
      * Edition getter
      * @return this book's edition
      */
     public String getEdition() {
+        return this.Edition.get();
+    }
+
+    public StringProperty EditionProperty() {
         return this.Edition;
     }
 
+    public void setEdition(String Edition) {
+        this.Edition.set(Edition);
+    }
     /**
      * Availability getter
      * @return this book's availability
      */
     public boolean isAvailable() {
+        return this.Available.get();
+    }
+
+    public BooleanProperty AvailableProperty() {
         return this.Available;
+    }
+
+    public void setAvailable(boolean Available) {
+        this.Available.set(Available);
     }
 
     /**
      * Author getter
      * @return this book's author
      */
-    public com.example.cybooks.Author getAuthor() {
-        return this.Author.getAuthor();
+    public Author getAuthor() {
+        return this.Author.get();
+    }
+
+    public ObjectProperty<Author> AuthorProperty() {
+        return this.Author;
+    }
+
+    public void setAuthor(Author Author) {
+        this.Author.set(Author);
     }
 
     /**
@@ -130,9 +176,16 @@ public class Book {
      */
 
     public Genre getGenre() {
+        return this.Genre.get();
+    }
+
+    public ObjectProperty<Genre> GenreProperty() {
         return this.Genre;
     }
 
+    public void setGenre(Genre Genre) {
+        this.Genre.set(Genre);
+    }
 
 
     /**
@@ -140,8 +193,8 @@ public class Book {
      * @return true if the book is borrowable and set as borrowed or false if the book is not currently available
      */
     public boolean Borrow(){
-        if (this.Available == true){
-            this.Available = false;
+        if (this.Available.get() == true){
+            this.Available.set(false);
             System.out.println("This book is available ! Enjoy your reading ");
             return true;
         } else {
@@ -154,7 +207,7 @@ public class Book {
      * Function to set a returned book as available
      */
     public void Return(){
-        this.Available = true;
+        this.Available.set(true);
     }
 
     /**
@@ -167,6 +220,6 @@ public class Book {
 
     @Override
     public String toString(){
-        return "This book is " + this.Title + " written by " + this.Author.getFirstName() + " " + this.Author.getLastName() + " , its genre is " + this.Genre.getGenre() + " , it came out in " + this.PublishingDate.toString();
+        return "This book is " + this.Title.getName() + " written by " + this.Author.get().getFirstName() + " " + this.Author.get().getLastName() + " , its genre is " + this.Genre.get().getGenre() + " , it came out in " + this.PublishingDate.get();
     }
 }

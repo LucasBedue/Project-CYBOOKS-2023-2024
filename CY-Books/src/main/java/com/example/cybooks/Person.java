@@ -1,20 +1,21 @@
 package com.example.cybooks;
 
+import javafx.beans.property.*;
+
 import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class Person {
-    private int ID;
-    private String LastName;
-    private String FirstName;
-    private String Mail;
-    private double Phone;
-    private String Address;
-    private LocalDate DOB;
+    private IntegerProperty ID = new SimpleIntegerProperty(0);
+    private StringProperty LastName;
+    private StringProperty FirstName;
+    private StringProperty Mail;
+    private DoubleProperty Phone;
+    private StringProperty Address;
+    private ObjectProperty<LocalDate> DOB;
 
     /**
      * Constructor for any person
-     * @param ID
      * @param lastName
      * @param firstName
      * @param mail
@@ -22,40 +23,44 @@ public abstract class Person {
      * @param address
      * @param DOB
      */
-    public Person(int ID, String lastName, String firstName, String mail, double phone, String address, LocalDate DOB) {
-        this.ID = generateUserID();
-        this.LastName=lastName;
-        this.FirstName=firstName;
-        this.Mail = mail;
-        this.Phone = phone;
-        this.Address = address;
-        this.DOB = DOB;
+    public Person(String lastName, String firstName, String mail, double phone, String address, LocalDate DOB) {
+        this.ID = new SimpleIntegerProperty(generateUserID());
+        this.LastName = new SimpleStringProperty(lastName);
+        this.FirstName = new SimpleStringProperty(firstName);
+        this.Mail = new SimpleStringProperty(mail);
+        this.Phone = new SimpleDoubleProperty(phone);
+        this.Address = new SimpleStringProperty(address);
+        this.DOB = new SimpleObjectProperty<LocalDate>(DOB);
     }
 
     /**
      * Constructor with no date of birth
-     * @param ID
      * @param lastName
      * @param firstName
      * @param mail
      * @param phone
      * @param address
      */
-    public Person(int ID, String lastName, String firstName, String mail, double phone, String address) {
-        this.ID = generateUserID();
-        this.LastName=lastName;
-        this.FirstName=firstName;
-        this.Mail = mail;
-        this.Phone = phone;
-        this.Address = address;
+    public Person( String lastName, String firstName, String mail, double phone, String address) {
+
+        this.ID = new SimpleIntegerProperty(generateUserID());
+        this.LastName = new SimpleStringProperty(lastName);
+        this.FirstName = new SimpleStringProperty(firstName);
+        this.Mail = new SimpleStringProperty(mail);
+        this.Phone = new SimpleDoubleProperty(phone);
+        this.Address = new SimpleStringProperty(address);
     }
 
     /**
      * User ID generator
      * @return user ID
      */
-    private int generateUserID() {
-        return ++ID;
+    private int generateUserID(){
+        int currentID = ID.get();
+
+        ID.set(currentID + 1);
+
+        return currentID;
     }
 
     /**
@@ -63,7 +68,7 @@ public abstract class Person {
      * @return
      */
     public int getID() {
-		return this.ID;
+		return this.ID.get();
 	}
 
     /**
@@ -71,28 +76,28 @@ public abstract class Person {
      * @return user's last name
      */
 	public String getLastName() {
-		return this.LastName;
+		return this.LastName.get();
 	}
     /**
      * User first name getter
      * @return user's first name
      */
 	public String getFirstName() {
-		return this.FirstName;
+		return this.FirstName.get();
 	}
     /**
      * User email getter
      * @return user's email
      */
 	public String getMail() {
-		return this.Mail;
+		return this.Mail.get();
 	}
     /**
      * User phone number getter
      * @return user's phone number
      */
 	public double getphone() {
-		return this.Phone;
+		return this.Phone.get();
 	}
 
     /**
@@ -100,13 +105,13 @@ public abstract class Person {
      * @return user's address
      */
 	public String getAdress() {
-		return this.Address;
+		return this.Address.get();
 	}
     /**
      * User date of birth getter
      * @return user's date of birth
      */
 	public LocalDate getDOB() {
-		return this.DOB;
+		return this.DOB.get();
 	}
 }

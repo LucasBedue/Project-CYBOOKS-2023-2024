@@ -4,22 +4,22 @@ public class User extends Person {
     
     /**
      * Constructor for User
-     * @param ID
+
      * @param lastName
      * @param firstName
      * @param mail
-     * @param phone
+     * @param telephone
      * @param address
      */
 
-    public User(int ID, String lastName, String firstName, String mail, double telephone, String address) {
-        super(ID, lastName, firstName, mail, telephone, address);
+    public User(String lastName, String firstName, String mail, double telephone, String address) {
+        super(lastName, firstName, mail, telephone, address);
     }
     
     /**
      * Method to borrow a book by checking is availability 
-     * @param Book book, the book you are trying to borrow
-     * @return a boolean wich indicate if you succed to borrow the book
+     * @param book, the book you are trying to borrow
+     * @return a boolean which indicates if you succeeded in borrowing the book
      */
 
     public boolean BorrowBook(Book book) {
@@ -38,8 +38,8 @@ public class User extends Person {
     }
     
     /**
-     * Method to return a book by calling an other fonction Return() of the class Book
-     * @param Book book, the book you are trying to give back
+     * Method to return a book by calling another function Return() of the class Book
+     * @param book, the book you are trying to return
      */
     public void GiveBack(Book book) {
         book.Return();
