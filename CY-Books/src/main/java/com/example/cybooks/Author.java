@@ -45,6 +45,10 @@ public class Author extends Person {
         return this;
     }
 
+    /**
+     * Function to return this author as a string
+     * @return this author as a string
+     */
     @Override
     public String toString(){
         return this.getFirstName() + " " + this.getLastName();

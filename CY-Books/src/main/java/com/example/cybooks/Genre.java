@@ -18,4 +18,13 @@ public class Genre {
     public String getGenre(){
         return this.Genre;
     }
+
+    /**
+     * Return the genre as a string
+     * @return this genre as a string
+     */
+    @Override
+    public String toString(){
+        return this.getGenre();
+    }
 }
