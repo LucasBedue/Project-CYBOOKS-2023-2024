@@ -68,50 +68,60 @@ public abstract class Person {
      * @return
      */
     public int getID() {
-		return this.ID.get();
-	}
+        return this.ID.get();
+    }
 
     /**
      * User last name getter
      * @return user's last name
      */
-	public String getLastName() {
-		return this.LastName.get();
-	}
+    public String getLastName() {
+        return this.LastName.get();
+    }
     /**
      * User first name getter
      * @return user's first name
      */
-	public String getFirstName() {
-		return this.FirstName.get();
-	}
+    public String getFirstName() {
+        return this.FirstName.get();
+    }
     /**
      * User email getter
      * @return user's email
      */
-	public String getMail() {
-		return this.Mail.get();
-	}
+    public String getMail() {
+        return this.Mail.get();
+    }
     /**
      * User phone number getter
      * @return user's phone number
      */
-	public double getphone() {
-		return this.Phone.get();
-	}
+    public double getphone() {
+        return this.Phone.get();
+    }
 
     /**
      * User address getter
      * @return user's address
      */
-	public String getAdress() {
-		return this.Address.get();
-	}
+    public String getAdress() {
+        return this.Address.get();
+    }
     /**
      * User date of birth getter
      * @return user's date of birth
      */
-	public LocalDate getDOB() {
-		return this.DOB.get();
-	}
+    public LocalDate getDOB() {
+        return this.DOB.get();
+    }
+
+    public void setLastName(StringProperty LastName){ this.LastName=LastName;}
+
+    public void setLastFirst(StringProperty FirstName){ this.FirstName=FirstName;}
+
+    public void setMail(StringProperty Mail){ this.Mail=Mail;}
+
+    public void setPhone(DoubleProperty Phone){ this.Phone=Phone;}
+
+    public void setAddress(StringProperty Address){ this.Address=Address;}
 }
