@@ -5,14 +5,18 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="rootLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybooks.CYBooks">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
+            <Menu onAction="#switchMainMenuScene" text="CYBooks">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#switchMainMenuScene" text="Main menu" />
+               </items></Menu>
           <Menu mnemonicParsing="false" text="Search">
             <items>
-              <MenuItem mnemonicParsing="false" text="Book" />
-                  <MenuItem mnemonicParsing="false" text="User" />
+              <MenuItem onAction="#switchBookScene" text="Book" />
+                <MenuItem onAction="#switchUserScene" text="User" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Check">

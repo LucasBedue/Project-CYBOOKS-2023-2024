@@ -1,5 +1,8 @@
 package com.example.cybooks;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.StringProperty;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -86,36 +89,38 @@ public class Librarian extends Person {
 
     /**
      * Function to change the last name of a user
-     */
+
     public void changeLastName(User client, StringProperty LastName){
         client.setLastName(LastName);
     }
 
     /**
      * Function to change the first name of a user
-     */
+
     public void changeLastName(User client, StringProperty FirstName){
         client.setLastName(FirstName);
     }
 
     /**
      * Function to change the address of a user
-     */
+
     public void changeAddress(User client, StringProperty Address){
         client.setAddress(Address);
     }
 
     /**
      * Function to change the phone number of a user
-     */
+
     public void changePhone(User client, DoubleProperty Phone){
         client.setPhone(Phone);
     }
 
     /**
      * Function to change the mail of a user
-     */
+
     public void changeMail(User client, DoubleProperty Mail){
         client.setMail(Mail);
     }
+
+    */
 }

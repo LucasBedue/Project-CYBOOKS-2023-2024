@@ -74,7 +74,7 @@ public class BookOverviewController {
         AvailableColumn.setCellValueFactory(cellData -> cellData.getValue().AvailableProperty());
 
         /**
-         * As default no detailed informations will be shown as no book would have been chosen yet
+         * As default no detailed information will be shown as no book would have been chosen yet
          */
         showBookDetails(null);
 

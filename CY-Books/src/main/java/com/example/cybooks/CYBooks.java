@@ -3,57 +3,105 @@ package com.example.cybooks;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.cert.CRLException;
 import java.time.LocalDate;
 import java.time.Month;
 
 public class CYBooks extends Application {
 
+
+    @FXML
     private Stage stage;
-    private BorderPane rootLayout;
-    private MenuButton SearchUser;
-    private MenuButton SearchBook;
-    private MenuButton CheckBorrowedBooks;
-    private MenuButton CheckLateReturns;
+    @FXML
+    private BorderPane rootLayout = new BorderPane();
+
     @Override
     public void start(Stage stage) throws IOException {
+        this.stage = stage;
         /**
          * set the root of the application
          */
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(CYBooks.class.getResource("RootLayout.fxml"));
         rootLayout = (BorderPane) fxmlLoader.load();
-
+        rootLayout.setCenter(createMainMenu());
 
         Scene scene = new Scene(rootLayout);
         stage.setTitle("CY-Books");
         stage.setScene(scene);
-
-        /**
-         * Scene to show the content for the books
-         */
-        Scene BookOverview = showBookOverview();
-        //Scene UserOverview = showUserOverview();
-
-
         stage.show();
-
 
 
     }
 
     /**
-     * To regroup given books in a list
+     * ²To regroup given books in a list
      */
-    private ObservableList<Book> bookData = FXCollections.observableArrayList();
+    private ObservableList<Book> BookData = FXCollections.observableArrayList();
+    private ObservableList<User> UserData = FXCollections.observableArrayList();
+
+    public Node createMainMenu(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+            AnchorPane MainMenu = (AnchorPane) loader.load();
+            MainMenuController MainController = loader.getController();
+            MainController.setCYBooks(this);
+
+            return MainMenu;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Node createBookScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CYBooks.fxml"));
+            AnchorPane BookOverview = (AnchorPane) loader.load();
+            BookOverviewController BookController = loader.getController();
+            BookController.setCYBooks(this);
+            return BookOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Node createUserScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Users.fxml"));
+            AnchorPane UserOverview = (AnchorPane) loader.load();
+            UserOverviewController UserController = loader.getController();
+            UserController.setCYBooks(this);
+            return UserOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void switchMainMenuScene() {
+        rootLayout.setCenter(createMainMenu());
+    }
+    @FXML
+    public void switchBookScene() {
+        rootLayout.setCenter(createBookScene());
+    }
+
+    @FXML
+    public void switchUserScene() {
+        rootLayout.setCenter(createUserScene());
+    }
 
 
     /**
@@ -63,9 +111,9 @@ public class CYBooks extends Application {
     public CYBooks(){
         Author Fontaine = new Author("de la Fontaine","Jean","ui",26579102,"France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
         Genre Conte = new Genre("Conte");
-        bookData.add(new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
-        bookData.add(new Book(3856226,"Cigalle et la Fourmi", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
-        bookData.add(new Book(3856226,"Lapin et la Tortue", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
+        BookData.add(new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
+        BookData.add(new Book(3856226,"Cigalle et la Fourmi", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
+        BookData.add(new Book(3856226,"Lapin et la Tortue", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
     }
 
     /**
@@ -73,62 +121,14 @@ public class CYBooks extends Application {
      * @return the list of books
      */
     public ObservableList<Book> getBookData() {
-        return bookData;
+        return BookData;
+    }
+    public ObservableList<User> getUserData() {
+        return UserData;
     }
 
-    /**
-     * To create the scene used to see the list of books and their information
-     */
-    public Scene showBookOverview(){
-        try{
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(CYBooks.class.getResource("CYBooks.fxml"));
-            AnchorPane BookOverview = (AnchorPane) loader.load();
-
-            rootLayout.setCenter(BookOverview);
-
-            BookOverviewController controller = loader.getController();
 
 
-            //SearchUser.setOnAction(e -> showUserOverview() );
-
-            controller.setCYBooks(this);
-
-            return BookOverview.getScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return rootLayout.getScene();
-    }
-
-    /**
-     * To create the scene used to see the list of users and their information
-     * NOT FUNCTIONAL
-     *
-    public Scene showUserOverview(){
-        try{
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(CYBooks.class.getResource("Users.fxml"));
-            AnchorPane UserOverview = (AnchorPane) loader.load();
-
-            rootLayout.setCenter(UserOverview);
-
-            UserOverviewController controller = loader.getController();
-            controller.setCYBooks(this);
-            return UserOverview.getScene();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return rootLayout.getScene();
-    }
-     */
-    /**
-     * Function to switch to a given scene
-     * @param scene
-     */
-    public void switchScene(Scene scene){
-        stage.setScene(scene);
-    }
 
     public static void main(String[] args) {
         LocalDate Today = LocalDate.now();

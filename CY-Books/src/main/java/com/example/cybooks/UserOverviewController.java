@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 
 public class UserOverviewController {
 
+    private CYBooks cyBooks;
     public UserOverviewController() {
     }
 
@@ -14,5 +15,6 @@ public class UserOverviewController {
     private void initialize(){
     }
     public void setCYBooks(CYBooks cyBooks) {
+        this.cyBooks = cyBooks;
     }
 }
