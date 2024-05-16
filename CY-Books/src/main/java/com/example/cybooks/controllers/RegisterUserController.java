@@ -1,11 +1,12 @@
-package com.example.cybooks;
+package com.example.cybooks.controllers;
 
+import com.example.cybooks.CYBooks;
 import javafx.fxml.FXML;
 
-public class UserOverviewController {
+public class RegisterUserController {
 
     private CYBooks cyBooks;
-    public UserOverviewController() {
+    public RegisterUserController() {
     }
 
     /**
@@ -18,3 +19,4 @@ public class UserOverviewController {
         this.cyBooks = cyBooks;
     }
 }
+

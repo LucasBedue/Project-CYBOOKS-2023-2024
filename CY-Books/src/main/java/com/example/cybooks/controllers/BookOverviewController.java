@@ -1,4 +1,4 @@
-package com.example.cybooks;
+package com.example.cybooks.controllers;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;

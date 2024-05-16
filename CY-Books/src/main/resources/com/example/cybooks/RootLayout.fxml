@@ -13,16 +13,21 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#switchMainMenuScene" text="Main menu" />
                </items></Menu>
-          <Menu mnemonicParsing="false" text="Search">
+          <Menu mnemonicParsing="false" text="User">
             <items>
-              <MenuItem onAction="#switchBookScene" text="Book" />
-                <MenuItem onAction="#switchUserScene" text="User" />
+              <MenuItem onAction="#switchRegisterUserScene" text="Register a new user" />
+                  <MenuItem mnemonicParsing="false" onAction="#switchSearchToModifyScene" text="Modify user" />
+                <MenuItem onAction="#switchUserViewScene" text="User list" />
+                  <MenuItem mnemonicParsing="false" onAction="#switchCheckUserScene" text="Check user" />
+                  <MenuItem mnemonicParsing="false" onAction="#switchUserSearchScene" text="User search" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Check">
+          <Menu mnemonicParsing="false" text="Books">
             <items>
-              <MenuItem mnemonicParsing="false" text="Borrowed books" />
-                  <MenuItem mnemonicParsing="false" text="Late returns" />
+              <MenuItem mnemonicParsing="false" onAction="#switchBookViewScene" text="Borrowed books list" />
+                  <MenuItem mnemonicParsing="false" onAction="#switchLateReturnsBooksScene" text="Check late returns" />
+                  <MenuItem mnemonicParsing="false" onAction="#switchBookSearchScene" text="Book search" />
+                  <MenuItem mnemonicParsing="false" onAction="#switchMostBorrowedBooksScene" text="Most borrowed books list" />
             </items>
           </Menu>
         </menus>

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybooks.MainMenuController">
+<AnchorPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybooks.controllers.MainMenuController">
    <children>
       <SplitPane dividerPositions="0.16045845272206305" orientation="VERTICAL" prefHeight="700.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -26,15 +26,15 @@
                      <top>
                         <AnchorPane prefHeight="289.0" prefWidth="1098.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button layoutX="343.0" layoutY="35.0" onAction="#switchUserScene" text="User List" />
-                              <Button layoutX="169.0" layoutY="91.0" onAction="#switchBookScene" text="Borrowed books list" />
-                              <Button layoutX="118.0" layoutY="35.0" mnemonicParsing="false" text="Register an user" />
-                              <Button layoutX="596.0" layoutY="91.0" mnemonicParsing="false" text="Book search" />
-                              <Button layoutX="891.0" layoutY="35.0" mnemonicParsing="false" text="User search" />
-                              <Button layoutX="502.0" layoutY="35.0" mnemonicParsing="false" text="Modify user" />
-                              <Button layoutX="694.0" layoutY="35.0" mnemonicParsing="false" text="Check user" />
-                              <Button layoutX="380.0" layoutY="91.0" mnemonicParsing="false" text="Check late returns" />
-                              <Button layoutX="758.0" layoutY="91.0" mnemonicParsing="false" text="Most borrowed books list" />
+                              <Button layoutX="343.0" layoutY="35.0" onAction="#switchUserViewScene" text="User List" />
+                              <Button layoutX="169.0" layoutY="91.0" onAction="#switchBookViewScene" text="Borrowed books list" />
+                              <Button layoutX="118.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchRegisterUserScene" text="Register an user" />
+                              <Button layoutX="596.0" layoutY="91.0" mnemonicParsing="false" onAction="#switchBookSearchScene" text="Book search" />
+                              <Button layoutX="891.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchUserSearchScene" text="User search" />
+                              <Button layoutX="502.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchSearchToModifyScene" text="Modify user" />
+                              <Button layoutX="694.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchCheckUserScene" text="Check user" />
+                              <Button layoutX="380.0" layoutY="91.0" mnemonicParsing="false" onAction="#switchLateReturnsBooksScene" text="Check late returns" />
+                              <Button layoutX="758.0" layoutY="91.0" mnemonicParsing="false" onAction="#switchMostBorrowedBooksScene" text="Most borrowed books list" />
                            </children>
                         </AnchorPane>
                      </top>

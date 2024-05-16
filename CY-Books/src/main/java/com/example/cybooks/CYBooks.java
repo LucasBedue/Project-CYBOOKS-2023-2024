@@ -1,5 +1,6 @@
 package com.example.cybooks;
 
+import com.example.cybooks.controllers.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,17 +8,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.security.cert.CRLException;
 import java.time.LocalDate;
-import java.time.Month;
 
 public class CYBooks extends Application {
 
@@ -42,8 +38,6 @@ public class CYBooks extends Application {
         stage.setTitle("CY-Books");
         stage.setScene(scene);
         stage.show();
-
-
     }
 
     /**
@@ -64,8 +58,7 @@ public class CYBooks extends Application {
             throw new RuntimeException(e);
         }
     }
-
-    public Node createBookScene(){
+    public Node createBookViewScene(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("CYBooks.fxml"));
             AnchorPane BookOverview = (AnchorPane) loader.load();
@@ -76,8 +69,40 @@ public class CYBooks extends Application {
             throw new RuntimeException(e);
         }
     }
-
-    public Node createUserScene(){
+    public Node createBookSearchScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("BookSearch.fxml"));
+            AnchorPane BookSearchOverview = (AnchorPane) loader.load();
+            BookSearchController BookSearchController = loader.getController();
+            BookSearchController.setCYBooks(this);
+            return BookSearchOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Node createMostBorrowedBooksScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MostBorrowed.fxml"));
+            AnchorPane MostBorrowedOverview = (AnchorPane) loader.load();
+            MostBorrowedController MostBorrowedController = loader.getController();
+            MostBorrowedController.setCYBooks(this);
+            return MostBorrowedOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Node createLateReturnsBooksScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LateReturns.fxml"));
+            AnchorPane LateReturnsOverview = (AnchorPane) loader.load();
+            LateReturnsController LateReturnsController = loader.getController();
+            LateReturnsController.setCYBooks(this);
+            return LateReturnsOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Node createUserViewScene(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Users.fxml"));
             AnchorPane UserOverview = (AnchorPane) loader.load();
@@ -88,19 +113,90 @@ public class CYBooks extends Application {
             throw new RuntimeException(e);
         }
     }
+    public Node createUserSearchViewScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("UserSearch.fxml"));
+            AnchorPane UserSearchOverview = (AnchorPane) loader.load();
+            UserSearchController UserSearchController = loader.getController();
+            UserSearchController.setCYBooks(this);
+            return UserSearchOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Node createCheckUserScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CheckUser.fxml"));
+            AnchorPane CheckUserOverview = (AnchorPane) loader.load();
+            CheckUserController CheckUserController = loader.getController();
+            CheckUserController.setCYBooks(this);
+            return CheckUserOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Node createSearchToModifyScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchToModifyUser.fxml"));
+            AnchorPane SearchToModifyOverview = (AnchorPane) loader.load();
+            SearchToModifyController SearchToModifyController = loader.getController();
+            SearchToModifyController.setCYBooks(this);
+            return SearchToModifyOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Node createRegisterUserScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterUser.fxml"));
+            AnchorPane RegisterUserOverview = (AnchorPane) loader.load();
+            RegisterUserController RegisterUserController = loader.getController();
+            RegisterUserController.setCYBooks(this);
+            return RegisterUserOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     public void switchMainMenuScene() {
         rootLayout.setCenter(createMainMenu());
     }
     @FXML
-    public void switchBookScene() {
-        rootLayout.setCenter(createBookScene());
+    public void switchBookViewScene() {
+        rootLayout.setCenter(createBookViewScene());
     }
-
     @FXML
-    public void switchUserScene() {
-        rootLayout.setCenter(createUserScene());
+    public void switchBookSearchScene() {
+        rootLayout.setCenter(createBookSearchScene());
+    }
+    @FXML
+    public void switchMostBorrowedBooksScene() {
+        rootLayout.setCenter(createMostBorrowedBooksScene());
+    }
+    @FXML
+    public void switchLateReturnsBooksScene() {
+        rootLayout.setCenter(createLateReturnsBooksScene());
+    }
+    @FXML
+    public void switchUserViewScene() {
+        rootLayout.setCenter(createUserViewScene());
+    }
+    @FXML
+    public void switchUserSearchScene() {
+        rootLayout.setCenter(createUserSearchViewScene());
+    }
+    @FXML
+    public void switchCheckUserScene() {
+        rootLayout.setCenter(createCheckUserScene());
+    }
+    @FXML
+    public void switchSearchToModifyScene() {
+        rootLayout.setCenter(createSearchToModifyScene());
+    }
+    @FXML
+    public void switchRegisterUserScene() {
+        rootLayout.setCenter(createRegisterUserScene());
     }
 
 
