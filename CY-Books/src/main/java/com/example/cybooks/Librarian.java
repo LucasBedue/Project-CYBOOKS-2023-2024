@@ -48,7 +48,7 @@ public class Librarian extends Person {
     }
     /**
      * Function search and print out a User thanks to is ID
-     */
+
     public void lookForUserByID(int id){
         for (User user : users){
             if( user.getID()==id ){
@@ -59,7 +59,7 @@ public class Librarian extends Person {
 
     /**
      * Function search and print out a User thanks to is First Name
-     */
+
     public void lookForUserByFirstName(String FirstName){
         List<User> LookByName = null;
         for (User user : users){
@@ -74,7 +74,7 @@ public class Librarian extends Person {
 
     /**
      * Function search and print out a User thanks to is Last Name
-     */
+
     public void lookForUserByLastName(String LastName){
         List<User> LookByName = null;
         for (User user : users){
@@ -86,41 +86,5 @@ public class Librarian extends Person {
             System.out.println(user);
         }
     }
-
-    /**
-     * Function to change the last name of a user
-
-    public void changeLastName(User client, StringProperty LastName){
-        client.setLastName(LastName);
-    }
-
-    /**
-     * Function to change the first name of a user
-
-    public void changeLastName(User client, StringProperty FirstName){
-        client.setLastName(FirstName);
-    }
-
-    /**
-     * Function to change the address of a user
-
-    public void changeAddress(User client, StringProperty Address){
-        client.setAddress(Address);
-    }
-
-    /**
-     * Function to change the phone number of a user
-
-    public void changePhone(User client, DoubleProperty Phone){
-        client.setPhone(Phone);
-    }
-
-    /**
-     * Function to change the mail of a user
-
-    public void changeMail(User client, DoubleProperty Mail){
-        client.setMail(Mail);
-    }
-
-    */
+     */
 }
