@@ -12,7 +12,7 @@ public class Search {
     private String author;
 
     // Private constructor to prevent direct instantiation
-    private Search() {}
+    Search() {}
 
     // Builder class for fluent construction
     public static class Builder {
