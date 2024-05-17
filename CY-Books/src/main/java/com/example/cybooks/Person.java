@@ -2,12 +2,11 @@ package com.example.cybooks;
 
 import javafx.beans.property.*;
 
-import java.net.PortUnreachableException;
-import java.security.PublicKey;
 import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class Person {
+    private static int counterMember =0;
     private IntegerProperty ID = new SimpleIntegerProperty(0);
     private StringProperty LastName;
     private StringProperty FirstName;
@@ -57,33 +56,23 @@ public abstract class Person {
      * User ID generator
      * @return user ID
      */
-
     private int generateUserID(){
-        int currentID = ID.get();
-
-        ID.set(currentID + 1);
-
-        return currentID;
+        counterMember++;
+        return counterMember;
     }
 
     /**
      * ID getter
      * @return
      */
-
     public int getID() {
         return this.ID.get();
-    }
-
-    public IntegerProperty IDProperty(){
-        return this.ID;
     }
 
     /**
      * User last name getter
      * @return user's last name
      */
-
     public String getLastName() {
         return LastName.get();
     }
@@ -116,11 +105,13 @@ public abstract class Person {
         return this.Mail.get();
     }
 
+
     public StringProperty MailProperty(){
         return this.Mail;
     }
 
     public void setMail(String Mail){ this.Mail.set(Mail);}
+
     /**
      * User phone number getter
      * @return user's phone number
@@ -134,7 +125,6 @@ public abstract class Person {
     }
 
     public void setPhone(String Phone){ this.Phone.set(Phone);}
-
     /**
      * User address getter
      * @return user's address
@@ -148,7 +138,6 @@ public abstract class Person {
     }
 
     public void setAddress(String Address){ this.Address.set(Address);}
-
     /**
      * User date of birth getter
      * @return user's date of birth
@@ -156,14 +145,4 @@ public abstract class Person {
     public LocalDate getDOB() {
         return this.DOB.get();
     }
-
-
-    public ObjectProperty<LocalDate> DOBProperty(){
-        return this.DOB;
-    }
-
-    public void setDOB(LocalDate DOB){ this.DOB.set(DOB);}
-
-
-
 }
