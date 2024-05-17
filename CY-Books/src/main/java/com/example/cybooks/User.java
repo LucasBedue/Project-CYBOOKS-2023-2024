@@ -55,6 +55,7 @@ public class User extends Person {
 
     /**
      * Function to change the last name of a user
+     * @param the new last name
      */
     public void changeLastName(String LastName){
         StringProperty name = new SimpleStringProperty((String) LastName);
@@ -63,6 +64,7 @@ public class User extends Person {
 
     /**
      * Function to change the first name of a user
+     * @param the new first name
      */
     public void changeFirstName(String FirstName){
         StringProperty name = new SimpleStringProperty((String) FirstName);
@@ -71,8 +73,8 @@ public class User extends Person {
 
     /**
      * Function to change the address of a user
+     * @param the new address
      */
-
     public void changeAddress(String address){
         StringProperty location = new SimpleStringProperty((String) address);
         setAddress(location);
@@ -80,6 +82,7 @@ public class User extends Person {
 
     /**
      * Function to change the phone number of a user
+     * @param the new phone number
      */
     public void changePhone(Double phone){
         DoubleProperty number = new SimpleDoubleProperty((double) phone);
@@ -88,14 +91,16 @@ public class User extends Person {
 
     /**
      * Function to change the mail of a user
+     * @param the new mail
      */
     public void changeMail(String mail){
         StringProperty email = new SimpleStringProperty((String) mail);
         setMail(email);
     }
 
+    @Override
     public String toString(){
     return ("The user with the ID "+getID()+" is "+ getFirstName() +" "+ getLastName()+"\nThe User live " + getAdress()+"\n" +
-            getFirstName() + "mail and phone are " + getMail() +" "+ getphone());
+            getFirstName() + " mail and phone are " + getMail() +" "+ getphone());
     }
 }

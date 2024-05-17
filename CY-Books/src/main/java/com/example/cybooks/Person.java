@@ -76,7 +76,7 @@ public abstract class Person {
      * @return user's last name
      */
     public String getLastName() {
-        return this.LastName.get();
+        return LastName.get();
     }
     /**
      * User first name getter
@@ -115,13 +115,23 @@ public abstract class Person {
         return this.DOB.get();
     }
 
+    /** Set a new last name
+     * @param the new last name*/
     public void setLastName(StringProperty LastName){ this.LastName=LastName;}
 
-    public void setLastFirst(StringProperty FirstName){ this.FirstName=FirstName;}
+    /** Set a new first name
+     * @param the new first name*/
+    public void setFirstName(StringProperty FirstName){ this.FirstName=FirstName;}
 
+    /** Set a new mail
+     * @param the new mail*/
     public void setMail(StringProperty Mail){ this.Mail=Mail;}
 
+    /** Set a new phone number
+     * @param the new phone number*/
     public void setPhone(DoubleProperty Phone){ this.Phone=Phone;}
 
+    /** Set a new address
+     * @param the new address*/
     public void setAddress(StringProperty Address){ this.Address=Address;}
 }
