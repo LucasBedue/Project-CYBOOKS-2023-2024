@@ -16,7 +16,7 @@
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <Button mnemonicParsing="false" text="Search" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#print" text="Search" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="70.0" />
                </BorderPane.margin>
@@ -43,15 +43,15 @@
                   <Label text="Title" />
                   <Label text="ISBN" GridPane.rowIndex="1" />
                   <Label text="Genre" GridPane.rowIndex="2" />
-                  <Label text="Publisher" GridPane.rowIndex="3" />
+                  <Label text="Edition" GridPane.rowIndex="3" />
                   <Label text="Author" GridPane.rowIndex="4" />
                   <Label text="Publishing date" GridPane.rowIndex="5" />
-                  <TextField GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="TitleField" GridPane.columnIndex="1" />
+                  <TextField fx:id="ISBNField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="GenreField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="EditionField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="AuthorField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="PublishingDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </center>

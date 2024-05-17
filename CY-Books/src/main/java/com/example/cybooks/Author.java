@@ -16,7 +16,7 @@ public class Author extends Person {
      * @param DOB
      * @param DOD
      */
-    public Author( String lastName, String firstName, String mail, double telephone, String address, LocalDate DOB, LocalDate DOD) {
+    public Author( String lastName, String firstName, String mail, String telephone, String address, LocalDate DOB, LocalDate DOD) {
         super(lastName, firstName, mail, telephone, address, DOB);
         this.DOD = DOD;
     }
@@ -31,7 +31,7 @@ public class Author extends Person {
      * @param address
      * @param DOB
      */
-    public Author(String lastName, String firstName, String mail, double telephone, String address, LocalDate DOB) {
+    public Author(String lastName, String firstName, String mail, String telephone, String address, LocalDate DOB) {
         super(lastName, firstName, mail, telephone, address, DOB);
     }
 

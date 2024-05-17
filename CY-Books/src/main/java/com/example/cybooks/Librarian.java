@@ -22,7 +22,7 @@ public class Librarian extends Person {
      * @param address
      * @param DOB
      */
-    public Librarian(String lastName, String firstName, String mail, double telephone, String address, LocalDate DOB) {
+    public Librarian(String lastName, String firstName, String mail, String telephone, String address, LocalDate DOB) {
         super(lastName, firstName, mail, telephone, address, DOB);
         this.users = new ArrayList<>();
     }

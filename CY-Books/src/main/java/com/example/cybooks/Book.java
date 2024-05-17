@@ -112,6 +112,7 @@ public class Book {
      * Publishing date getter
      * @return this book's publishing date
      */
+
     public LocalDate getPublishingDate() {
         return this.PublishingDate.get();
     }
@@ -123,10 +124,12 @@ public class Book {
     public void setPublishingDate(LocalDate PublishingDate) {
         this.PublishingDate.set(PublishingDate);
     }
+
     /**
      * Edition getter
      * @return this book's edition
      */
+
     public String getEdition() {
         return this.Edition.get();
     }
@@ -142,6 +145,7 @@ public class Book {
      * Availability getter
      * @return this book's availability
      */
+
     public boolean isAvailable() {
         return this.Available.get();
     }
@@ -158,6 +162,7 @@ public class Book {
      * Author getter
      * @return this book's author
      */
+
     public Author getAuthor() {
         return this.Author.get();
     }

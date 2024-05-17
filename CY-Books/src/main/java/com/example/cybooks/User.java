@@ -1,6 +1,11 @@
 package com.example.cybooks;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class User extends Person {
+
+    private IntegerProperty NbBorrowedBooks;
     
     /**
      * Constructor for User
@@ -12,8 +17,9 @@ public class User extends Person {
      * @param address
      */
 
-    public User(String lastName, String firstName, String mail, double telephone, String address) {
+    public User(String lastName, String firstName, String mail, String telephone, String address) {
         super(lastName, firstName, mail, telephone, address);
+        NbBorrowedBooks = new SimpleIntegerProperty(5);
     }
     
     /**
@@ -44,6 +50,18 @@ public class User extends Person {
     public void GiveBack(Book book) {
         book.Return();
         System.out.println("You have successfully returned the book: " + book.getTitle());
+    }
+
+    public int getNbBorrowedBooks() {
+        return NbBorrowedBooks.get();
+    }
+
+    public IntegerProperty nbBorrowedBooksProperty() {
+        return NbBorrowedBooks;
+    }
+
+    public void setNbBorrowedBooks(int nbBorrowedBooks) {
+        this.NbBorrowedBooks.set(nbBorrowedBooks);
     }
 }
 
