@@ -157,38 +157,13 @@ public abstract class Person {
         return this.DOB.get();
     }
 
-<<<<<<< HEAD
+
     public ObjectProperty<LocalDate> DOBProperty(){
         return this.DOB;
     }
 
     public void setDOB(LocalDate DOB){ this.DOB.set(DOB);}
 
-    /**
-     * TEMPORARY TO SET DUMMY VALUES
-     * @param simpleIntegerProperty
-     */
-    public void setBorrowedBooks(SimpleIntegerProperty simpleIntegerProperty) {
-    }
-=======
-    /** Set a new last name
-     * @param the new last name*/
-    public void setLastName(StringProperty LastName){ this.LastName=LastName;}
 
-    /** Set a new first name
-     * @param the new first name*/
-    public void setFirstName(StringProperty FirstName){ this.FirstName=FirstName;}
 
-    /** Set a new mail
-     * @param the new mail*/
-    public void setMail(StringProperty Mail){ this.Mail=Mail;}
-
-    /** Set a new phone number
-     * @param the new phone number*/
-    public void setPhone(DoubleProperty Phone){ this.Phone=Phone;}
-
-    /** Set a new address
-     * @param the new address*/
-    public void setAddress(StringProperty Address){ this.Address=Address;}
->>>>>>> 6fd18a47fc7bdb793d0d21780e5992760f4d470f
 }
