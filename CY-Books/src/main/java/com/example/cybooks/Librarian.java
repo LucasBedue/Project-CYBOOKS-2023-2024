@@ -1,6 +1,7 @@
 package com.example.cybooks;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
@@ -48,10 +49,11 @@ public class Librarian extends Person {
     }
     /**
      * Function search and print out a User thanks to is ID
-     */
+     * @param ID of the user
+    */
     public void lookForUserByID(int id){
         for (User user : users){
-            if( user.getID()==id ){
+            if(user.getID()==id ){
                 System.out.println(user);
             }
         }
@@ -59,68 +61,29 @@ public class Librarian extends Person {
 
     /**
      * Function search and print out a User thanks to is First Name
-     */
+     * @param first name of the user
+    */
     public void lookForUserByFirstName(String FirstName){
         List<User> LookByName = null;
-        for (User user : users){
-            if (user.getFirstName()==FirstName){
-                LookByName.add(user);
+        for (User user : users) {
+            if (FirstName.equalsIgnoreCase(user.getFirstName())) {
+                System.out.println(user);
             }
         }
-        for (User user : LookByName) {
-            System.out.println(user);
-        }
+        System.out.println("There is no more people with the name "+ FirstName);
     }
 
     /**
      * Function search and print out a User thanks to is Last Name
-     */
-    public void lookForUserByLastName(String LastName){
-        List<User> LookByName = null;
-        for (User user : users){
-            if (user.getLastName()==LastName){
-                LookByName.add(user);
+     * @param last name of the user
+    */
+    public void lookForUserByLastName(String lastName) {
+        for (User user : users) {
+            if (lastName.equalsIgnoreCase(user.getLastName())) {
+                System.out.println(user);
+                System.out.println();
             }
         }
-        for (User user : LookByName) {
-            System.out.println(user);
-        }
+        System.out.println("There is no more people with the name "+ lastName);
     }
-
-    /**
-     * Function to change the last name of a user
-
-    public void changeLastName(User client, StringProperty LastName){
-        client.setLastName(LastName);
-    }
-
-    /**
-     * Function to change the first name of a user
-
-    public void changeLastName(User client, StringProperty FirstName){
-        client.setLastName(FirstName);
-    }
-
-    /**
-     * Function to change the address of a user
-
-    public void changeAddress(User client, StringProperty Address){
-        client.setAddress(Address);
-    }
-
-    /**
-     * Function to change the phone number of a user
-
-    public void changePhone(User client, DoubleProperty Phone){
-        client.setPhone(Phone);
-    }
-
-    /**
-     * Function to change the mail of a user
-
-    public void changeMail(User client, DoubleProperty Mail){
-        client.setMail(Mail);
-    }
-
-    */
 }
