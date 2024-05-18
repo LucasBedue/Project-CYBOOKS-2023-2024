@@ -63,11 +63,18 @@ public abstract class Person {
 
     /**
      * ID getter
-     * @return
+     * @return user's ID
      */
     public int getID() {
         return this.ID.get();
     }
+
+    public IntegerProperty IDProperty(){
+        return this.ID;
+    }
+
+    public void setID(Integer ID){ this.ID.set(ID);}
+
 
     /**
      * User last name getter

@@ -246,10 +246,18 @@ public class CYBooks extends Application {
 
 
 
+        try {
+            SQLExecutor sqlExecutor = new SQLExecutor("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
+            sqlExecutor.executeFile("./src/main/resources/com/example/cybooks/BDDCreation.sql");
 
-        /**
-         * if issues arise with the display put launch in commentary
-         */
-        launch();
+            /**
+             * if issues arise with the display put launch in commentary
+             */
+            launch();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+
+        }
     }
 }

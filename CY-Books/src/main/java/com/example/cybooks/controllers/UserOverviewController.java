@@ -46,7 +46,7 @@ public class UserOverviewController {
 
     /**
      * To initialize the values to be shown
-     */
+    */
     @FXML
     private void initialize(){
         IDColumn.setCellValueFactory(cellData -> cellData.getValue().IDProperty().asObject());
@@ -58,6 +58,7 @@ public class UserOverviewController {
         NumberBorrowedBooksColumn.setCellValueFactory(cellData -> cellData.getValue().nbBorrowedBooksProperty().asObject());
 
     }
+
 
     /**
      * Get the data to be shown

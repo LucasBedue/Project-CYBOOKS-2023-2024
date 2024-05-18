@@ -1,6 +1,7 @@
 module com.example.cybooks {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens com.example.cybooks to javafx.fxml;

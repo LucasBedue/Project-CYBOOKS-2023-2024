@@ -20,6 +20,7 @@ public class User extends Person {
 
     public User(String lastName, String firstName, String mail, String telephone, String address) {
         super(lastName, firstName, mail, telephone, address);
+        this.NbBorrowedBooks = new SimpleIntegerProperty(0);
     }
 
     /**
