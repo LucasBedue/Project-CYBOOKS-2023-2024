@@ -16,14 +16,14 @@
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <Button mnemonicParsing="false" text="Register" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#registerUser" text="Register" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="70.0" />
                </BorderPane.margin>
             </Button>
          </bottom>
          <center>
-            <GridPane BorderPane.alignment="CENTER">
+            <GridPane prefHeight="447.0" prefWidth="980.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -35,6 +35,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <BorderPane.margin>
                   <Insets bottom="50.0" left="60.0" right="60.0" top="60.0" />
@@ -46,12 +47,13 @@
                   <Label text="Phone" GridPane.rowIndex="3" />
                   <Label text="Address" GridPane.rowIndex="4" />
                   <Label text="Date of birth" GridPane.rowIndex="5" />
-                  <TextField GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
+                  <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="mailField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="adressField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="DOBField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="errorField" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
             </GridPane>
          </center>

@@ -15,6 +15,14 @@ public abstract class Person {
     private StringProperty Address;
     private ObjectProperty<LocalDate> DOB;
 
+
+    /**
+     * Default constructor.
+     */
+    public Person() {
+        this(null, null, null, null, null, null);
+    }
+
     /**
      * Constructor for any person
      * @param lastName
@@ -33,6 +41,8 @@ public abstract class Person {
         this.Address = new SimpleStringProperty(address);
         this.DOB = new SimpleObjectProperty<LocalDate>(DOB);
     }
+
+
 
     /**
      * Constructor with no date of birth

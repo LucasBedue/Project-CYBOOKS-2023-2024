@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `mail` varchar(50),
   `phone` varchar(20),
   `address` varchar(50) NOT NULL,
-  `dob` date,
+  `dob` date NOT NULL,
   PRIMARY KEY (`id`)
 );
 

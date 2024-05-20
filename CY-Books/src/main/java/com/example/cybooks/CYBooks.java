@@ -146,7 +146,7 @@ public class CYBooks extends Application {
             throw new RuntimeException(e);
         }
     }
-    public Node createRegisterUserScene(){
+    public Node createRegisterUserScene() throws RuntimeException{
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterUser.fxml"));
             AnchorPane RegisterUserOverview = (AnchorPane) loader.load();
@@ -196,7 +196,13 @@ public class CYBooks extends Application {
     }
     @FXML
     public void switchRegisterUserScene() {
-        rootLayout.setCenter(createRegisterUserScene());
+        try{
+            rootLayout.setCenter(createRegisterUserScene());
+
+        }
+        catch(RuntimeException e){
+            System.out.println(e.toString());
+        }
     }
 
 
