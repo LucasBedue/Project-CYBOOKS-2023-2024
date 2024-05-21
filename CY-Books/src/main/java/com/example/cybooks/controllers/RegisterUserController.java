@@ -48,7 +48,8 @@ public class RegisterUserController {
         this.cyBooks = cyBooks;
     }
 
-    public void registerUser(ActionEvent event) throws IOException {
+    @FXML
+    public void registerUser(ActionEvent event){
         try {
             if (checkUserRegistering()) {
                 System.out.println("OK");
@@ -57,21 +58,22 @@ public class RegisterUserController {
             }
         }
         catch(IOException e){
-            throw e;
+
+            e.printStackTrace();
         }
     }
 
     public boolean checkUserRegistering() throws IOException{
 
         try{
-            //retrive the datas from the form
+            //retrieve the datas from the form
             //The firstname
             String firstnametmp=firstNameField.getText().toString();
             if(firstnametmp.equals("")){
                 errorField.setText("Enter a firstname.");
                 return false;
             }
-            //the latname
+            //the lastname
             String lastnametmp=lastNameField.getText().toString();
             if(lastnametmp.equals("")){
                 errorField.setText("Enter a lastname.");
