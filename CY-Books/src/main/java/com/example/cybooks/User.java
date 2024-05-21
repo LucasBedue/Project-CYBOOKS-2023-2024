@@ -3,11 +3,16 @@ package com.example.cybooks;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Iterator;
+
 
 public class User extends Person {
 
     private IntegerProperty NbBorrowedBooks;
-
+    private List<Borrow> borrowedBooks;
     /**
      * Constructor for User
 
@@ -21,6 +26,7 @@ public class User extends Person {
 
     public User(String lastName, String firstName, String mail, String telephone, String address) {
         super(lastName, firstName, mail, telephone, address);
+        this.borrowedBooks = new ArrayList<>();
         this.NbBorrowedBooks = new SimpleIntegerProperty(0);
     }
 
@@ -42,11 +48,13 @@ public class User extends Person {
 
         if (book.Borrow()) {
             System.out.println("You have successfully borrowed the book: " + book.getTitle());
+            borrowedBooks.add(new Borrow(LocalDate.now(),this,book));
             return true;
         } else {
             System.out.println("Failed to borrow the book: " + book.getTitle());
             return false;
         }
+
     }
 
     /**
@@ -73,7 +81,7 @@ public class User extends Person {
 
     /**
      * Function to change the last name of a user
-     * @param the new last name
+     * @param LastName the new last name
      */
     public void changeLastName(String LastName){
         setLastName(LastName);
@@ -81,7 +89,7 @@ public class User extends Person {
 
     /**
      * Function to change the first name of a user
-     * @param the new first name
+     * @param FirstName the new first name
      */
     public void changeFirstName(String FirstName){
         setLastName(FirstName);
@@ -89,7 +97,7 @@ public class User extends Person {
 
     /**
      * Function to change the address of a user
-     * @param the new address
+     * @param address the new address
      */
     public void changeAddress(String address){
         setAddress(address);
@@ -97,7 +105,7 @@ public class User extends Person {
 
     /**
      * Function to change the phone number of a user
-     * @param the new phone number
+     * @param phone the new phone number
      */
     public void changePhone(String phone){
         setPhone(phone);
@@ -105,7 +113,7 @@ public class User extends Person {
 
     /**
      * Function to change the mail of a user
-     * @param the new mail
+     * @param mail the new mail
      */
     public void changeMail(String mail){
         setMail(mail);
@@ -116,4 +124,24 @@ public class User extends Person {
     return ("The user with the ID "+getID()+" is "+ getFirstName() +" "+ getLastName()+"\nThe User live " + getAddress()+"\n" +
             getFirstName() + " mail and phone are " + getMail() +" and "+ getPhone()+"\n");
     }
+
+    public List<Borrow> histo(){
+        return borrowedBooks;
+    }
+    public List<Book> Actual() {
+        List<Book> notReturnedBooks = new ArrayList<>();
+
+        for (Borrow borrow : borrowedBooks) {
+            if (!borrow.getA()) {
+
+                notReturnedBooks.add(borrow.getBook());
+                System.out.println(borrow.toString());
+            }
+
+        }
+
+        return notReturnedBooks;
+    }
+
+
 }
