@@ -29,6 +29,10 @@ public class User extends Person {
         this.NbBorrowedBooks = new SimpleIntegerProperty(0);
     }
 
+    public User() {
+        super();
+        this.NbBorrowedBooks = new SimpleIntegerProperty(0);
+    }
     /**
      * Method to borrow a book by checking is availability
      * @param book, the book you are trying to borrow
