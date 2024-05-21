@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class CYBooks extends Application {
 
@@ -233,33 +234,29 @@ public class CYBooks extends Application {
         return UserData;
     }
 
-
-
-
     public static void main(String[] args) {
         LocalDate Today = LocalDate.now();
         Genre Conte = new Genre("Conte");
         Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
         Book book1 = new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true);
-        book1.Borrow();
-        book1.Borrow();
-        book1.Return();
-        book1.Borrow();
+        Book book2 = new Book(3856227,"paf", Fontaine, Conte,LocalDate.of(1702, 01, 01), "1ST",true);
+
         System.out.println(book1.toString());
 
         User u1 = new User("Galisson","Matthias","ui@ui.com","52202336","ui");
-        User u2 = new User("Galisson","Matthias","ui@ui.com","52202336","ui");
-
-
-
+        u1.Actual();
+        u1.BorrowBook(book1);
+        u1.Actual();
+        u1.GiveBack(book1);
+        u1.Actual();
         try {
             SQLExecutor sqlExecutor = new SQLExecutor("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
             sqlExecutor.executeFile("./src/main/resources/com/example/cybooks/BDDCreation.sql");
 
             /**
              * if issues arise with the display put launch in commentary
-             */
-            launch();
+
+            launch();*/
         }
         catch(Exception e){
             e.printStackTrace();
