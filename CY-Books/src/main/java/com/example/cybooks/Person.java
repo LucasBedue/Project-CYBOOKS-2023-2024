@@ -112,7 +112,7 @@ public abstract class Person {
         return this.FirstName;
     }
 
-    public void setLastFirst(String FirstName){ this.FirstName.set(FirstName);}
+    public void setFirstName(String FirstName){ this.FirstName.set(FirstName);}
 
     /**
      * User email getter
@@ -161,5 +161,9 @@ public abstract class Person {
      */
     public LocalDate getDOB() {
         return this.DOB.get();
+    }
+
+    public void setDOB(LocalDate dob){
+        this.DOB.set(dob);
     }
 }

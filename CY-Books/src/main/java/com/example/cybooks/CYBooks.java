@@ -211,6 +211,7 @@ public class CYBooks extends Application {
      * TEMPORARILY USED TO SET DUMMY VALUES
      */
     public CYBooks(){
+        /*
         Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
         Genre Conte = new Genre("Conte");
         BookData.add(new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
@@ -219,7 +220,7 @@ public class CYBooks extends Application {
         UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
         UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
         UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
-
+        */
     }
 
     /**
@@ -233,6 +234,28 @@ public class CYBooks extends Application {
         return UserData;
     }
 
+    /**
+     * to make room for another page of users of books to show.
+     */
+    public void emptyBookData(){
+        this.BookData.clear();
+    }
+    public void emptyUserData(){
+        this.UserData.clear();
+    }
+
+    /**
+     * to add a User in the list of user
+     */
+    public void addUser(User user){
+        this.UserData.add(user);
+    }
+    /**
+     * to add a Book in the list of book
+     */
+    public void addBook(Book book){
+        this.BookData.add(book);
+    }
 
 
 
@@ -253,6 +276,8 @@ public class CYBooks extends Application {
 
 
         try {
+            //beware the user's emplacement!
+            //create the database before please
             SQLExecutor sqlExecutor = new SQLExecutor("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
             sqlExecutor.executeFile("./src/main/resources/com/example/cybooks/BDDCreation.sql");
 
