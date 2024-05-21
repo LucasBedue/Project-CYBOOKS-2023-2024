@@ -6,7 +6,7 @@ USE `Cy_Books_Database`;
 
 -- Creating tables with book's id
 CREATE TABLE IF NOT EXISTS `books` (
-  `id` int8 NOT NULL AUTO_INCREMENT,
+  `id` varchar(33) NOT NULL,
   `isbn` varchar(13) NOT NULL,
   `cote` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `borrows` (
   `id` int,
   `borrowingDate` varchar(50) NOT NULL,
   `dateToBeReturnedBy` varchar(50) NOT NULL,
-  `dateReturn` varchar(50) NOT NULL,
+  `dateReturn` varchar(50) ,
   `id_client` int references user(id),
   `id_book` int references books(id),
   PRIMARY KEY (`id`)
