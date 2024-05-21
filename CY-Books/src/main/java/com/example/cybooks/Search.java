@@ -11,10 +11,11 @@ public class Search {
     private int datePublishing;
     private String author;
 
-    // Private constructor to prevent direct instantiation
+    /**
+     * Private constructor to prevent direct instantiation
+     */
     Search() {}
 
-    // Builder class for fluent construction
     public static class Builder {
         private Search search;
 
@@ -57,7 +58,9 @@ public class Search {
         }
     }
 
-    // Getters for each field
+    /**
+     * Getters for each field
+     */
     public String getTitle() {
         return title;
     }

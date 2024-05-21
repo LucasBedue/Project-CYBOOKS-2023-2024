@@ -25,12 +25,12 @@ public abstract class Person {
 
     /**
      * Constructor for any person
-     * @param lastName
-     * @param firstName
-     * @param mail
-     * @param phone
-     * @param address
-     * @param DOB
+     * @param lastName Person's Last Name
+     * @param firstName Person's First Name
+     * @param mail Person's Email
+     * @param phone Person's Phone Number
+     * @param address Person's Address
+     * @param DOB Person's Date of Birth
      */
     public Person(String lastName, String firstName, String mail, String phone, String address, LocalDate DOB) {
         this.ID = new SimpleIntegerProperty(generateUserID());
@@ -46,11 +46,11 @@ public abstract class Person {
 
     /**
      * Constructor with no date of birth
-     * @param lastName
-     * @param firstName
-     * @param mail
-     * @param phone
-     * @param address
+     * @param lastName Person's Last Name
+     * @param firstName Person's First Name
+     * @param mail Person's Email
+     * @param phone Person's Phone Number
+     * @param address Person's Address
      */
     public Person( String lastName, String firstName, String mail, String phone, String address) {
 
@@ -79,10 +79,17 @@ public abstract class Person {
         return this.ID.get();
     }
 
+    /**
+     * User ID getter as IntegerProperty
+     * @return user's ID as IntegerProperty
+     */
     public IntegerProperty IDProperty(){
         return this.ID;
     }
 
+    /**
+     * User ID setter
+     */
     public void setID(Integer ID){ this.ID.set(ID);}
 
 
@@ -94,10 +101,17 @@ public abstract class Person {
         return LastName.get();
     }
 
+    /**
+     * User first name getter as StringProperty
+     * @return user's first name as StringProperty
+     */
     public StringProperty LastNameProperty(){
         return this.LastName;
     }
 
+    /**
+     * User last name setter
+     */
     public void setLastName(String LastName){ this.LastName.set(LastName);}
 
     /**
@@ -108,11 +122,18 @@ public abstract class Person {
         return this.FirstName.get();
     }
 
+    /**
+     * User first name getter as StringProperty
+     * @return user's first name as StringProperty
+     */
     public StringProperty FirstNameProperty(){
         return this.FirstName;
     }
 
-    public void setLastFirst(String FirstName){ this.FirstName.set(FirstName);}
+    /**
+     * User first name setter
+     */
+    public void setFirstName(String FirstName){ this.FirstName.set(FirstName);}
 
     /**
      * User email getter
@@ -122,11 +143,17 @@ public abstract class Person {
         return this.Mail.get();
     }
 
-
+    /**
+     * User email getter as StringProperty
+     * @return user's email as StringProperty
+     */
     public StringProperty MailProperty(){
         return this.Mail;
     }
 
+    /**
+     * User email setter
+     */
     public void setMail(String Mail){ this.Mail.set(Mail);}
 
     /**
@@ -137,10 +164,17 @@ public abstract class Person {
         return this.Phone.get();
     }
 
+    /**
+     * User phone number getter as StringProperty
+     * @return user's phone number as StringProperty
+     */
     public StringProperty PhoneProperty(){
         return this.Phone;
     }
 
+    /**
+     * User phone number setter
+     */
     public void setPhone(String Phone){ this.Phone.set(Phone);}
     /**
      * User address getter
@@ -150,16 +184,39 @@ public abstract class Person {
         return this.Address.get();
     }
 
+    /**
+     * User address getter as StringProperty
+     * @return user's address as StringProperty
+     */
     public StringProperty AddressProperty(){
         return this.Address;
     }
 
+    /**
+     * User address setter
+     */
     public void setAddress(String Address){ this.Address.set(Address);}
+
     /**
      * User date of birth getter
      * @return user's date of birth
      */
     public LocalDate getDOB() {
         return this.DOB.get();
+    }
+
+    /**
+     * User date of birth getter as ObjectProperty<LocalDate>
+     * @return user's date of birth as ObjectProperty<LocalDate>
+     */
+    public ObjectProperty<LocalDate> DOBProperty() {
+        return this.DOB;
+    }
+
+    /**
+     * User date of birth setter
+     */
+    public void setDOB(LocalDate DOB) {
+        this.DOB.set(DOB);
     }
 }

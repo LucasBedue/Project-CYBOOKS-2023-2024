@@ -217,9 +217,9 @@ public class CYBooks extends Application {
         BookData.add(new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
         BookData.add(new Book(3856226,"Cigalle et la Fourmi", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
         BookData.add(new Book(3856226,"Lapin et la Tortue", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
-        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
-        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
-        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
+        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1724,12,11)));
+        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1724,12,11)));
+        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1724,12,11)));
 
     }
 
@@ -243,7 +243,7 @@ public class CYBooks extends Application {
 
         System.out.println(book1.toString());
 
-        User u1 = new User("Galisson","Matthias","ui@ui.com","52202336","ui");
+        User u1 = new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1724,12,11));
         u1.Actual();
         u1.BorrowBook(book1);
         u1.Actual();

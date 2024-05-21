@@ -3,7 +3,7 @@ package com.example.cybooks;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class Book {
     private IntegerProperty ISBN;
@@ -16,13 +16,13 @@ public class Book {
 
     /**
      * Constructor when all parameters are given
-     * @param ISBN
-     * @param title
-     * @param author
-     * @param genre
-     * @param publishingDate
-     * @param edition
-     * @param available
+     * @param ISBN Book's ISBN
+     * @param title Book's Title
+     * @param author Book's Author
+     * @param genre Book's Genre
+     * @param publishingDate Book's Publishing Date
+     * @param edition Book's Edition
+     * @param available Book's Availability
      */
 
     public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, String edition, boolean available) {
@@ -38,12 +38,12 @@ public class Book {
 
     /**
      * Constructor when no edition is given
-     * @param ISBN
-     * @param title
-     * @param author
-     * @param genre
-     * @param publishingDate
-     * @param available
+     * @param ISBN Book's ISBN
+     * @param title Book's Title
+     * @param author Book's Author
+     * @param genre Book's Genre
+     * @param publishingDate Book's Publishing Date
+     * @param available Book's Availability
      */
     public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, boolean available) {
         this.ISBN = new SimpleIntegerProperty(ISBN);
@@ -58,12 +58,12 @@ public class Book {
     /**
      * Constructor when availability is not given
      * By default these books will be set as available
-     * @param ISBN
-     * @param title
-     * @param author
-     * @param genre
-     * @param publishingDate
-     * @param edition
+     * @param ISBN Book's ISBN
+     * @param title Book's Title
+     * @param author Book's Author
+     * @param genre Book's Genre
+     * @param publishingDate Book's Publishing Date
+     * @param edition Book's Edition
      */
     public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, String edition) {
         this.ISBN = new SimpleIntegerProperty(ISBN);

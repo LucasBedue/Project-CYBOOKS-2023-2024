@@ -49,7 +49,7 @@ public class Librarian extends Person {
     }
     /**
      * Function search and print out a User thanks to is ID
-     * @param ID of the user
+     * @param id ID of the user
     */
     public void lookForUserByID(int id){
         for (User user : users){
@@ -61,7 +61,7 @@ public class Librarian extends Person {
 
     /**
      * Function search and print out a User thanks to is First Name
-     * @param first name of the user
+     * @param FirstName first name of the user
     */
     public void lookForUserByFirstName(String FirstName){
         List<User> LookByName = null;
@@ -75,7 +75,7 @@ public class Librarian extends Person {
 
     /**
      * Function search and print out a User thanks to is Last Name
-     * @param last name of the user
+     * @param lastName last name of the user
     */
     public void lookForUserByLastName(String lastName) {
         for (User user : users) {

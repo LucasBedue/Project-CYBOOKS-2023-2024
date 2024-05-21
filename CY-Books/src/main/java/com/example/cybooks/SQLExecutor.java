@@ -47,15 +47,22 @@ public class SQLExecutor {
 
 
         try {
-            // Creating a connection between Java class and Database instance
+
+            /**
+             * Creates a connection between the Java class and Database instance
+             */
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
             Statement statement = connection.createStatement();
 
-            // path to our SQL Script file
+            /**
+             * path to our SQL Script file
+             */
             File myObj = new File(path);
             BufferedReader br = new BufferedReader(new FileReader(myObj));
 
-            // String Builder to build the query line by line.
+            /**
+             * String Builder to build the query part by part.
+             */
             StringBuilder query = new StringBuilder();
             String line;
 
@@ -65,26 +72,36 @@ public class SQLExecutor {
                     continue;
                 }
 
-                // Append the line into the query string and add a space after that
+                /**
+                 * Append the line into the query string and add a space at the end
+                 */
                 query.append(line).append(" ");
 
                 if(line.trim().endsWith(";")) {
-                    // Execute the Query
+                    /**
+                     * Execute the query
+                     */
                     statement.execute(query.toString().trim());
-                    // Empty the Query string to add new query from the file
+                    /**
+                     *
+                     * Empty the Query string to add new query from the file
+                     */
                     query = new StringBuilder();
                 }
             }
 
 
-
-            // Getting the ResultSet after executing the Script File
+            /**
+             * Getting the ResultSet after executing the Script File
+             */
             ResultSet resultSet = statement.getResultSet();
 
 
         }
         catch (Exception e) {
-            // Error handling Statements
+            /**
+             * Error handling Statements
+             */
             System.out.println(e.toString());
         }
     }

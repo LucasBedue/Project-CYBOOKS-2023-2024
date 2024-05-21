@@ -15,16 +15,16 @@ public class User extends Person {
     private List<Borrow> borrowedBooks;
     /**
      * Constructor for User
-
-     * @param lastName
-     * @param firstName
-     * @param mail
-     * @param telephone
-     * @param address
+     * @param lastName Person's Last Name
+     * @param firstName Person's First Name
+     * @param mail Person's Email
+     * @param telephone Person's Phone Number
+     * @param address Person's Address
+     * @param DOB Person's Date of Birth
      */
 
-    public User(String lastName, String firstName, String mail, String telephone, String address) {
-        super(lastName, firstName, mail, telephone, address);
+    public User(String lastName, String firstName, String mail, String telephone, String address, LocalDate DOB) {
+        super(lastName, firstName, mail, telephone, address,DOB);
         this.borrowedBooks = new ArrayList<>();
         this.NbBorrowedBooks = new SimpleIntegerProperty(0);
     }
