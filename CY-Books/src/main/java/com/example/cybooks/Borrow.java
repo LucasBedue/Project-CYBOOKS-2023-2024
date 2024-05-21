@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Borrow {
     private LocalDate BorrowingDate;
     private LocalDate DateToBeReturnedBy;
-
+    private boolean rendered;
     private Person person;
     private Book book;
 
@@ -21,6 +21,13 @@ public class Borrow {
         this.person = person;
         this.book = book;
         this.DateToBeReturnedBy = borrowingDate.plusDays(20);
+        this.rendered=false;
+    }
+
+
+
+    public LocalDate getDateToBeReturnedBy() {
+        return this.DateToBeReturnedBy;
     }
 
     /**
@@ -33,5 +40,22 @@ public class Borrow {
         } else{
             System.out.println("Thanks for returning the book on time");
         }
+        this.rendered=true;
+    }
+    public Book getBook(){
+        return this.book;
+    }
+
+    public boolean getA() {
+        return this.rendered;
+    }
+
+    public Person getPerson(){
+        return this.person;
+    }
+
+    @Override
+    public String toString(){
+        return "This book is " + this.book.toString() + " borrow by " + this.person.toString() + " the " + this.BorrowingDate.toString() +"and return it the" +this.DateToBeReturnedBy.toString();
     }
 }
