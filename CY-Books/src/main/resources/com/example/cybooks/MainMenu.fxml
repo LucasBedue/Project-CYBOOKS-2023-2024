@@ -32,7 +32,7 @@
                               <Button layoutX="596.0" layoutY="91.0" mnemonicParsing="false" onAction="#switchBookSearchScene" text="Book search" />
                               <Button layoutX="891.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchUserSearchScene" text="User search" />
                               <Button layoutX="502.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchSearchToModifyScene" text="Modify user" />
-                              <Button layoutX="694.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchCheckUserScene" text="Check user" />
+                              <Button layoutX="673.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchCheckUserScene" text="Check user history" />
                               <Button layoutX="380.0" layoutY="91.0" mnemonicParsing="false" onAction="#switchLateReturnsBooksScene" text="Check late returns" />
                               <Button layoutX="758.0" layoutY="91.0" mnemonicParsing="false" onAction="#switchMostBorrowedBooksScene" text="Most borrowed books list" />
                            </children>
