@@ -45,7 +45,7 @@
                </BorderPane.margin>
                <children>
                   <Label text="ID" />
-                  <TextField GridPane.columnIndex="1" />
+                  <TextField fx:id="IDField" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </center>

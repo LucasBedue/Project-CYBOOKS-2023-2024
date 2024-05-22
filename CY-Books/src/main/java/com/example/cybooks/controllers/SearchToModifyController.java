@@ -1,6 +1,7 @@
 package com.example.cybooks.controllers;
 
 import com.example.cybooks.CYBooks;
+import com.example.cybooks.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -56,6 +57,8 @@ public class SearchToModifyController {
 
     private CYBooks cyBooks;
     public SearchToModifyController() {
+    }
+    public SearchToModifyController(User user) {
     }
 
     /**
@@ -123,7 +126,7 @@ public class SearchToModifyController {
 
                 TitleLabel.setText("Modify user");
                 IDLabel.setVisible(false);
-                IDField.setVisible(true);
+                IDField.setVisible(false);
 
                 firstNameLabel.setVisible(true);
                 firstNameField.setVisible(true);
@@ -153,16 +156,6 @@ public class SearchToModifyController {
                 button.setOnAction(event -> {modifyUser();});
 
 
-                /**
-                 * if everything is okay
-                 */
-                //String modifyUserStatement = "INSERT INTO `user` (`firstName`,`lastName`) VALUES (\""+firstnametmp+"\",\""+lastnametmp+"\");";
-                //Statement statementadd = connection.createStatement();
-                //statementadd.executeUpdate(modifyUserStatement);
-                //errorField.setText("User registered with success.");
-                /**
-                 * if everything went fine
-                 */
             }
             return true;
         }
