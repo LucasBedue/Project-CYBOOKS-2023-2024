@@ -213,6 +213,7 @@ public class CYBooks extends Application {
      * TEMPORARILY USED TO SET DUMMY VALUES
      */
     public CYBooks(){
+        /**
 
         Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
         Genre Conte = new Genre("Conte");
@@ -227,7 +228,7 @@ public class CYBooks extends Application {
         UserData.add(u1);
         BookData.add(borrow1.getBook());
         BorrowData.add(borrow1);
-
+    */
 
     }
 
@@ -277,7 +278,7 @@ public class CYBooks extends Application {
     public static void main(String[] args) {
 
         LocalDate Today = LocalDate.now();
-
+/**
         Genre Conte = new Genre("Conte");
         Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
         Book book1 = new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true);
@@ -292,19 +293,18 @@ public class CYBooks extends Application {
         System.out.println("Current Borrows: " + u1.getCurrentBorrows().size());
         System.out.println("Borrow History: " + u1.getBorrowHistory().size());
 
-
         /**
          * User returns the book
-         */
+
         u1.GiveBack(borrow1);
-        System.out.println("Book returned successfully.");}
+        System.out.println("Book returned successfully.");
 
         /**
          * Print current borrows and history
-         */
+
         System.out.println("Current Borrows: " + u1.getCurrentBorrows().size());
         System.out.println("Borrow History: " + u1.getBorrowHistory().size());
-
+*/
         try {
             SQLExecutor sqlExecutor = new SQLExecutor("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
             sqlExecutor.executeFile("./CY-Books/src/main/resources/com/example/cybooks/BDDCreation.sql");

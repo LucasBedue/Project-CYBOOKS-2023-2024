@@ -13,11 +13,16 @@ public class User extends Person {
     private List<Borrow> borrowedBooks;
     private List<Borrow> borrowHistory;
 
+
     /**
      * Empty constructor for user
      */
 
     public User() {
+        super();
+        this.borrowedBooks = new ArrayList<>();
+        this.borrowHistory = new ArrayList<>();
+        this.NbBorrowedBooks = new SimpleIntegerProperty(0);
     }
 
     /**

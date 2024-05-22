@@ -99,7 +99,7 @@ public class UserOverviewController {
 
 
                     //Add the number of book
-                    //this.cyBooks.addUser(userRetrieve);
+                    this.cyBooks.addUser(userRetrieve);
                 }
 
             }
@@ -143,7 +143,7 @@ public class UserOverviewController {
 
 
                     //Add the number of book
-                    //this.cyBooks.addUser(userRetrieve);
+                    this.cyBooks.addUser(userRetrieve);
 
                 }
 
@@ -192,7 +192,7 @@ public class UserOverviewController {
 
 
                     //Add the number of book
-                    //this.cyBooks.addUser(userRetrieve);
+                    this.cyBooks.addUser(userRetrieve);
                 }
 
             }
