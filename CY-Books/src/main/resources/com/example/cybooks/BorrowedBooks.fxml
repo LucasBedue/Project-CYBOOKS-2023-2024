@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybooks.controllers.BookOverviewController">
+<AnchorPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybooks.controllers.BorrowedBooksController">
    <children>
       <BorderPane prefHeight="562.0" prefWidth="947.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -42,14 +42,12 @@
                               <Label text="Publishing Date" GridPane.rowIndex="3" />
                               <Label text="Edition" GridPane.rowIndex="4" />
                               <Label text="Genre" GridPane.rowIndex="5" />
-                              <Label text="Available" GridPane.rowIndex="6" />
                               <Label fx:id="TitleLabel" text="Label" GridPane.columnIndex="1" />
                               <Label fx:id="AuthorLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label fx:id="ISBNLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label fx:id="PublishingLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label fx:id="EditionLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <Label fx:id="GenreLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <Label fx:id="AvailableLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -60,11 +58,11 @@
                      <children>
                         <TableView fx:id="BookList" prefHeight="531.0" prefWidth="698.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn fx:id="ISBNColumn" prefWidth="102.0" text="ISBN" />
-                            <TableColumn fx:id="TitleColumn" prefWidth="244.0" text="Title" />
-                              <TableColumn fx:id="AuthorColumn" prefWidth="165.0" text="Author" />
+                            <TableColumn fx:id="ISBNColumn" prefWidth="119.0" text="ISBN" />
+                            <TableColumn fx:id="TitleColumn" prefWidth="70.0" text="Title" />
+                              <TableColumn fx:id="AuthorColumn" prefWidth="201.0" text="Author" />
                               <TableColumn fx:id="PublishingDateColumn" prefWidth="133.0" text="Publishing Date" />
-                              <TableColumn fx:id="AvailableColumn" prefWidth="122.0" text="Available" />
+                              <TableColumn fx:id="ReturnByColumn" prefWidth="122.0" text="Return by" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -78,7 +76,7 @@
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="958.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button mnemonicParsing="false" text="Borrow" />
+                <Button mnemonicParsing="false" text="Return" />
               </buttons>
                <padding>
                   <Insets right="20.0" />

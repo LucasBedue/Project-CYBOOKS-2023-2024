@@ -95,12 +95,11 @@ public class UserOverviewController {
                     userRetrieve.setMail(resultSet.getString("mail"));
                     userRetrieve.setPhone(resultSet.getString("phone"));
                     userRetrieve.setAddress(resultSet.getString("address"));
-                    //where is the DOB? we need another column.
                     userRetrieve.setDOB(resultSet.getDate("dob").toLocalDate());
 
 
                     //Add the number of book
-                    this.cyBooks.addUser(userRetrieve);
+                    //this.cyBooks.addUser(userRetrieve);
                 }
 
             }
@@ -144,7 +143,7 @@ public class UserOverviewController {
 
 
                     //Add the number of book
-                    this.cyBooks.addUser(userRetrieve);
+                    //this.cyBooks.addUser(userRetrieve);
 
                 }
 
@@ -193,7 +192,7 @@ public class UserOverviewController {
 
 
                     //Add the number of book
-                    this.cyBooks.addUser(userRetrieve);
+                    //this.cyBooks.addUser(userRetrieve);
                 }
 
             }

@@ -1,36 +1,38 @@
 package com.example.cybooks.controllers;
 
 
-
+import com.example.cybooks.Book;
+import com.example.cybooks.Borrow;
+import com.example.cybooks.CYBooks;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import com.example.cybooks.CYBooks;
-import com.example.cybooks.Book;
 
 import java.time.LocalDate;
 
-public class BookOverviewController {
+public class BorrowedBooksController {
 
     /**
      * The list of books
      */
     @FXML
-    private TableView<Book> BookList;
+    private TableView<Borrow> BookList;
 
     /**
      * Values to be shown in the table containing the list of books
      */
 
     @FXML
-    private TableColumn<Book, Integer> ISBNColumn;
+    private TableColumn<Borrow, Integer> ISBNColumn;
     @FXML
-    private TableColumn<Book, String> TitleColumn;
+    private TableColumn<Borrow, String> TitleColumn;
     @FXML
-    private TableColumn<Book,String> AuthorColumn;
+    private TableColumn<Borrow,String> AuthorColumn;
     @FXML
-    private TableColumn<Book, LocalDate> PublishingDateColumn;
+    private TableColumn<Borrow, LocalDate> PublishingDateColumn;
+    @FXML
+    private TableColumn<Borrow, LocalDate> ReturnByColumn;
 
     /**
      * More detailed information about the chosen book
@@ -53,7 +55,7 @@ public class BookOverviewController {
     /**
      * Constructor for the controller
      */
-    public BookOverviewController() {
+    public BorrowedBooksController() {
     }
 
     /**
@@ -61,10 +63,12 @@ public class BookOverviewController {
      */
     @FXML
     private void initialize(){
-        ISBNColumn.setCellValueFactory(cellData -> cellData.getValue().ISBNProperty().asObject());
-        TitleColumn.setCellValueFactory(cellData -> cellData.getValue().TitleProperty());
-        AuthorColumn.setCellValueFactory(cellData -> cellData.getValue().AuthorProperty().asString());
-        PublishingDateColumn.setCellValueFactory(cellData -> cellData.getValue().PublishingProperty());
+        ISBNColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().ISBNProperty().asObject());
+        TitleColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().TitleProperty());
+        AuthorColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().AuthorProperty().asString());
+        PublishingDateColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().PublishingProperty());
+        ReturnByColumn.setCellValueFactory(cellData -> cellData.getValue().ReturnByProperty());
+
 
         /**
          * As default no detailed information will be shown as no book would have been chosen yet
@@ -84,22 +88,22 @@ public class BookOverviewController {
      */
     public void setCYBooks(CYBooks cyBooks){
         this.cyBooks = cyBooks;
-        BookList.setItems(cyBooks.getBookData());
+        BookList.setItems(cyBooks.getBorrowData());
     }
 
 
     /**
      * To show more information for a given book
-     * @param book
+     * @param borrow
      */
-    private void showBookDetails(Book book){
-        if( book != null ){
-            TitleLabel.setText(book.getTitle());
-            AuthorLabel.setText(book.getAuthor().toString());
-            ISBNLabel.setText(Integer.toString(book.getISBN()));
-            PublishingLabel.setText(book.getPublishingDate().toString());
-            EditionLabel.setText(book.getEdition());
-            GenreLabel.setText(book.getGenre().toString());
+    private void showBookDetails(Borrow borrow){
+        if( borrow != null ){
+            TitleLabel.setText(borrow.getBook().getTitle());
+            AuthorLabel.setText(borrow.getBook().getAuthor().toString());
+            ISBNLabel.setText(Integer.toString(borrow.getBook().getISBN()));
+            PublishingLabel.setText(borrow.getBook().getPublishingDate().toString());
+            EditionLabel.setText(borrow.getBook().getEdition());
+            GenreLabel.setText(borrow.getBook().getGenre().toString());
 
         } else {
             TitleLabel.setText("");

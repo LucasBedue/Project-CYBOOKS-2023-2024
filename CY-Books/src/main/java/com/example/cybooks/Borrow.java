@@ -1,13 +1,16 @@
 package com.example.cybooks;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 import java.time.LocalDate;
 
 public class Borrow {
-    private LocalDate BorrowingDate;
-    private LocalDate DateToBeReturnedBy;
-    private LocalDate rendered;
-    private Person person;
-    private Book book;
+    private ObjectProperty<LocalDate> BorrowingDate;
+    private ObjectProperty<LocalDate> DateToBeReturnedBy;
+    private ObjectProperty<LocalDate> returned;
+    private ObjectProperty<Person> person;
+    private ObjectProperty<Book> book;
 
     /**
      * Constructor for borrowing a book
@@ -17,44 +20,50 @@ public class Borrow {
      * @param book
      */
     public Borrow(LocalDate borrowingDate, Person person, Book book) {
-        this.BorrowingDate = borrowingDate;
-        this.person = person;
-        this.book = book;
-        this.DateToBeReturnedBy = borrowingDate.plusDays(20);
-        this.rendered = null;
+        this.BorrowingDate = new SimpleObjectProperty<LocalDate>(borrowingDate);
+        this.person = new SimpleObjectProperty<Person>(person);
+        this.book = new SimpleObjectProperty<Book>(book);
+        this.DateToBeReturnedBy = new SimpleObjectProperty<LocalDate>(borrowingDate.plusDays(20));
+        this.returned = null;
     }
 
-    public LocalDate getDateToBeReturnedBy() {
-        return this.DateToBeReturnedBy;
-    }
 
     /**
      * Function to verify if a book was returned late with the date of today
      */
     public void Return() {
-        if (LocalDate.now().isAfter(this.DateToBeReturnedBy)) {
+        if (LocalDate.now().isAfter(this.DateToBeReturnedBy.getValue())) {
             System.out.println("This book was returned late");
         } else {
             System.out.println("Thanks for returning the book on time");
         }
-        this.rendered = LocalDate.now();
+        this.returned.set(LocalDate.now());
     }
 
     public boolean isReturned() {
-        return this.rendered != null;
+        return this.returned != null;
     }
 
     public Book getBook() {
-        return this.book;
+        return this.book.get();
     }
 
-    public LocalDate getRendered() {
-        return this.rendered;
+    public LocalDate getReturned() {
+        return this.returned.get();
+    }
+
+    public ObjectProperty<LocalDate> ReturnByProperty() {
+        return this.DateToBeReturnedBy;
+    }
+
+    public LocalDate getDateToBeReturnedBy() {
+        return this.DateToBeReturnedBy.get();
     }
 
     public Person getPerson() {
-        return this.person;
+        return this.person.get();
     }
+
 
     @Override
     public String toString() {

@@ -45,6 +45,7 @@ public class CYBooks extends Application {
      * ²To regroup given books in a list
      */
     private ObservableList<Book> BookData = FXCollections.observableArrayList();
+    private ObservableList<Borrow> BorrowData = FXCollections.observableArrayList();
     private ObservableList<User> UserData = FXCollections.observableArrayList();
 
     public Node createMainMenu(){
@@ -61,9 +62,9 @@ public class CYBooks extends Application {
     }
     public Node createBookViewScene(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("CYBooks.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("BorrowedBooks.fxml"));
             AnchorPane BookOverview = (AnchorPane) loader.load();
-            BookOverviewController BookController = loader.getController();
+            BorrowedBooksController BookController = loader.getController();
             BookController.setCYBooks(this);
             return BookOverview;
         } catch (IOException e) {
@@ -214,13 +215,16 @@ public class CYBooks extends Application {
     public CYBooks(){
         Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
         Genre Conte = new Genre("Conte");
-        BookData.add(new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
-        BookData.add(new Book(3856226,"Cigalle et la Fourmi", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
-        BookData.add(new Book(3856226,"Lapin et la Tortue", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
-        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
-        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
-        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
+        Book book1 = new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true);
 
+        System.out.println(book1.toString());
+
+        User u1 = new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1700, 01, 01));
+
+        Borrow borrow1 = new Borrow(LocalDate.now(), u1, book1);
+        UserData.add(u1);
+        BookData.add(borrow1.getBook());
+        BorrowData.add(borrow1);
     }
 
     /**
@@ -230,11 +234,16 @@ public class CYBooks extends Application {
     public ObservableList<Book> getBookData() {
         return BookData;
     }
+
+    public ObservableList<Borrow> getBorrowData() {
+        return BorrowData;
+    }
     public ObservableList<User> getUserData() {
         return UserData;
     }
 
     public static void main(String[] args) {
+
         LocalDate Today = LocalDate.now();
         Genre Conte = new Genre("Conte");
         Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
@@ -242,30 +251,38 @@ public class CYBooks extends Application {
 
         System.out.println(book1.toString());
 
-        User u1 = new User("Galisson","Matthias","ui@ui.com","52202336","ui");
-        Borrow b1=new Borrow(LocalDate.now(),u1,book1);
+        User u1 = new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1700, 01, 01));
 
         Borrow borrow1 = new Borrow(LocalDate.now(), u1, book1);
         
-        u1.BorrowBook(borrow1
+        u1.BorrowBook(borrow1);
         System.out.println("Current Borrows: " + u1.getCurrentBorrows().size());
         System.out.println("Borrow History: " + u1.getBorrowHistory().size());
-        // User returns the book
-        u1.GiveBack(borrow1);
-        System.out.println("Book returned successfully.");
+        try{
 
-        // Print current borrows and history
+        /**
+         * User returns the book
+         */
+        u1.GiveBack(borrow1);
+        System.out.println("Book returned successfully.");}
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        /**
+         * Print current borrows and history
+         */
         System.out.println("Current Borrows: " + u1.getCurrentBorrows().size());
         System.out.println("Borrow History: " + u1.getBorrowHistory().size());
 
         try {
             SQLExecutor sqlExecutor = new SQLExecutor("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
-            sqlExecutor.executeFile("./src/main/resources/com/example/cybooks/BDDCreation.sql");
+            sqlExecutor.executeFile("./CY-Books/src/main/resources/com/example/cybooks/BDDCreation.sql");
 
             /**
              * if issues arise with the display put launch in commentary
-
-            launch();*/
+             */
+            launch();
         }
         catch(Exception e){
             e.printStackTrace();
