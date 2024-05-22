@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
-
+import java.util.List;
 
 public class CYBooks extends Application {
 
@@ -212,17 +212,14 @@ public class CYBooks extends Application {
      * TEMPORARILY USED TO SET DUMMY VALUES
      */
     public CYBooks(){
-
         Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
         Genre Conte = new Genre("Conte");
         BookData.add(new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
         BookData.add(new Book(3856226,"Cigalle et la Fourmi", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
         BookData.add(new Book(3856226,"Lapin et la Tortue", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true));
-
-        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1724,12,11)));
-        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1724,12,11)));
-        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1724,12,11)));
-
+        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
+        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
+        UserData.add(new User("Galisson","Matthias","ui@ui.com","52202336","ui"));
 
     }
 
@@ -237,61 +234,41 @@ public class CYBooks extends Application {
         return UserData;
     }
 
-    /**
-     * to make room for another page of users of books to show.
-     */
-    public void emptyBookData(){
-        this.BookData.clear();
-    }
-    public void emptyUserData(){
-        this.UserData.clear();
-    }
-
-    /**
-     * to add a User in the list of user
-     */
-    public void addUser(User user){
-        this.UserData.add(user);
-    }
-    /**
-     * to add a Book in the list of book
-     */
-    public void addBook(Book book){
-        this.BookData.add(book);
-    }
-
-
-
     public static void main(String[] args) {
         LocalDate Today = LocalDate.now();
         Genre Conte = new Genre("Conte");
         Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
         Book book1 = new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true);
-        Book book2 = new Book(3856227,"paf", Fontaine, Conte,LocalDate.of(1702, 01, 01), "1ST",true);
 
         System.out.println(book1.toString());
 
-        User u1 = new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1724,12,11));
-        u1.Actual();
-        u1.BorrowBook(book1);
-        u1.Actual();
-        u1.GiveBack(book1);
-        u1.Actual();
+        User u1 = new User("Galisson","Matthias","ui@ui.com","52202336","ui");
+        Borrow b1=new Borrow(LocalDate.now(),u1,book1);
+
+        Borrow borrow1 = new Borrow(LocalDate.now(), u1, book1);
+        if (u1.BorrowBook(borrow1)) {
+            System.out.println("Book borrowed successfully.");
+        }
+        System.out.println("Current Borrows: " + u1.getCurrentBorrows().size());
+        System.out.println("Borrow History: " + u1.getBorrowHistory().size());
+        // User returns the book
+        u1.GiveBack(borrow1);
+        System.out.println("Book returned successfully.");
+
+        // Print current borrows and history
+        System.out.println("Current Borrows: " + u1.getCurrentBorrows().size());
+        System.out.println("Borrow History: " + u1.getBorrowHistory().size());
+
         try {
-            /**
-             * beware of the user's emplacement!
-             * create the database before please
-             */
             SQLExecutor sqlExecutor = new SQLExecutor("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
-            sqlExecutor.executeFile("./CY-Books/src/main/resources/com/example/cybooks/BDDCreation.sql");
+            sqlExecutor.executeFile("./src/main/resources/com/example/cybooks/BDDCreation.sql");
 
             /**
              * if issues arise with the display put launch in commentary
-             */
-            launch();
+
+            launch();*/
         }
         catch(Exception e){
-
             e.printStackTrace();
 
         }
