@@ -49,7 +49,7 @@ public class ShowUserDetailsController {
     private Label DOBLabel;
     private CYBooks cyBooks;
     private User user;
-    public ShowUserDetailsController(User user) {
+    public ShowUserDetailsController() {
     }
 
     /**
@@ -57,7 +57,7 @@ public class ShowUserDetailsController {
      */
     @FXML
     private void initialize(){
-        showUser(user);
+        //showUser(user);
     }
     public void setCYBooks(CYBooks cyBooks) {
         this.cyBooks = cyBooks;
