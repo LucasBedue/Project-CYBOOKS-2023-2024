@@ -6,79 +6,64 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
+
 
 public class User extends Person {
 
     private IntegerProperty NbBorrowedBooks;
     private List<Borrow> borrowedBooks;
-    private List<Borrow> borrowHistory;
-
-
-    /**
-     * Empty constructor for user
-     */
-
-    public User() {
-        super();
-        this.borrowedBooks = new ArrayList<>();
-        this.borrowHistory = new ArrayList<>();
-        this.NbBorrowedBooks = new SimpleIntegerProperty(0);
-    }
-
     /**
      * Constructor for User
-     *
+
      * @param lastName
      * @param firstName
      * @param mail
      * @param telephone
      * @param address
-     * @param DOB User's Date of Birth
      */
-    public User(String lastName, String firstName, String mail, String telephone, String address,LocalDate DOB) {
-        super(lastName, firstName, mail, telephone, address, DOB);
+
+    public User(String lastName, String firstName, String mail, String telephone, String address) {
+        super(lastName, firstName, mail, telephone, address);
         this.borrowedBooks = new ArrayList<>();
-        this.borrowHistory = new ArrayList<>();
         this.NbBorrowedBooks = new SimpleIntegerProperty(0);
     }
 
-
     /**
-     * Method to borrow a book by checking its availability
-     *
-     * @param borrow book, the book you are trying to borrow
+     * Method to borrow a book by checking is availability
+     * @param book, the book you are trying to borrow
      * @return a boolean which indicates if you succeeded in borrowing the book
      */
-    public boolean BorrowBook(Borrow borrow) {
-        if (!borrow.getBook().isAvailable()) {
+
+    public boolean BorrowBook(Book book) {
+        if (!book.isAvailable()) {
             System.out.println("This book isn't currently available for borrowing.");
             return false;
         }
-        System.out.println("You have successfully borrowed the book: " + borrow.getBook().getTitle());
-        borrowedBooks.add(borrow);
-        borrowHistory.add(borrow);
-        borrow.getBook().setAvailable(false);
-        NbBorrowedBooks.set(borrowedBooks.size());
-        return true;
+
+        if (book.Borrow()) {
+            Borrow borrow = new Borrow(LocalDate.now(), this, book);
+            borrowedBooks.add(borrow);
+            NbBorrowedBooks.set(NbBorrowedBooks.get() + 1);
+            System.out.println("You have successfully borrowed the book: " + book.getTitle());
+            return true;
+        } else {
+            System.out.println("Failed to borrow the book: " + book.getTitle());
+            return false;
+        }
     }
 
     /**
-     * Method to return a book by calling another function Return() of the class
-     * Book
-     *
-     * @param borrow, the borrow you are trying to return
+     * Method to return a book by calling another function Return() of the class Book
+     * @param book, the book you are trying to return
      */
-    public void GiveBack(Borrow borrow) {
-        if (!borrow.isReturned()) {
-            borrow.Return();
-            borrow.getBook().Return();
-            borrowedBooks.remove(borrow);
-            NbBorrowedBooks.set(borrowedBooks.size());
-            System.out.println("You have successfully returned the book: " + borrow.getBook().getTitle());
-        } else {
-            System.out.println("This book has already been returned.");
-        }
+    public void GiveBack(Book book) {
+        book.Return();
+        borrowedBooks.removeIf(borrow -> borrow.getBook().equals(book));
+        NbBorrowedBooks.set(NbBorrowedBooks.get() - 1);
+        System.out.println("You have successfully returned the book: " + book.getTitle());
     }
+
 
     public int getNbBorrowedBooks() {
         return NbBorrowedBooks.get();
@@ -92,44 +77,67 @@ public class User extends Person {
         this.NbBorrowedBooks.set(nbBorrowedBooks);
     }
 
-    // Other change methods omitted for brevity...
+    /**
+     * Function to change the last name of a user
+     * @param the new last name
+     */
+    public void changeLastName(String LastName){
+        setLastName(LastName);
+    }
+
+    /**
+     * Function to change the first name of a user
+     * @param the new first name
+     */
+    public void changeFirstName(String FirstName){
+        setLastName(FirstName);
+    }
+
+    /**
+     * Function to change the address of a user
+     * @param the new address
+     */
+    public void changeAddress(String address){
+        setAddress(address);
+    }
+
+    /**
+     * Function to change the phone number of a user
+     * @param the new phone number
+     */
+    public void changePhone(String phone){
+        setPhone(phone);
+    }
+
+    /**
+     * Function to change the mail of a user
+     * @param the new mail
+     */
+    public void changeMail(String mail){
+        setMail(mail);
+    }
 
     @Override
-    public String toString() {
-        return ("The user with the ID " + getID() + " is " + getFirstName() + " " + getLastName() + "\nThe User lives at " + getAddress() + "\n"
-                + getFirstName() + "'s email and phone are " + getMail() + " and " + getPhone() + "\n");
+    public String toString(){
+    return ("The user with the ID "+getID()+" is "+ getFirstName() +" "+ getLastName()+"\nThe User live " + getAddress()+"\n" +
+            getFirstName() + " mail and phone are " + getMail() +" and "+ getPhone()+"\n");
     }
 
-    /**
-     * Function to get the list of all borrowed books
-     *
-     * @return list of borrowed books
-     */
-    public List<Borrow> getBorrowHistory() {
-        return borrowHistory;
-    }
-
-    /**
-     * Function to get the list of currently borrowed books
-     *
-     * @return list of currently borrowed books
-     */
-    public List<Borrow> getCurrentBorrows() {
+    public List<Borrow> readBorrowHistory() {
         return borrowedBooks;
     }
 
-    /**
-     * Function to get the list of currently borrowed books which are not yet returned
-     *
-     * @return list of not yet returned borrowed books
-     */
-    public List<Borrow> Actual() {
-        List<Borrow> notReturnedBooks = new ArrayList<>();
-        for (Borrow borrow : borrowedBooks) {
-            if (!borrow.isReturned()) {
-                notReturnedBooks.add(borrow);
+
+    public List<Borrow> currentBorrowedBooks() {
+        List<Borrow> currentBorrowed = new ArrayList<>();
+        Iterator<Borrow> iterator = borrowedBooks.iterator();
+        while (iterator.hasNext()) {
+            Borrow Borrow = iterator.next();
+            if (Borrow.getA()) {
+                currentBorrowed.add(Borrow);
+                iterator.remove();
             }
         }
-        return notReturnedBooks;
+        return currentBorrowed;
     }
 }
