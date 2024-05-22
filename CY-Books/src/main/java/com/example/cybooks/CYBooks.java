@@ -213,22 +213,6 @@ public class CYBooks extends Application {
      * TEMPORARILY USED TO SET DUMMY VALUES
      */
     public CYBooks(){
-        /**
-
-        Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
-        Genre Conte = new Genre("Conte");
-
-        Book book1 = new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true);
-
-        System.out.println(book1.toString());
-
-        User u1 = new User("Galisson","Matthias","ui@ui.com","52202336","ui",LocalDate.of(1700, 01, 01));
-
-        Borrow borrow1 = new Borrow(LocalDate.now(), u1, book1);
-        UserData.add(u1);
-        BookData.add(borrow1.getBook());
-        BorrowData.add(borrow1);
-    */
 
     }
 
@@ -239,7 +223,6 @@ public class CYBooks extends Application {
     public ObservableList<Book> getBookData() {
         return BookData;
     }
-
     public ObservableList<Borrow> getBorrowData() {
         return BorrowData;
     }

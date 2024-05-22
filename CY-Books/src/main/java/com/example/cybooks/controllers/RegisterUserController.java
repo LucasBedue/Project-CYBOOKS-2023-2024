@@ -1,12 +1,10 @@
 package com.example.cybooks.controllers;
 
 import com.example.cybooks.CYBooks;
-import com.example.cybooks.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -29,7 +27,7 @@ public class RegisterUserController {
     @FXML
     private TextField phoneField;
     @FXML
-    private TextField adressField;
+    private TextField addressField;
     @FXML
     private DatePicker DOBField;
     @FXML
@@ -98,7 +96,7 @@ public class RegisterUserController {
             /**
              * the address
              */
-            String addresstmp=adressField.getText().toString();
+            String addresstmp=addressField.getText().toString();
             if(addresstmp.equals("")){
                 errorField.setText("Enter an address.");
                 return false;
@@ -150,6 +148,7 @@ public class RegisterUserController {
             /**
              * if there is an error
              */
+            e.printStackTrace();
             errorField.setText("Error. Please try again later.");
 
             return false;
