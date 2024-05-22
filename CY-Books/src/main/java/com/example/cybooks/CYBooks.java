@@ -246,9 +246,8 @@ public class CYBooks extends Application {
         Borrow b1=new Borrow(LocalDate.now(),u1,book1);
 
         Borrow borrow1 = new Borrow(LocalDate.now(), u1, book1);
-        if (u1.BorrowBook(borrow1)) {
-            System.out.println("Book borrowed successfully.");
-        }
+        
+        u1.BorrowBook(borrow1
         System.out.println("Current Borrows: " + u1.getCurrentBorrows().size());
         System.out.println("Borrow History: " + u1.getBorrowHistory().size());
         // User returns the book
