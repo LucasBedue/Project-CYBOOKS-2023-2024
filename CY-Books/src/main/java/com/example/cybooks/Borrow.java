@@ -1,8 +1,12 @@
 package com.example.cybooks;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.time.LocalDate;
 
 public class Borrow {
+    private IntegerProperty ID = new SimpleIntegerProperty(0);
     private LocalDate BorrowingDate;
     private LocalDate DateToBeReturnedBy;
     private LocalDate rendered;
@@ -16,12 +20,19 @@ public class Borrow {
      * @param person
      * @param book
      */
-    public Borrow(LocalDate borrowingDate, Person person, Book book) {
+    public Borrow(IntegerProperty ID,LocalDate borrowingDate, Person person, Book book) {
+        this.ID=ID;
         this.BorrowingDate = borrowingDate;
         this.person = person;
         this.book = book;
         this.DateToBeReturnedBy = borrowingDate.plusDays(20);
         this.rendered = null;
+    }
+
+    /**
+     * Constructor for borrowing a book
+     */
+    public Borrow(){
     }
 
     public LocalDate getDateToBeReturnedBy() {

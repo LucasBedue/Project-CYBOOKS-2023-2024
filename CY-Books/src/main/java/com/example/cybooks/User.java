@@ -30,6 +30,17 @@ public class User extends Person {
     }
 
     /**
+     * Constructor for User
+     *
+     */
+    public User() {
+        super();
+        this.borrowedBooks = new ArrayList<>();
+        this.borrowHistory = new ArrayList<>();
+        this.NbBorrowedBooks = new SimpleIntegerProperty(0);
+    }
+
+    /**
      * Method to borrow a book by checking its availability
      *
      * @param borrow book, the book you are trying to borrow
