@@ -159,6 +159,17 @@ public class CYBooks extends Application {
             throw new RuntimeException(e);
         }
     }
+    public Node createShowUserDetailsScene() throws RuntimeException{
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowUserDetails.fxml"));
+            AnchorPane ShowUserDetailsOverview = (AnchorPane) loader.load();
+            ShowUserDetailsController ShowUserDetailsController = loader.getController();
+            ShowUserDetailsController.setCYBooks(this);
+            return ShowUserDetailsOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     public void switchMainMenuScene() {
@@ -201,6 +212,15 @@ public class CYBooks extends Application {
         try{
             rootLayout.setCenter(createRegisterUserScene());
 
+        }
+        catch(RuntimeException e){
+            System.out.println(e.toString());
+        }
+    }
+    @FXML
+    public void switchShowUserDetailsScene() {
+        try{
+            rootLayout.setCenter(createShowUserDetailsScene());
         }
         catch(RuntimeException e){
             System.out.println(e.toString());

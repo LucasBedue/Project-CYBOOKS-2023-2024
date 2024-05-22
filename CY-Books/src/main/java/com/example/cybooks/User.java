@@ -79,7 +79,7 @@ public class User extends Person {
 
     /**
      * Function to change the last name of a user
-     * @param the new last name
+     * @param LastName new last name
      */
     public void changeLastName(String LastName){
         setLastName(LastName);
@@ -87,7 +87,7 @@ public class User extends Person {
 
     /**
      * Function to change the first name of a user
-     * @param the new first name
+     * @param FirstName new first name
      */
     public void changeFirstName(String FirstName){
         setLastName(FirstName);
@@ -95,7 +95,7 @@ public class User extends Person {
 
     /**
      * Function to change the address of a user
-     * @param the new address
+     * @param  address address
      */
     public void changeAddress(String address){
         setAddress(address);
@@ -103,7 +103,7 @@ public class User extends Person {
 
     /**
      * Function to change the phone number of a user
-     * @param the new phone number
+     * @param phone new phone number
      */
     public void changePhone(String phone){
         setPhone(phone);
@@ -111,7 +111,7 @@ public class User extends Person {
 
     /**
      * Function to change the mail of a user
-     * @param the new mail
+     * @param mail new mail
      */
     public void changeMail(String mail){
         setMail(mail);

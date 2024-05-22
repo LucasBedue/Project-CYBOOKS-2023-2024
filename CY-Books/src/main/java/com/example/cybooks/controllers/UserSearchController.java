@@ -18,5 +18,10 @@ public class UserSearchController {
     public void setCYBooks(CYBooks cyBooks) {
         this.cyBooks = cyBooks;
     }
+
+    @FXML
+    private void search(){
+        cyBooks.switchShowUserDetailsScene();
+    }
 }
 
