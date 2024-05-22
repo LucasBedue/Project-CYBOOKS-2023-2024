@@ -37,6 +37,7 @@ public class User extends Person {
         this.NbBorrowedBooks = new SimpleIntegerProperty(0);
     }
 
+
     /**
      * Method to borrow a book by checking its availability
      *

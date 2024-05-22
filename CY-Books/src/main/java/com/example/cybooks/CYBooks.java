@@ -213,8 +213,10 @@ public class CYBooks extends Application {
      * TEMPORARILY USED TO SET DUMMY VALUES
      */
     public CYBooks(){
+
         Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
         Genre Conte = new Genre("Conte");
+
         Book book1 = new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true);
 
         System.out.println(book1.toString());
@@ -225,6 +227,8 @@ public class CYBooks extends Application {
         UserData.add(u1);
         BookData.add(borrow1.getBook());
         BorrowData.add(borrow1);
+
+
     }
 
     /**
@@ -242,9 +246,38 @@ public class CYBooks extends Application {
         return UserData;
     }
 
+    /**
+     * to make room for another page of users of books to show.
+     */
+    public void emptyBookData(){
+        this.BookData.clear();
+    }
+    public void emptyUserData(){
+        this.UserData.clear();
+    }
+
+    /**
+     * to add a User in the list of user
+     */
+    public void addUser(User user){
+        this.UserData.add(user);
+    }
+    /**
+     * to add a Book in the list of book
+     */
+    public void addBook(Book book){
+        this.BookData.add(book);
+    }
+
+
+    /**
+     * The program starts here
+     * @param args
+     */
     public static void main(String[] args) {
 
         LocalDate Today = LocalDate.now();
+
         Genre Conte = new Genre("Conte");
         Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
         Book book1 = new Book(3856226,"Corbeau & Renard", Fontaine, Conte,LocalDate.of(1700, 01, 01), "1ST",true);
@@ -258,16 +291,13 @@ public class CYBooks extends Application {
         u1.BorrowBook(borrow1);
         System.out.println("Current Borrows: " + u1.getCurrentBorrows().size());
         System.out.println("Borrow History: " + u1.getBorrowHistory().size());
-        try{
+
 
         /**
          * User returns the book
          */
         u1.GiveBack(borrow1);
         System.out.println("Book returned successfully.");}
-        catch (NullPointerException e){
-            e.printStackTrace();
-        }
 
         /**
          * Print current borrows and history
@@ -278,8 +308,7 @@ public class CYBooks extends Application {
         try {
             SQLExecutor sqlExecutor = new SQLExecutor("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
             sqlExecutor.executeFile("./CY-Books/src/main/resources/com/example/cybooks/BDDCreation.sql");
-
-            /**
+          /**
              * if issues arise with the display put launch in commentary
              */
             launch();

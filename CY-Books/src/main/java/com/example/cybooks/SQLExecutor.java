@@ -12,6 +12,14 @@ public class SQLExecutor {
     private final String userName;
     private final String password;
 
+    /**
+     * Constructor
+     * @param className
+     * @param url
+     * @param userName
+     * @param password
+     * @throws ClassNotFoundException
+     */
     public SQLExecutor(String className,String url, String userName, String password)
             throws ClassNotFoundException  {
         Class.forName(className);
@@ -26,6 +34,12 @@ public class SQLExecutor {
     }
 
 
+    /**
+     * To have informations about the database.
+     * Not used yet.
+     * @param connection
+     * @throws SQLException
+     */
     private void printMetaData(Connection connection)
             throws SQLException
     {
@@ -42,6 +56,10 @@ public class SQLExecutor {
                 metaData.getDriverVersion());
     }
 
+    /**
+     * To execute the file passed in arguments.
+     * @param path
+     */
     public void executeFile(String path)
     {
 

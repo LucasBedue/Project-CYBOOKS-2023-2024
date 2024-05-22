@@ -6,9 +6,8 @@ USE `Cy_Books_Database`;
 
 -- Creating tables with book's id
 CREATE TABLE IF NOT EXISTS `books` (
-  `id` varchar(33) NOT NULL,
+  `id` int8 NOT NULL AUTO_INCREMENT,
   `isbn` varchar(13) NOT NULL,
-  `cote` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 );
 

@@ -1,16 +1,23 @@
 package com.example.cybooks;
 
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 
 import java.time.LocalDate;
 
 public class Borrow {
+
+    private IntegerProperty ID = new SimpleIntegerProperty(0);
     private ObjectProperty<LocalDate> BorrowingDate;
     private ObjectProperty<LocalDate> DateToBeReturnedBy;
     private ObjectProperty<LocalDate> returned;
     private ObjectProperty<Person> person;
     private ObjectProperty<Book> book;
+
 
     /**
      * Constructor for borrowing a book
@@ -27,6 +34,11 @@ public class Borrow {
         this.returned = null;
     }
 
+    /**
+     * Constructor for borrowing a book
+     */
+    public Borrow(){
+    }
 
     /**
      * Function to verify if a book was returned late with the date of today
@@ -37,7 +49,7 @@ public class Borrow {
         } else {
             System.out.println("Thanks for returning the book on time");
         }
-        this.returned.set(LocalDate.now());
+        this.returned = new SimpleObjectProperty<LocalDate>(LocalDate.now());
     }
 
     public boolean isReturned() {
