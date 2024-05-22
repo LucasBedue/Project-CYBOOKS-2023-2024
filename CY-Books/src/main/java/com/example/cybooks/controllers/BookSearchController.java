@@ -41,8 +41,8 @@ public class BookSearchController {
      * TEST FUNCTION
      */
     @FXML
-    public void print(){
-        System.out.println(TitleField.getText() + " " + AuthorField.getText() + " " + ISBNField.getText() + " " +  PublishingDatePicker.getValue() + " " +  EditionField.getText() + " " +  GenreField.getText() );
+    public void searchBook(){
+        cyBooks.switchBookSearch2Scene();
     }
 }
 
