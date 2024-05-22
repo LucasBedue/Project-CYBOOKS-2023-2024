@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 
 public class Book {
+
     private IntegerProperty ISBN;
     private StringProperty Title;
     private ObjectProperty<Author> Author;
