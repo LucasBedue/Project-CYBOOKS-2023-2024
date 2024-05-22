@@ -49,7 +49,6 @@ public class Borrow {
         } else {
             System.out.println("Thanks for returning the book on time");
         }
-        this.returned = new SimpleObjectProperty<LocalDate>(LocalDate.now());
     }
 
     public boolean isReturned() {
