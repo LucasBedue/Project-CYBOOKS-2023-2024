@@ -78,38 +78,43 @@ public class Request {
             }
         }
 
+
         for (i = 0; i < separator.size(); i += 2) {
             String record = extractText(text1, separator.get(i), separator.get(i + 1));
+            
             Book book = transfobook(record);
 
             if (book != null) {
                 books.add(book);
             }
-        }
 
+        }
+        System.out.println(books);
         return books;
     }
 
     private Book transfobook(String text) {
+
         String[] tab = text.split("\n");
         boolean book = false;
         boolean Bisbn = false;
         String ISBN = null;
         String title = null;
-        String edit = null;
+        String edit = "/";
         String lastName = null;
         String firstName = null;
-        int publishingDate = 0;
-        String[] dateOfBirth = new String[0];
-        String DOB;
+        int publishingDate = 9999;
+        int dateOfBirth = 9999;
 
         for (int i = 0; i < tab.length; i++) {
+
             if (tab[i].trim().equals("mxc:datafield tag=\"010\" ind1=\" \" ind2=\" \"")) {
                 if (tab[i + 2].trim().equals("mxc:subfield code=\"a\"")) {
                     ISBN = tab[i + 3].trim();
                     Bisbn = true;
                 }
             }
+
             if (tab[i].trim().equals("mxc:datafield tag=\"200\" ind1=\"1\" ind2=\" \"")) {
                 book = false;
                 while (!tab[i].trim().equals("/mxc:datafield")) {
@@ -147,23 +152,19 @@ public class Request {
                     } else if (tab[i].trim().equals("mxc:subfield code=\"b\"")) {
                         firstName = tab[i + 1].trim();
                     } else if (tab[i].trim().equals("mxc:subfield code=\"f\"")) {
-                        DOB = tab[i + 1].trim();
-                        dateOfBirth = DOB.split("-");
+                        String dobString = tab[i + 1].trim();
+                        String[] dobParts = dobString.split("-");
+                        if (dobParts.length > 0) {
+                            dateOfBirth = Integer.parseInt(dobParts[0]);
+                        }
                     }
                 }
             }
         }
 
-        System.out.println(ISBN);
-        System.out.println(title);
-        System.out.println(lastName);
-        System.out.println(lastName);
-
-
-
         if (book && Bisbn && ISBN != null && title != null && edit != null && lastName != null && firstName != null) {
             Genre genre = new Genre("DefaultGenre");
-            Author author = new Author(lastName, firstName, "", "", " ", LocalDate.of(Integer.parseInt(dateOfBirth[0]), 1, 1));
+            Author author = new Author(lastName, firstName, "", "", " ", LocalDate.of(dateOfBirth, 1, 1));
             return new Book(ISBN, title, author, genre, LocalDate.of(publishingDate, 1, 1), edit, true);
         } else {
             return null;
