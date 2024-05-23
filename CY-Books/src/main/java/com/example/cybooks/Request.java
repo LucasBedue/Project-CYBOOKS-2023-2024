@@ -64,6 +64,7 @@ public class Request {
             if (query.getIsbn() != null) {
                 fullQuery.append("and bib.isbn adj \"").append(query.getIsbn()).append("\" ");
             }
+
             if (query.getGenre() != null) {
                 fullQuery.append("and bib.genre adj \"").append(query.getGenre()).append("\" ");
             }
@@ -76,6 +77,8 @@ public class Request {
             if (query.getAuthor() != null) {
                 fullQuery.append("and bib.author adj \"").append(query.getAuthor()).append("\" ");
             }
+            fullQuery.append("and bib.doctype all \"a\"");
+
 
             // Remove leading "and" if present
             String finalQuery = fullQuery.toString().trim();

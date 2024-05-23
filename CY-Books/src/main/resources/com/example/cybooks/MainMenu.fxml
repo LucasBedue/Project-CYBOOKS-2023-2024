@@ -35,6 +35,7 @@
                               <Button layoutX="673.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchCheckUserScene" text="Check user history" />
                               <Button layoutX="380.0" layoutY="91.0" mnemonicParsing="false" onAction="#switchLateReturnsBooksScene" text="Check late returns" />
                               <Button layoutX="758.0" layoutY="91.0" mnemonicParsing="false" onAction="#switchMostBorrowedBooksScene" text="Most borrowed books list" />
+                              <Button layoutX="518.0" layoutY="249.0" mnemonicParsing="false" onAction="#resetDatabase" text="Reset Database" textFill="#f80000" />
                            </children>
                         </AnchorPane>
                      </top>

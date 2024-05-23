@@ -1,8 +1,16 @@
 package com.example.cybooks.controllers;
 
 import com.example.cybooks.CYBooks;
+import com.example.cybooks.Request;
+import com.example.cybooks.SQLExecutor;
+import com.example.cybooks.Search;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 public class MainMenuController {
 
@@ -63,5 +71,41 @@ public class MainMenuController {
     @FXML
     private void switchRegisterUserScene() {
         cyBooks.switchRegisterUserScene();
+    }
+    @FXML
+    private void switchBookSearch2Scene() {
+        cyBooks.switchBookSearch2Scene();
+    }
+
+    @FXML
+    private void resetDatabase(){
+        try {
+            //make the statement
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
+            Statement statement = connection.createStatement();
+
+            statement.execute("DROP TABLE books;");
+            statement.execute("DROP TABLE user;");
+            statement.execute("DROP TABLE borrows;");
+
+            SQLExecutor sqlExecutor = new SQLExecutor("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
+            sqlExecutor.executeFile("./CY-Books/src/main/resources/com/example/cybooks/BDDCreation.sql");
+
+            Request request = new Request();
+
+            // exemple du multi search multi
+            Search query = new Search.Builder()
+
+                    .build();
+            String responseByQuery = request.search(query);
+
+            System.out.println(responseByQuery);
+
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
