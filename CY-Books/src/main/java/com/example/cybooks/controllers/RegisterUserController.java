@@ -44,12 +44,19 @@ public class RegisterUserController {
     @FXML
     private void initialize(){
     }
+    /**
+     * To call the main instance of CYBooks
+     * @param cyBooks the main instance of CYBooks
+     */
     public void setCYBooks(CYBooks cyBooks) {
         this.cyBooks = cyBooks;
     }
 
+    /**
+     * To try to register a new user
+     */
     @FXML
-    public void registerUser(ActionEvent event){
+    public void registerUser(){
         try {
             if (checkUserRegistering()) {
                 System.out.println("OK");
@@ -141,7 +148,7 @@ public class RegisterUserController {
             else {
                 dobtmp = DOBField.getValue().toString();
             }
-            /////////
+
 
             /**
              * make the statement

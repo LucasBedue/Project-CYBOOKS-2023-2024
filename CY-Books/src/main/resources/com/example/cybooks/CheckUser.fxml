@@ -15,14 +15,14 @@
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <Button mnemonicParsing="false" onAction="#print" text="Search" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#check" text="Check" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets bottom="400.0" />
+                  <Insets bottom="40.0" />
                </BorderPane.margin>
             </Button>
          </bottom>
          <center>
-            <GridPane prefHeight="223.0" prefWidth="980.0" BorderPane.alignment="CENTER">
+            <GridPane prefHeight="69.0" prefWidth="980.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,18 +32,17 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <BorderPane.margin>
-                  <Insets bottom="40.0" left="60.0" right="60.0" top="40.0" />
+                  <Insets bottom="380.0" left="60.0" right="60.0" top="60.0" />
                </BorderPane.margin>
                <children>
-                  <Label text="First name" />
-                  <Label text="Last name" GridPane.rowIndex="1" />
-                  <TextField fx:id="FirstNameField" GridPane.columnIndex="1" />
-                  <TextField fx:id="LastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="ID" />
+                  <TextField fx:id="IDField" GridPane.columnIndex="1" />
+                  <Label fx:id="errorField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </center>
          <top>
-            <Label text="Check user" BorderPane.alignment="CENTER">
+            <Label text="Check user history" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets top="50.0" />
                </BorderPane.margin>

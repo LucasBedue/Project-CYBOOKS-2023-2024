@@ -69,7 +69,8 @@ public class UserOverviewController {
 
 
     /**
-     * Get the data to be shown
+     * To call the main instance of CYBooks and get the data to be shown
+     * @param cyBooks the main instance of CYBooks
      */
     public void setCYBooks(CYBooks cyBooks) {
         try {

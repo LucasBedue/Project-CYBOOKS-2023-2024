@@ -79,8 +79,8 @@ public class BookSearch2Controller {
     }
 
     /**
-     * Get the data to be shown
-     * @param cyBooks
+     * To call the main instance of CYBooks and the data to be shown
+     * @param cyBooks the main instance of CYBooks
      */
     public void setCYBooks(CYBooks cyBooks){
         this.cyBooks = cyBooks;

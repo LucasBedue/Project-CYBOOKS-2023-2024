@@ -15,6 +15,10 @@ public class MostBorrowedController {
     @FXML
     private void initialize(){
     }
+    /**
+     * To call the main instance of CYBooks
+     * @param cyBooks the main instance of CYBooks
+     */
     public void setCYBooks(CYBooks cyBooks) {
         this.cyBooks = cyBooks;
     }

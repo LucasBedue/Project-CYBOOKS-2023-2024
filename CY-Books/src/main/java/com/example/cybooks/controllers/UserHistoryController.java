@@ -1,23 +1,28 @@
 package com.example.cybooks.controllers;
 
-
-import com.example.cybooks.Book;
 import com.example.cybooks.Borrow;
 import com.example.cybooks.CYBooks;
+import com.example.cybooks.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.time.LocalDate;
+import java.util.List;
 
-public class BorrowedBooksController {
+public class UserHistoryController {
+
 
     /**
      * The list of books
      */
     @FXML
     private TableView<Borrow> BookList;
+
+    private ObservableList<Borrow> BookData = FXCollections.observableArrayList();
 
     /**
      * Values to be shown in the table containing the list of books
@@ -51,11 +56,35 @@ public class BorrowedBooksController {
     @FXML
     private Label GenreLabel;
     private CYBooks cyBooks;
+    private User user;
 
     /**
      * Constructor for the controller
      */
-    public BorrowedBooksController() {
+    public UserHistoryController() {
+    }
+
+    /**
+     * To call the main instance of CYBooks
+     * @param cyBooks the main instance of CYBooks
+     */
+    public void setCYBooks(CYBooks cyBooks) {
+        this.cyBooks = cyBooks;
+    }
+
+    /**
+     * To set the user whose data will be shown and get their borrow history
+     * @param user the user whose data will be shown
+     */
+    public void setUser(User user){
+        this.user = user;
+
+        List<Borrow> BorrowList = user.getBorrowHistory();
+
+        for (Borrow borrow: BorrowList) {
+            BookData.add(borrow);
+        }
+        BookList.setItems(BookData);
     }
 
     /**
@@ -81,16 +110,6 @@ public class BorrowedBooksController {
         BookList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> showBookDetails(newValue));
 
     }
-
-    /**
-     * To call the main instance of CYBooks and the data to be shown
-     * @param cyBooks the main instance of CYBooks
-     */
-    public void setCYBooks(CYBooks cyBooks){
-        this.cyBooks = cyBooks;
-        BookList.setItems(cyBooks.getBorrowData());
-    }
-
 
     /**
      * To show more information for a given book

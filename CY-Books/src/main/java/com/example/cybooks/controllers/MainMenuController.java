@@ -32,10 +32,17 @@ public class MainMenuController {
     @FXML
     private void initialize(){
     }
+    /**
+     * To call the main instance of CYBooks
+     * @param cyBooks the main instance of CYBooks
+     */
     public void setCYBooks(CYBooks cyBooks) {
         this.cyBooks = cyBooks;
     }
 
+    /**
+     * To call the functions to switch the center node
+     */
     @FXML
     private void switchBookViewScene() {
         cyBooks.switchBookViewScene();
@@ -77,6 +84,10 @@ public class MainMenuController {
         cyBooks.switchBookSearch2Scene();
     }
 
+
+    /**
+     * To reset the database
+     */
     @FXML
     private void resetDatabase(){
         try {
