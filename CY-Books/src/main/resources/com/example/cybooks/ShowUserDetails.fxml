@@ -61,13 +61,13 @@
                         </Label>
                      </top>
                      <center>
-                        <TableView prefHeight="642.0" prefWidth="767.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="BookList" prefHeight="642.0" prefWidth="767.0" BorderPane.alignment="CENTER">
                           <columns>
-                            <TableColumn prefWidth="143.0" text="ISBN" />
-                            <TableColumn minWidth="6.0" prefWidth="167.0" text="Title" />
-                              <TableColumn minWidth="0.0" prefWidth="167.0" text="Author" />
-                              <TableColumn prefWidth="151.0" text="Publishing date" />
-                              <TableColumn prefWidth="138.0" text="Return by" />
+                            <TableColumn fx:id="ISBNColumn" prefWidth="143.0" text="ISBN" />
+                            <TableColumn fx:id="TitleColumn" minWidth="6.0" prefWidth="167.0" text="Title" />
+                              <TableColumn fx:id="AuthorColumn" minWidth="0.0" prefWidth="167.0" text="Author" />
+                              <TableColumn fx:id="PublishingDateColumn" prefWidth="151.0" text="Publishing date" />
+                              <TableColumn fx:id="ReturnByColumn" prefWidth="138.0" text="Return by" />
                           </columns>
                         </TableView>
                      </center>

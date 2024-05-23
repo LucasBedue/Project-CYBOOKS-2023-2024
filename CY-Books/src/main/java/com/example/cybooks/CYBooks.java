@@ -170,12 +170,14 @@ public class CYBooks extends Application {
             throw new RuntimeException(e);
         }
     }
-    public Node createShowUserDetailsScene() throws RuntimeException{
+    public Node createShowUserDetailsScene(User user) throws RuntimeException{
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowUserDetails.fxml"));
             AnchorPane ShowUserDetailsOverview = (AnchorPane) loader.load();
             ShowUserDetailsController ShowUserDetailsController = loader.getController();
             ShowUserDetailsController.setCYBooks(this);
+            ShowUserDetailsController.setUser(user);
+
             return ShowUserDetailsOverview;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -229,9 +231,9 @@ public class CYBooks extends Application {
         }
     }
     @FXML
-    public void switchShowUserDetailsScene() {
+    public void switchShowUserDetailsScene(User user) {
         try{
-            rootLayout.setCenter(createShowUserDetailsScene());
+            rootLayout.setCenter(createShowUserDetailsScene(user));
         }
         catch(RuntimeException e){
             e.printStackTrace();
@@ -255,7 +257,6 @@ public class CYBooks extends Application {
      * TEMPORARILY USED TO SET DUMMY VALUES
      */
     public CYBooks(){
-
     }
 
     /**

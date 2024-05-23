@@ -44,6 +44,25 @@ public class User extends Person {
 
 
     /**
+     * Constructor for User to reconstruct an user without changing the ID
+     *
+     * @param ID
+     * @param lastName
+     * @param firstName
+     * @param mail
+     * @param telephone
+     * @param address
+     * @param DOB User's Date of Birth
+     */
+    public User(Integer ID, String lastName, String firstName, String mail, String telephone, String address,LocalDate DOB) {
+        super(ID, lastName, firstName, mail, telephone, address, DOB);
+        this.borrowedBooks = new ArrayList<>();
+        this.borrowHistory = new ArrayList<>();
+        this.NbBorrowedBooks = new SimpleIntegerProperty(0);
+    }
+
+
+    /**
      * Method to borrow a book by checking its availability
      *
      * @param borrow book, the book you are trying to borrow

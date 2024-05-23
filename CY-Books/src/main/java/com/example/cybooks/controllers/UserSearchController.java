@@ -1,7 +1,6 @@
 package com.example.cybooks.controllers;
 
-import com.example.cybooks.CYBooks;
-import com.example.cybooks.User;
+import com.example.cybooks.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 public class UserSearchController {
 
@@ -19,6 +19,8 @@ public class UserSearchController {
     @FXML
     private Label errorField;
     private CYBooks cyBooks;
+
+
     public UserSearchController() {
     }
 
@@ -36,9 +38,18 @@ public class UserSearchController {
     private void search(){
         try {
             User user = findUser();
+/**
+            Genre Conte = new Genre("Conte");
+            Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
+            Book book1 = new Book(3856226,"Corbeau & Renard", Fontaine, Conte, LocalDate.of(1700, 01, 01), "1ST",true);
+
+            Borrow borrow1 = new Borrow(LocalDate.now(), user, book1);
+
+            user.BorrowBook(borrow1); */
+
             if (user != null) {
                 System.out.println("OK");
-                cyBooks.switchShowUserDetailsScene();
+                cyBooks.switchShowUserDetailsScene(user);
             } else {
                 System.out.println("NOT OK");
 
@@ -86,7 +97,7 @@ public class UserSearchController {
             }
 
             while(resultSet.next()) {
-                User newUser = new User(resultSet.getString("lastName"),resultSet.getString("firstName"),resultSet.getString("mail"),resultSet.getString("phone"),resultSet.getString("address"),resultSet.getDate("dob").toLocalDate());
+                User newUser = new User(resultSet.getInt("id"),resultSet.getString("lastName"),resultSet.getString("firstName"),resultSet.getString("mail"),resultSet.getString("phone"),resultSet.getString("address"),resultSet.getDate("dob").toLocalDate());
                 return newUser;
             }
 

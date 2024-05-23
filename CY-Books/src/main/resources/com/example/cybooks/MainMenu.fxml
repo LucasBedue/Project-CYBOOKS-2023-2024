@@ -26,7 +26,7 @@
                      <top>
                         <AnchorPane prefHeight="289.0" prefWidth="1098.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button layoutX="343.0" layoutY="35.0" onAction="#switchUserViewScene" text="User List" />
+                              <Button layoutX="343.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchUserViewScene" text="User List" />
                               <Button layoutX="169.0" layoutY="91.0" onAction="#switchBookViewScene" text="Borrowed books list" />
                               <Button layoutX="118.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchRegisterUserScene" text="Register an user" />
                               <Button layoutX="596.0" layoutY="91.0" mnemonicParsing="false" onAction="#switchBookSearchScene" text="Book search" />

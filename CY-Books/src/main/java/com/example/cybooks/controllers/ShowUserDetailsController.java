@@ -1,14 +1,18 @@
 package com.example.cybooks.controllers;
 
+import com.example.cybooks.Book;
 import com.example.cybooks.Borrow;
 import com.example.cybooks.CYBooks;
 import com.example.cybooks.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ShowUserDetailsController {
 
@@ -18,6 +22,7 @@ public class ShowUserDetailsController {
     @FXML
     private TableView<Borrow> BookList;
 
+    private ObservableList<Borrow> BookData = FXCollections.observableArrayList();
     /**
      * Values to be shown in the table containing the list of books
      */
@@ -48,8 +53,25 @@ public class ShowUserDetailsController {
     @FXML
     private Label DOBLabel;
     private CYBooks cyBooks;
-    private User user;
+    public User user;
+    private UserSearchController SearchController;
     public ShowUserDetailsController() {
+    }
+
+    public void setCYBooks(CYBooks cyBooks) {
+        this.cyBooks = cyBooks;
+    }
+
+    public void setUser(User user){
+        this.user = user;
+        showUser(user);
+        List<Borrow> BorrowList = user.getCurrentBorrows();
+
+        for (Borrow borrow: BorrowList) {
+            BookData.add(borrow);
+        }
+
+        BookList.setItems(BookData);
     }
 
     /**
@@ -57,22 +79,22 @@ public class ShowUserDetailsController {
      */
     @FXML
     private void initialize(){
-        //showUser(user);
-    }
-    public void setCYBooks(CYBooks cyBooks) {
-        this.cyBooks = cyBooks;
+        ISBNColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().ISBNProperty().asObject());
+        TitleColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().TitleProperty());
+        AuthorColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().AuthorProperty().asString());
+        PublishingDateColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().PublishingProperty());
+        ReturnByColumn.setCellValueFactory(cellData -> cellData.getValue().ReturnByProperty());
     }
 
-    public void setUser(User user){
-        this.user = user;
-    }
+
 
     /**
      * To show more information for a given book
-     * @param user
+     * @param user the user
      */
     private void showUser(User user){
         if( user != null ){
+
             IDLabel.setText(Integer.toString(user.getID()));
             firstNameLabel.setText(user.getFirstName().toString());
             lastNameLabel.setText(user.getLastName().toString());

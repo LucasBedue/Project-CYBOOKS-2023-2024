@@ -42,6 +42,26 @@ public abstract class Person {
         this.DOB = new SimpleObjectProperty<LocalDate>(DOB);
     }
 
+    /**
+     * Constructor for any person to recreate the person without incrementing the ID
+     * @param ID Person's ID
+     * @param lastName Person's Last Name
+     * @param firstName Person's First Name
+     * @param mail Person's Email
+     * @param phone Person's Phone Number
+     * @param address Person's Address
+     * @param DOB Person's Date of Birth
+     */
+    public Person(Integer ID, String lastName, String firstName, String mail, String phone, String address, LocalDate DOB) {
+        this.ID = new SimpleIntegerProperty(ID);
+        this.LastName = new SimpleStringProperty(lastName);
+        this.FirstName = new SimpleStringProperty(firstName);
+        this.Mail = new SimpleStringProperty(mail);
+        this.Phone = new SimpleStringProperty(phone);
+        this.Address = new SimpleStringProperty(address);
+        this.DOB = new SimpleObjectProperty<LocalDate>(DOB);
+    }
+
 
 
     /**
