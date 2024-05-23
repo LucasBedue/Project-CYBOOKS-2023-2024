@@ -67,10 +67,18 @@ public class SearchToModifyController {
     @FXML
     private void initialize(){
     }
+
+    /**
+     * To call the main instance of CYBooks
+     * @param cyBooks the main instance of CYBooks
+     */
     public void setCYBooks(CYBooks cyBooks) {
         this.cyBooks = cyBooks;
     }
 
+    /**
+     * To search for an user to be modified
+     */
     @FXML
     public void SearchToModifyUser(){
         try {
@@ -86,7 +94,11 @@ public class SearchToModifyController {
         }
     }
 
-
+    /**
+     * Function to find an user and change the page to show that user's current data
+     * @return true if no issue, false otherwise
+     * @throws IOException
+     */
     public boolean checkUserModifying() throws IOException{
 
         try{
@@ -172,6 +184,9 @@ public class SearchToModifyController {
 
     }
 
+    /**
+     * To try to modify an user
+     */
     @FXML
     public void modifyUser(){
         try {
@@ -185,6 +200,11 @@ public class SearchToModifyController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * To modify an user, by reading the text fields and updating the database
+     * @return true if no issue, false otherwise
+     */
 
     public boolean UserModifying(){
         try{

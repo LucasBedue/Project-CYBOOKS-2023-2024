@@ -58,10 +58,18 @@ public class ShowUserDetailsController {
     public ShowUserDetailsController() {
     }
 
+    /**
+     * To call the main instance of CYBooks
+     * @param cyBooks the main instance of CYBooks
+     */
     public void setCYBooks(CYBooks cyBooks) {
         this.cyBooks = cyBooks;
     }
 
+    /**
+     * To set the user whose data will be shown and get their currently borrowed books
+     * @param user the user whose data will be shown
+     */
     public void setUser(User user){
         this.user = user;
         showUser(user);
@@ -89,7 +97,7 @@ public class ShowUserDetailsController {
 
 
     /**
-     * To show more information for a given book
+     * To show more information for a given user
      * @param user the user
      */
     private void showUser(User user){

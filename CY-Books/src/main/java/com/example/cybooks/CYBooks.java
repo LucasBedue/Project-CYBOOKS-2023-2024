@@ -42,11 +42,16 @@ public class CYBooks extends Application {
     }
 
     /**
-     * ²To regroup given books in a list
+     * To regroup given objects in ObservableLists
      */
     private ObservableList<Book> BookData = FXCollections.observableArrayList();
     private ObservableList<Borrow> BorrowData = FXCollections.observableArrayList();
     private ObservableList<User> UserData = FXCollections.observableArrayList();
+
+    /**
+     * Functions to create the center nodes of the main BorderPane
+     * @return the new node (scene)
+     */
 
     public Node createMainMenu(){
         try {
@@ -183,7 +188,24 @@ public class CYBooks extends Application {
             throw new RuntimeException(e);
         }
     }
+    public Node createUserHistoryScene(User user) throws RuntimeException{
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("UserHistory.fxml"));
+            AnchorPane UserHistoryOverview = (AnchorPane) loader.load();
+            UserHistoryController UserHistoryController = loader.getController();
+            UserHistoryController.setCYBooks(this);
+            UserHistoryController.setUser(user);
 
+            return UserHistoryOverview;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    /**
+     * Functions to switch the central node
+     */
     @FXML
     public void switchMainMenuScene() {
         rootLayout.setCenter(createMainMenu());
@@ -241,6 +263,16 @@ public class CYBooks extends Application {
         }
     }
     @FXML
+    public void switchUserHistoryScene(User user) {
+        try{
+            rootLayout.setCenter(createUserHistoryScene(user));
+        }
+        catch(RuntimeException e){
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+    }
+    @FXML
     public void switchBookSearch2Scene() {
         try{
             rootLayout.setCenter(createBookSearch2Scene());
@@ -260,8 +292,8 @@ public class CYBooks extends Application {
     }
 
     /**
-     * Return the list of books
-     * @return the list of books
+     * Return the list of given object
+     * @return the list of objects
      */
     public ObservableList<Book> getBookData() {
         return BookData;
@@ -274,7 +306,7 @@ public class CYBooks extends Application {
     }
 
     /**
-     * to make room for another page of users of books to show.
+     * to make room for another page of users or books to show.
      */
     public void emptyBookData(){
         this.BookData.clear();
@@ -289,6 +321,7 @@ public class CYBooks extends Application {
     public void addUser(User user){
         this.UserData.add(user);
     }
+
     /**
      * to add a Book in the list of book
      */

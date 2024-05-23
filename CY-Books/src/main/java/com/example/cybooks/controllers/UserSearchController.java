@@ -30,22 +30,30 @@ public class UserSearchController {
     @FXML
     private void initialize(){
     }
+
+    /**
+     * To call the main instance of CYBooks
+     * @param cyBooks the main instance of CYBooks
+     */
     public void setCYBooks(CYBooks cyBooks) {
         this.cyBooks = cyBooks;
     }
 
+    /**
+     * Find an user and send it to be shown in ShowUserDetails.fxml
+     */
     @FXML
     private void search(){
         try {
             User user = findUser();
-/**
+
             Genre Conte = new Genre("Conte");
             Author Fontaine = new Author("de la Fontaine","Jean","ui","26579102","France",LocalDate.of(1724,12,11),LocalDate.of(1824,12,11));
             Book book1 = new Book(3856226,"Corbeau & Renard", Fontaine, Conte, LocalDate.of(1700, 01, 01), "1ST",true);
 
             Borrow borrow1 = new Borrow(LocalDate.now(), user, book1);
 
-            user.BorrowBook(borrow1); */
+            user.BorrowBook(borrow1);
 
             if (user != null) {
                 System.out.println("OK");
@@ -62,6 +70,11 @@ public class UserSearchController {
 
     }
 
+    /**
+     * Reads the ID in the IDField and finds the user linked to it in the database
+     * @return returns the user
+     * @throws IOException
+     */
     public User findUser() throws IOException{
         try{
             /**
