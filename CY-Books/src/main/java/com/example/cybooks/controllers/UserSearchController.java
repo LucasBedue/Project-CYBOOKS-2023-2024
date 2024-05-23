@@ -62,6 +62,7 @@ public class UserSearchController {
             String IDtmp = IDField.getText().toString();
             if(IDtmp.equals("")){
                 errorField.setText("Enter ID.");
+                return null;
             }
 
 
@@ -81,6 +82,7 @@ public class UserSearchController {
 
             if (!resultSet.isBeforeFirst() ) {
                 errorField.setText("User doesn't exist");
+                return null;
             }
 
             while(resultSet.next()) {
@@ -91,6 +93,7 @@ public class UserSearchController {
 
         } catch (Exception e){
             errorField.setText("Error. Please try again later.");
+            return null;
         }
         return null;
     }
