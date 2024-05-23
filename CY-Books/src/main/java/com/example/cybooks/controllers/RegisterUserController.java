@@ -81,7 +81,7 @@ public class RegisterUserController {
                 return false;
             }
             else{
-                if(tmpUser.setFirstNameConstruct(firstnametmp).equals(wrongField)){
+                if(tmpUser.setFirstNameConstruct(firstnametmp).getValue().equals(wrongField.getValue())){
                     errorField.setText("Enter a VALID firstname.");
                     return false;
                 }
@@ -95,7 +95,7 @@ public class RegisterUserController {
                 return false;
             }
             else{
-                if(tmpUser.setLastNameConstruct(lastnametmp).equals(wrongField)){
+                if(tmpUser.setLastNameConstruct(lastnametmp).getValue().equals(wrongField.getValue())){
                     errorField.setText("Enter a VALID lastname.");
                     return false;
                 }
@@ -107,7 +107,7 @@ public class RegisterUserController {
             String mailtmp=mailField.getText().toString();
             if(!mailtmp.equals("")){
 
-                if(tmpUser.setMailConstruct(mailtmp).equals(wrongField)){
+                if(tmpUser.setMailConstruct(mailtmp).getValue().equals(wrongField.getValue())){
                     errorField.setText("Enter a VALID mail.");
                     return false;
                 }
@@ -119,7 +119,7 @@ public class RegisterUserController {
             String phonetmp=phoneField.getText().toString();
             if(!phonetmp.equals("")){
 
-                if(tmpUser.setPhoneConstruct(phonetmp).equals(wrongField)){
+                if(tmpUser.setPhoneConstruct(phonetmp).getValue().equals(wrongField.getValue())){
                     errorField.setText("Enter a VALID phone number.");
                     return false;
                 }
