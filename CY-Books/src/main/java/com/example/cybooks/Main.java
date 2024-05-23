@@ -6,9 +6,8 @@ public class Main {
 
         Request request = new Request();
 
-        // exemple du multi search multi
         Search query = new Search.Builder()
-                .setAuthor("Hugo")
+                .setAuthor("Victor")
                 .build();
         String responseByQuery = request.search(query);
         System.out.println("\nSearch by query:");

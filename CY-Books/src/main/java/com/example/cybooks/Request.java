@@ -1,5 +1,8 @@
 package com.example.cybooks;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -8,6 +11,8 @@ import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Request {
 
@@ -45,13 +50,141 @@ public class Request {
                 response.append(inputLine);
             }
             in.close();
-            // prends ce fichier et transforme en nombre de livre nécessaire
+
+            Analyze(response.toString());
             return response.toString();
         } else {
             System.out.println("HTTP Error: " + responseCode);
             return null;
         }
     }
+
+
+    private List<Book> Analyze(String text) {
+        List<Book> books = new ArrayList<>();
+        List<Integer> separator = new ArrayList<>();
+        String text1 = text.replaceAll("[<>]", "\n");
+        String[] tab = text1.split("\n");
+        int i;
+        for (i = 0; i < tab.length; i++) {
+            if (tab[i].trim().equals("srw:recordData")) {
+                separator.add(i);
+                while (i < tab.length && !tab[i].trim().equals("/srw:recordData")) {
+                    i++;
+                }
+                if (i < tab.length) {
+                    separator.add(i);
+                }
+            }
+        }
+
+        for (i = 0; i < separator.size(); i += 2) {
+            String record = extractText(text1, separator.get(i), separator.get(i + 1));
+            Book book = transfobook(record);
+
+            if (book != null) {
+                books.add(book);
+            }
+        }
+
+        return books;
+    }
+
+    private Book transfobook(String text) {
+        String[] tab = text.split("\n");
+        boolean book = false;
+        boolean Bisbn = false;
+        String ISBN = null;
+        String title = null;
+        String edit = null;
+        String lastName = null;
+        String firstName = null;
+        int publishingDate = 0;
+        String[] dateOfBirth = new String[0];
+        String DOB;
+
+        for (int i = 0; i < tab.length; i++) {
+            if (tab[i].trim().equals("mxc:datafield tag=\"010\" ind1=\" \" ind2=\" \"")) {
+                if (tab[i + 2].trim().equals("mxc:subfield code=\"a\"")) {
+                    ISBN = tab[i + 3].trim();
+                    Bisbn = true;
+                }
+            }
+            if (tab[i].trim().equals("mxc:datafield tag=\"200\" ind1=\"1\" ind2=\" \"")) {
+                book = false;
+                while (!tab[i].trim().equals("/mxc:datafield")) {
+                    i++;
+                    if (tab[i].trim().equals("mxc:subfield code=\"b\"")) {
+                        if (tab[i + 1].trim().equals("Texte imprimé") && Bisbn) {
+                            book = true;
+                        }
+                    } else if (tab[i].trim().equals("mxc:subfield code=\"a\"")) {
+                        title = tab[i + 1].trim();
+                    }
+                }
+            } else if (tab[i].trim().equals("mxc:datafield tag=\"210\" ind1=\" \" ind2=\" \"")) {
+                while (!tab[i].trim().equals("/mxc:datafield")) {
+                    i++;
+                    if (tab[i].trim().equals("mxc:subfield code=\"c\"")) {
+                        edit = tab[i + 1].trim();
+                        lastName = edit;
+                        firstName = "/";
+                    } else if (tab[i].trim().equals("mxc:subfield code=\"d\"")) {
+                        String date = tab[i + 1].trim();
+                        String regex = "[0-9]+";
+                        Pattern pattern = Pattern.compile(regex);
+                        Matcher matcher = pattern.matcher(date);
+                        if (matcher.matches()) {
+                            publishingDate = Integer.parseInt(date);
+                        }
+                    }
+                }
+            } else if (tab[i].trim().equals("mxc:datafield tag=\"700\" ind1=\" \" ind2=\"|\"")) {
+                while (!tab[i].trim().equals("/mxc:datafield")) {
+                    i++;
+                    if (tab[i].trim().equals("mxc:subfield code=\"a\"")) {
+                        lastName = tab[i + 1].trim();
+                    } else if (tab[i].trim().equals("mxc:subfield code=\"b\"")) {
+                        firstName = tab[i + 1].trim();
+                    } else if (tab[i].trim().equals("mxc:subfield code=\"f\"")) {
+                        DOB = tab[i + 1].trim();
+                        dateOfBirth = DOB.split("-");
+                    }
+                }
+            }
+        }
+
+        System.out.println(ISBN);
+        System.out.println(title);
+        System.out.println(lastName);
+        System.out.println(lastName);
+
+
+
+        if (book && Bisbn && ISBN != null && title != null && edit != null && lastName != null && firstName != null) {
+            Genre genre = new Genre("DefaultGenre");
+            Author author = new Author(lastName, firstName, "", "", " ", LocalDate.of(Integer.parseInt(dateOfBirth[0]), 1, 1));
+            return new Book(ISBN, title, author, genre, LocalDate.of(publishingDate, 1, 1), edit, true);
+        } else {
+            return null;
+        }
+    }
+
+    public static String extractText(String text, int startLine, int endLine) {
+        String[] lines = text.split("\n");
+        StringBuilder extractedText = new StringBuilder();
+
+        if (startLine < 0 || endLine >= lines.length || startLine > endLine) {
+            throw new IllegalArgumentException("Invalid line numbers.");
+        }
+
+        for (int i = startLine; i <= endLine; i++) {
+            extractedText.append(lines[i]).append("\n");
+        }
+
+        return extractedText.toString();
+    }
+
 
     public String search(Search query) {
         try {
@@ -64,7 +197,6 @@ public class Request {
             if (query.getIsbn() != null) {
                 fullQuery.append("and bib.isbn adj \"").append(query.getIsbn()).append("\" ");
             }
-
             if (query.getGenre() != null) {
                 fullQuery.append("and bib.genre adj \"").append(query.getGenre()).append("\" ");
             }
@@ -77,89 +209,18 @@ public class Request {
             if (query.getAuthor() != null) {
                 fullQuery.append("and bib.author adj \"").append(query.getAuthor()).append("\" ");
             }
-            fullQuery.append("and bib.doctype all \"a\"");
 
-
-            // Remove leading "and" if present
             String finalQuery = fullQuery.toString().trim();
             if (finalQuery.startsWith("and")) {
                 finalQuery = finalQuery.substring(4); // 4 char avec " and"
             }
 
-            // Encode the query part
             String encodedQuery = URLEncoder.encode(finalQuery, "UTF-8");
 
-
-
-            // Execute the combined query
             return executeQuery(encodedQuery);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-
-    /**
-     * Separates a string into a list of strings based on a separator.
-     *
-     * @param inputString The input string to be separated.
-     * @param separator   The separator used for splitting the input string.
-     * @return A list of strings after splitting the input string.
-     */
-    private List<String> separateString(String inputString, String separator) {
-        List<String> separatedList = new ArrayList<>();
-
-        if (inputString != null && !inputString.isEmpty() && separator != null) {
-            String[] parts = inputString.split(separator);
-            for (String part : parts) {
-                separatedList.add(part.trim());
-            }
-        }
-
-        return separatedList;
-    }
-
-    /* il faut faire la crea booking en fct de ce que t'as dans le fichier*/
-
-    /**
-     * Separates a string into a list of strings based on a separator.
-     *
-     * @param inputString The input string to be separated.
-     * @param separator   The separator used for splitting the input string.
-     * @return A list of strings after splitting the input string.
-     */
-    private List<String> separateRecords(String inputString, String separator) {
-        List<String> separatedList = new ArrayList<>();
-
-        if (inputString != null && !inputString.isEmpty() && separator != null) {
-            String[] parts = inputString.split(separator);
-            for (String part : parts) {
-                separatedList.add(part.trim());
-            }
-        }
-
-        return separatedList;
-    }
-
-    /**
-     * Extracts a value from a source string between start and end tags.
-     *
-     * @param source  The input string to extract value from.
-     * @param startTag The start tag marking the beginning of the value.
-     * @param endTag   The end tag marking the end of the value.
-     * @return The extracted value from the source string.
-     */
-    private String extractValue(String source, String startTag, String endTag) {
-        int startIndex = source.indexOf(startTag);
-        int endIndex = source.indexOf(endTag, startIndex + startTag.length());
-        if (startIndex != -1 && endIndex != -1) {
-            return source.substring(startIndex + startTag.length(), endIndex);
-        }
-        return "";
-    }
-
-
-
 }
-
-
