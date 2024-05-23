@@ -1,6 +1,8 @@
 package com.example.cybooks.controllers;
 
 import com.example.cybooks.CYBooks;
+import com.example.cybooks.User;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -67,13 +69,22 @@ public class RegisterUserController {
             /**
              * retrieve the data from the form
              */
+
+            User tmpUser=new User();
             /**
              * The firstname
              */
             String firstnametmp=firstNameField.getText().toString();
+            SimpleStringProperty wrongField = new SimpleStringProperty("");
             if(firstnametmp.equals("")){
                 errorField.setText("Enter a firstname.");
                 return false;
+            }
+            else{
+                if(tmpUser.setFirstNameConstruct(firstnametmp).equals(wrongField)){
+                    errorField.setText("Enter a VALID firstname.");
+                    return false;
+                }
             }
             /**
              * the lastname
@@ -83,34 +94,52 @@ public class RegisterUserController {
                 errorField.setText("Enter a lastname.");
                 return false;
             }
+            else{
+                if(tmpUser.setLastNameConstruct(lastnametmp).equals(wrongField)){
+                    errorField.setText("Enter a VALID lastname.");
+                    return false;
+                }
+            }
 
             /**
              * the mail
              */
             String mailtmp=mailField.getText().toString();
+            if(!mailtmp.equals("")){
 
+                if(tmpUser.setMailConstruct(mailtmp).equals(wrongField)){
+                    errorField.setText("Enter a VALID mail.");
+                    return false;
+                }
+
+            }
             /**
              * the phone number
              */
             String phonetmp=phoneField.getText().toString();
+            if(!phonetmp.equals("")){
+
+                if(tmpUser.setPhoneConstruct(phonetmp).equals(wrongField)){
+                    errorField.setText("Enter a VALID phone number.");
+                    return false;
+                }
+
+            }
             /**
              * the address
              */
             String addresstmp=addressField.getText().toString();
-            if(addresstmp.equals("")){
-                errorField.setText("Enter an address.");
-                return false;
-            }
+
             /**
              * the date of birth
              */
             String dobtmp;
             if(DOBField.getValue()==null){
-                errorField.setText("Enter a date of birth.");
+                errorField.setText("Enter a birth date.");
                 return false;
             }
-            else{
-                dobtmp=DOBField.getValue().toString();
+            else {
+                dobtmp = DOBField.getValue().toString();
             }
             /////////
 
@@ -124,6 +153,7 @@ public class RegisterUserController {
              * check if the user already existS
              */
             String retrieveQuerySQL="SELECT * FROM user WHERE firstName=\""+firstnametmp+"\" AND lastName=\""+lastnametmp+"\" AND address=\""+addresstmp+"\" AND dob=\""+dobtmp+"\";";
+
             ResultSet resultSet = statement.executeQuery(retrieveQuerySQL);
 
 
@@ -136,6 +166,7 @@ public class RegisterUserController {
              * if everything is okay
              */
             String addUserStatement="INSERT INTO `user` (`firstName`,`lastName`,`mail`,`phone`,`address`,`dob`) VALUES (\""+firstnametmp+"\",\""+lastnametmp+"\",\""+mailtmp+"\",\""+phonetmp+"\",\""+addresstmp+"\",\""+dobtmp+"\");";
+
             Statement statementadd = connection.createStatement();
             statementadd.executeUpdate(addUserStatement);
             errorField.setText("User registered with success.");

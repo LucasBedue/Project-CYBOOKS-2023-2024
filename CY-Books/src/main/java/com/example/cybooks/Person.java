@@ -4,6 +4,8 @@ import javafx.beans.property.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class Person {
     private static int counterMember =0;
@@ -20,8 +22,13 @@ public abstract class Person {
      * Default constructor.
      */
     public Person() {
-        this(null, null, null, null, null, null);
-    }
+        this.ID = new SimpleIntegerProperty(generateUserID());
+        this.LastName = setLastNameConstruct("");
+        this.FirstName = setFirstNameConstruct("");
+        this.Mail = setMailConstruct("");
+        this.Phone = setPhoneConstruct("");
+        this.Address = new SimpleStringProperty("");
+        this.DOB = new SimpleObjectProperty<LocalDate>();    }
 
     /**
      * Constructor for any person
@@ -134,6 +141,19 @@ public abstract class Person {
      */
     public void setLastName(String LastName){ this.LastName.set(LastName);}
 
+    public StringProperty setLastNameConstruct(String Name){
+        String regex = "([a-zA-Zéèîûïüæøåíñóúőűð&ýçąćęłńśżõã]+\s?)*";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(Name);
+        if (matcher.matches()){
+            StringProperty name = new SimpleStringProperty(Name);
+            return name;
+        }else {
+            System.out.println("Invalid Last Name");
+            return new SimpleStringProperty("");
+        }
+    }
+
     /**
      * User first name getter
      * @return user's first name
@@ -156,6 +176,19 @@ public abstract class Person {
      */
     public void setFirstName(String FirstName){ this.FirstName.set(FirstName);}
 
+    public StringProperty setFirstNameConstruct(String Name){
+        String regex = "([a-zA-Zéèîûïüæøåíñóúőűð&ýçąćęłńśżõã]+\s?)*";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(Name);
+        if (matcher.matches()){
+            StringProperty name = new SimpleStringProperty(Name);
+            return name;
+        }else {
+            System.out.println("Invalid First Name");
+            return new SimpleStringProperty("");
+        }
+    }
+
     /**
      * User email getter
      * @return user's email
@@ -177,6 +210,19 @@ public abstract class Person {
      */
     public void setMail(String Mail){ this.Mail.set(Mail);}
 
+    public StringProperty setMailConstruct(String Mail){
+        String regex = "(.+@.+)?";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(Mail);
+        if (matcher.matches()){
+            StringProperty Email = new SimpleStringProperty(Mail);
+            return Email;
+        }else {
+            System.out.println("Invalid mail");
+            return new SimpleStringProperty("");
+        }
+    }
+
     /**
      * User phone number getter
      * @return user's phone number
@@ -197,6 +243,21 @@ public abstract class Person {
      * User phone number setter
      */
     public void setPhone(String Phone){ this.Phone.set(Phone);}
+
+
+    public StringProperty setPhoneConstruct(String Phone){
+        String regex = "^((?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$)?";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(Phone);
+        if (matcher.matches()){
+            StringProperty phoneNumber = new SimpleStringProperty(Phone);
+            return phoneNumber;
+        }else {
+            System.out.println("Invalid phone number");
+            return new SimpleStringProperty("");
+        }
+    }
+
     /**
      * User address getter
      * @return user's address
