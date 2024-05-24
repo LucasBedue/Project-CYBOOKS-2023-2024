@@ -22,7 +22,7 @@ public class BookSearch2Controller {
      */
 
     @FXML
-    private TableColumn<Book, Integer> ISBNColumn;
+    private TableColumn<Book, String> ISBNColumn;
     @FXML
     private TableColumn<Book, String> TitleColumn;
     @FXML
@@ -61,7 +61,7 @@ public class BookSearch2Controller {
      */
     @FXML
     private void initialize(){
-        ISBNColumn.setCellValueFactory(cellData -> cellData.getValue().ISBNProperty().asObject());
+        ISBNColumn.setCellValueFactory(cellData -> cellData.getValue().ISBNProperty());
         TitleColumn.setCellValueFactory(cellData -> cellData.getValue().TitleProperty());
         AuthorColumn.setCellValueFactory(cellData -> cellData.getValue().AuthorProperty().asString());
         PublishingDateColumn.setCellValueFactory(cellData -> cellData.getValue().PublishingProperty());
@@ -96,7 +96,7 @@ public class BookSearch2Controller {
         if( book != null ){
             TitleLabel.setText(book.getTitle());
             AuthorLabel.setText(book.getAuthor().toString());
-            ISBNLabel.setText(Integer.toString(book.getISBN()));
+            ISBNLabel.setText(book.getISBN());
             PublishingLabel.setText(book.getPublishingDate().toString());
             EditionLabel.setText(book.getEdition());
             GenreLabel.setText(book.getGenre().toString());

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class Book {
 
-    private IntegerProperty ISBN;
+    private StringProperty ISBN;
     private StringProperty Title;
     private ObjectProperty<Author> Author;
     private ObjectProperty<Genre> Genre;
@@ -26,8 +26,8 @@ public class Book {
      * @param available Book's Availability
      */
 
-    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, String edition, boolean available) {
-        this.ISBN = new SimpleIntegerProperty(ISBN);
+    public Book(String ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, String edition, boolean available) {
+        this.ISBN = new SimpleStringProperty(ISBN);
         this.Title = new SimpleStringProperty(title);
         this.Author = new SimpleObjectProperty<Author>(author);
         this.Genre = new SimpleObjectProperty<Genre>(genre);
@@ -46,8 +46,8 @@ public class Book {
      * @param publishingDate Book's Publishing Date
      * @param available Book's Availability
      */
-    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, boolean available) {
-        this.ISBN = new SimpleIntegerProperty(ISBN);
+    public Book(String ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, boolean available) {
+        this.ISBN = new SimpleStringProperty(ISBN);
         this.Title = new SimpleStringProperty(title);
         this.Author = new SimpleObjectProperty<Author>(author);
         this.Genre = new SimpleObjectProperty<Genre>(genre);
@@ -66,8 +66,8 @@ public class Book {
      * @param publishingDate Book's Publishing Date
      * @param edition Book's Edition
      */
-    public Book(int ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, String edition) {
-        this.ISBN = new SimpleIntegerProperty(ISBN);
+    public Book(String ISBN, String title, com.example.cybooks.Author author, com.example.cybooks.Genre genre, LocalDate publishingDate, String edition) {
+        this.ISBN = new SimpleStringProperty(ISBN);
         this.Title = new SimpleStringProperty(title);
         this.Author = new SimpleObjectProperty<Author>(author);
         this.Genre = new SimpleObjectProperty<Genre>(genre);
@@ -80,15 +80,15 @@ public class Book {
      * ISBN getter
      * @return this book's ISBN
      */
-    public int getISBN() {
+    public String getISBN() {
         return this.ISBN.get();
     }
 
-    public IntegerProperty ISBNProperty() {
+    public StringProperty ISBNProperty() {
         return this.ISBN;
     }
 
-    public void setISBN(int ISBN){
+    public void setISBN(String ISBN){
         this.ISBN.set(ISBN);
     }
 

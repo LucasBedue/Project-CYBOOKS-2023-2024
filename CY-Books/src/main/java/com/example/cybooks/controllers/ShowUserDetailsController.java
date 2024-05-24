@@ -28,7 +28,7 @@ public class ShowUserDetailsController {
      */
 
     @FXML
-    private TableColumn<Borrow, Integer> ISBNColumn;
+    private TableColumn<Borrow, String> ISBNColumn;
     @FXML
     private TableColumn<Borrow, String> TitleColumn;
     @FXML
@@ -87,7 +87,7 @@ public class ShowUserDetailsController {
      */
     @FXML
     private void initialize(){
-        ISBNColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().ISBNProperty().asObject());
+        ISBNColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().ISBNProperty());
         TitleColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().TitleProperty());
         AuthorColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().AuthorProperty().asString());
         PublishingDateColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().PublishingProperty());

@@ -24,7 +24,7 @@ public class BorrowedBooksController {
      */
 
     @FXML
-    private TableColumn<Borrow, Integer> ISBNColumn;
+    private TableColumn<Borrow, String> ISBNColumn;
     @FXML
     private TableColumn<Borrow, String> TitleColumn;
     @FXML
@@ -63,7 +63,7 @@ public class BorrowedBooksController {
      */
     @FXML
     private void initialize(){
-        ISBNColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().ISBNProperty().asObject());
+        ISBNColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().ISBNProperty());
         TitleColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().TitleProperty());
         AuthorColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().AuthorProperty().asString());
         PublishingDateColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().PublishingProperty());
@@ -100,7 +100,7 @@ public class BorrowedBooksController {
         if( borrow != null ){
             TitleLabel.setText(borrow.getBook().getTitle());
             AuthorLabel.setText(borrow.getBook().getAuthor().toString());
-            ISBNLabel.setText(Integer.toString(borrow.getBook().getISBN()));
+            ISBNLabel.setText(borrow.getBook().getISBN());
             PublishingLabel.setText(borrow.getBook().getPublishingDate().toString());
             EditionLabel.setText(borrow.getBook().getEdition());
             GenreLabel.setText(borrow.getBook().getGenre().toString());
