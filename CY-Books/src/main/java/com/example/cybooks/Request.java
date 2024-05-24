@@ -51,7 +51,7 @@ public class Request {
             }
             in.close();
 
-            Analyze(response.toString());//?return??
+            Analyze(response.toString());
             return response.toString();
         } else {
             System.out.println("HTTP Error: " + responseCode);
@@ -108,7 +108,6 @@ public class Request {
 
         for (int i = 0; i < tab.length; i++) {
 
-            //If the ISBN was seen
             if (tab[i].trim().equals("mxc:datafield tag=\"010\" ind1=\" \" ind2=\" \"")) {
                 if (tab[i + 2].trim().equals("mxc:subfield code=\"a\"")) {
                     ISBN = tab[i + 3].trim();
@@ -116,7 +115,6 @@ public class Request {
                 }
             }
 
-            //If the document's type was seen
             if (tab[i].trim().equals("mxc:datafield tag=\"200\" ind1=\"1\" ind2=\" \"")) {
                 book = false;
                 while (!tab[i].trim().equals("/mxc:datafield")) {
@@ -129,8 +127,7 @@ public class Request {
                         title = tab[i + 1].trim();
                     }
                 }
-            } //if last and firstname where seen
-            else if (tab[i].trim().equals("mxc:datafield tag=\"210\" ind1=\" \" ind2=\" \"")) {
+            } else if (tab[i].trim().equals("mxc:datafield tag=\"210\" ind1=\" \" ind2=\" \"")) {
                 while (!tab[i].trim().equals("/mxc:datafield")) {
                     i++;
                     if (tab[i].trim().equals("mxc:subfield code=\"c\"")) {
@@ -147,33 +144,24 @@ public class Request {
                         }
                     }
                 }
-            }//for lastname, firstname and DOB
-            else if (tab[i].trim().equals("mxc:datafield tag=\"700\" ind1=\" \" ind2=\"|\"")) {
+            } else if (tab[i].trim().equals("mxc:datafield tag=\"700\" ind1=\" \" ind2=\"|\"")) {
                 while (!tab[i].trim().equals("/mxc:datafield")) {
                     i++;
-                    System.out.println("tabi+1="+tab[i + 1]);
-                    if (tab[i].trim().equals("mxc:subfield code=\"a\"")) {//lastname
+                    if (tab[i].trim().equals("mxc:subfield code=\"a\"")) {
                         lastName = tab[i + 1].trim();
-                        System.out.println("lastname="+lastName);
-                    } else if (tab[i].trim().equals("mxc:subfield code=\"b\"")) {//firstName
+                    } else if (tab[i].trim().equals("mxc:subfield code=\"b\"")) {
                         firstName = tab[i + 1].trim();
-                        System.out.println("firstname="+firstName);
-                    } else if (tab[i].trim().equals("mxc:subfield code=\"f\"")) {//DOB
-
-
+                    } else if (tab[i].trim().equals("mxc:subfield code=\"f\"")) {
                         String dobString = tab[i + 1].trim();
-                        System.out.println("dob="+dobString);
                         String[] dobParts = dobString.split("-");
-                        System.out.println("dob part="+dobParts);
                         if (dobParts.length > 0) {
-                            if(dobParts[0].equals("")) {
-                                dateOfBirth=0;
+                            String regex = "[0-9]+";
+                            Pattern pattern = Pattern.compile(regex);
+                            Matcher matcher = pattern.matcher(dobParts[0]);
+                            if(matcher.matches()){
+                                dateOfBirth = Integer.parseInt(dobParts[0]);
                             }
-                            else{
-                                dateOfBirth = Integer.parseInt(dobParts[0].replaceAll(".", ""));
-
-                            }
-                            }
+                        }
                     }
                 }
             }
