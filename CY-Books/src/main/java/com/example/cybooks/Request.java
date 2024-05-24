@@ -1,7 +1,5 @@
 package com.example.cybooks;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -60,7 +58,7 @@ public class Request {
     }
 
 
-    private List<Book> Analyze(String text) {
+    private void Analyze(String text) {
         List<Book> books = new ArrayList<>();
         List<Integer> separator = new ArrayList<>();
         String text1 = text.replaceAll("[<>]", "\n");
@@ -90,7 +88,7 @@ public class Request {
 
         }
         System.out.println(books);
-        return books;
+        //return books;
     }
 
     private Book transfobook(String text) {

@@ -2,6 +2,7 @@ package com.example.cybooks.controllers;
 
 import com.example.cybooks.CYBooks;
 import com.example.cybooks.User;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 
 public class RegisterUserController {
@@ -83,6 +85,7 @@ public class RegisterUserController {
              */
             String firstnametmp=firstNameField.getText().toString();
             SimpleStringProperty wrongField = new SimpleStringProperty("");
+            SimpleObjectProperty<LocalDate> wrongDate = new SimpleObjectProperty<LocalDate>();
             if(firstnametmp.equals("")){
                 errorField.setText("Enter a firstname.");
                 return false;
@@ -140,13 +143,17 @@ public class RegisterUserController {
             /**
              * the date of birth
              */
-            String dobtmp;
+            LocalDate dobtmp;
             if(DOBField.getValue()==null){
                 errorField.setText("Enter a birth date.");
                 return false;
             }
             else {
-                dobtmp = DOBField.getValue().toString();
+                dobtmp = DOBField.getValue();
+                if(tmpUser.setDOBVerification(dobtmp).equals(wrongDate)){
+                    errorField.setText("Enter a VALID date of birth");
+                    return false;
+                }
             }
 
 

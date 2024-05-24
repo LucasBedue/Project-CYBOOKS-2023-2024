@@ -34,6 +34,7 @@ public class CheckUserController {
      * To call the main instance of CYBooks
      * @param cyBooks the main instance of CYBooks
      */
+
     public void setCYBooks(CYBooks cyBooks) {
         this.cyBooks = cyBooks;
     }

@@ -149,8 +149,8 @@ public abstract class Person {
             StringProperty name = new SimpleStringProperty(Name);
             return name;
         }else {
-            System.out.println("Invalid Last Name");
-            return new SimpleStringProperty("");
+           System.out.println("Invalid Last Name");
+           return new SimpleStringProperty("");
         }
     }
 
@@ -184,8 +184,8 @@ public abstract class Person {
             StringProperty name = new SimpleStringProperty(Name);
             return name;
         }else {
-            System.out.println("Invalid First Name");
-            return new SimpleStringProperty("");
+          System.out.println("Invalid First Name");
+          return new SimpleStringProperty("");
         }
     }
 
@@ -246,13 +246,14 @@ public abstract class Person {
 
 
     public StringProperty setPhoneConstruct(String Phone){
+
         String regex = "^((?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$)?";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(Phone);
         if (matcher.matches()){
             StringProperty phoneNumber = new SimpleStringProperty(Phone);
-            return phoneNumber;
-        }else {
+            return phoneNumber;}
+        else {
             System.out.println("Invalid phone number");
             return new SimpleStringProperty("");
         }
@@ -299,7 +300,17 @@ public abstract class Person {
      * User date of birth setter
      */
     public void setDOB(LocalDate DOB) {
-        this.DOB.set(DOB);
+            this.DOB.set(DOB);
+    }
+
+    public ObjectProperty<LocalDate> setDOBVerification(LocalDate DOB) {
+        if(DOB.isAfter(LocalDate.now())){
+            System.out.println("Invalid date of birth");
+            return new SimpleObjectProperty<LocalDate>();
+        }
+        else {
+            return new SimpleObjectProperty<LocalDate>(DOB);
+        }
     }
 }
 
