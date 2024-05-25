@@ -1,15 +1,18 @@
 package com.example.cybooks.controllers;
 
 
-import com.example.cybooks.Book;
-import com.example.cybooks.Borrow;
-import com.example.cybooks.CYBooks;
+import com.example.cybooks.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.List;
 
 public class BorrowedBooksController {
 
@@ -17,22 +20,22 @@ public class BorrowedBooksController {
      * The list of books
      */
     @FXML
-    private TableView<Borrow> BookList;
+    private TableView<Book> BookList;
 
     /**
      * Values to be shown in the table containing the list of books
      */
 
     @FXML
-    private TableColumn<Borrow, String> ISBNColumn;
+    private TableColumn<Book, String> ISBNColumn;
     @FXML
-    private TableColumn<Borrow, String> TitleColumn;
+    private TableColumn<Book, String> TitleColumn;
     @FXML
-    private TableColumn<Borrow,String> AuthorColumn;
+    private TableColumn<Book,String> AuthorColumn;
     @FXML
-    private TableColumn<Borrow, LocalDate> PublishingDateColumn;
+    private TableColumn<Book, LocalDate> PublishingDateColumn;
     @FXML
-    private TableColumn<Borrow, LocalDate> ReturnByColumn;
+    private TableColumn<Book, LocalDate> ReturnByColumn;
 
     /**
      * More detailed information about the chosen book
@@ -50,8 +53,11 @@ public class BorrowedBooksController {
     private Label EditionLabel;
     @FXML
     private Label GenreLabel;
+
     private CYBooks cyBooks;
 
+    @FXML
+    private Label labelPageNumber;
     /**
      * Constructor for the controller
      */
@@ -67,7 +73,7 @@ public class BorrowedBooksController {
         TitleColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().TitleProperty());
         AuthorColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().AuthorProperty().asString());
         PublishingDateColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().PublishingProperty());
-        ReturnByColumn.setCellValueFactory(cellData -> cellData.getValue().ReturnByProperty());
+        ReturnByColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().PublishingProperty());
 
 
         /**
@@ -87,23 +93,68 @@ public class BorrowedBooksController {
      * @param cyBooks the main instance of CYBooks
      */
     public void setCYBooks(CYBooks cyBooks){
-        this.cyBooks = cyBooks;
-        BookList.setItems(cyBooks.getBorrowData());
+        try{
+            this.cyBooks = cyBooks;
+            this.cyBooks.emptyBookData();
+
+            List<Book> tmpBookList;
+            Request request=new Request();
+            int nbNextPage = Integer.parseInt(labelPageNumber.getText()) - 1;
+            Search search=new Search.Builder().build();
+            search.changeStartRecord((nbNextPage)*10);
+
+            //make the statement
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
+            PreparedStatement statement = connection.prepareStatement("SELECT isbn FROM books INNER JOIN borrows ON books.id=borrows.id_book AND borrows.dateReturn IS NULL ORDER BY books.id LIMIT ? OFFSET ?");
+            //execute the retrive statement
+
+            statement.setInt(1, 10);
+            statement.setInt(2, (Integer.parseInt(labelPageNumber.getText()) - 1) * 10);
+
+            ResultSet resultSet = statement.executeQuery();//we have borrowed books isbn
+
+            if(resultSet.isBeforeFirst() ){
+                while(resultSet.next()){
+
+                    search.changeIsbn(resultSet.getString("isbn"));//search by ISBN
+
+                    tmpBookList = request.search(search);//we have the book
+                    if(tmpBookList.size()!=0) {
+                        this.cyBooks.addBook(tmpBookList.get(0));
+                    }
+                    tmpBookList.clear();
+
+                }
+            }
+
+
+
+            BookList.setItems(this.cyBooks.getBookData());
+
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+
+        }
+
+
     }
 
 
     /**
      * To show more information for a given book
-     * @param borrow
+     * @param book
      */
-    private void showBookDetails(Borrow borrow){
-        if( borrow != null ){
-            TitleLabel.setText(borrow.getBook().getTitle());
-            AuthorLabel.setText(borrow.getBook().getAuthor().toString());
-            ISBNLabel.setText(borrow.getBook().getISBN());
-            PublishingLabel.setText(borrow.getBook().getPublishingDate().toString());
-            EditionLabel.setText(borrow.getBook().getEdition());
-            GenreLabel.setText(borrow.getBook().getGenre().toString());
+    @FXML
+    private void showBookDetails(Book book){
+        if( book != null ){
+            TitleLabel.setText(book.getTitle());
+            AuthorLabel.setText(book.getAuthor().toString());
+            ISBNLabel.setText(book.getISBN());
+            PublishingLabel.setText(book.getPublishingDate().toString());
+            EditionLabel.setText(book.getEdition());
+            GenreLabel.setText(book.getGenre().toString());
 
         } else {
             TitleLabel.setText("");
@@ -114,6 +165,19 @@ public class BorrowedBooksController {
             GenreLabel.setText("");
 
         }
+
+    }
+
+    @FXML
+    private void nextPage(){
+
+    }
+    @FXML
+    private void previousPage(){
+
+    }
+    @FXML
+    private void returnBook(){
 
     }
 }

@@ -76,7 +76,10 @@
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="958.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button mnemonicParsing="false" text="Return" />
+                <Button mnemonicParsing="false" onAction="#returnBook" text="Return" />
+                  <Button mnemonicParsing="false" onAction="#previousPage" text="Previous Page" />
+                  <Button mnemonicParsing="false" onAction="#nextPage" text="Next Page" />
+                  <Label fx:id="labelPageNumber" alignment="CENTER_RIGHT" text="1" />
               </buttons>
                <padding>
                   <Insets right="20.0" />
