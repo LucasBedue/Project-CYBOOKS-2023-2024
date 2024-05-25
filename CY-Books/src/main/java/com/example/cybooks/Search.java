@@ -10,6 +10,8 @@ public class Search {
     private String publisher;
     private int datePublishing;
     private String author;
+    private int maximumRecords;
+    private int startRecord;
 
     /**
      * Private constructor to prevent direct instantiation
@@ -53,6 +55,16 @@ public class Search {
             return this;
         }
 
+        public Builder setMaximumRecords(int maximumRecords) {
+            search.maximumRecords = maximumRecords;
+            return this;
+        }
+
+        public Builder setStartRecord(int startRecord) {
+            search.startRecord = startRecord;
+            return this;
+        }
+
         public Search build() {
             return search;
         }
@@ -84,4 +96,40 @@ public class Search {
     public String getAuthor() {
         return author;
     }
+
+    public int getMaximumRecords() {
+        return maximumRecords;
+    }
+
+    public int getStartRecord() {
+        return startRecord;
+    }
+
+    public void changeTitle(String s){
+        this.title=s;
+    }
+
+    public void changeIsbn(String s) {
+        this.isbn=s;
+    }
+
+    public void changeGenre(String s) {
+        this.genre=s;    }
+
+    public void changePublisher(String s) {
+        this.publisher=s;    }
+
+    public void changeDatePublishing(int s) {
+        this.datePublishing=s;    }
+
+    public void changeAuthor(String s) {
+        this.author=s;    }
+
+    public void changeMaximumRecords(int s) {
+        this.maximumRecords=s;    }
+
+    public void changeStartRecord(int s) {
+        this.startRecord=s;
+    }
+
 }

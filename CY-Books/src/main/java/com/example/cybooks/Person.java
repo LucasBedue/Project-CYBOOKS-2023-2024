@@ -303,14 +303,6 @@ public abstract class Person {
             this.DOB.set(DOB);
     }
 
-    public ObjectProperty<LocalDate> setDOBVerification(LocalDate DOB) {
-        if(DOB.isAfter(LocalDate.now())){
-            System.out.println("Invalid date of birth");
-            return new SimpleObjectProperty<LocalDate>();
-        }
-        else {
-            return new SimpleObjectProperty<LocalDate>(DOB);
-        }
-    }
+
 }
 

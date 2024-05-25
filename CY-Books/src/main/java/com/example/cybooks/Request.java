@@ -28,8 +28,8 @@ public class Request {
      * @return The HTTP response.
      * @throws Exception If an error occurs during the request execution.
      */
-    private String executeQuery(String query) throws Exception {
-        String encodedQuery = URLEncoder.encode(query, "UTF-8");
+    private List<Book> executeQuery(String query) throws Exception {
+        String encodedQuery = query;//URLEncoder.encode(query, "UTF-8");
         String apiUrl = baseUrl + encodedQuery;
 
         System.out.println("\n" + apiUrl);
@@ -49,8 +49,9 @@ public class Request {
             }
             in.close();
 
-            Analyze(response.toString());
-            return response.toString();
+            List<Book> booksToReturn=new ArrayList<Book>();
+            booksToReturn=Analyze(response.toString());
+            return booksToReturn;
         } else {
             System.out.println("HTTP Error: " + responseCode);
             return null;
@@ -58,7 +59,7 @@ public class Request {
     }
 
 
-    private void Analyze(String text) {
+    private List<Book> Analyze(String text) {
         List<Book> books = new ArrayList<>();
         List<Integer> separator = new ArrayList<>();
         String text1 = text.replaceAll("[<>]", "\n");
@@ -87,8 +88,8 @@ public class Request {
             }
 
         }
-        System.out.println(books);
-        //return books;
+        //System.out.println(books);
+        return books;
     }
 
     private Book transfobook(String text) {
@@ -190,38 +191,50 @@ public class Request {
     }
 
 
-    public String search(Search query) {
+    public List<Book> search(Search query) {
         try {
             StringBuilder fullQuery = new StringBuilder();
-
+            //fullQuery.append("(");
             // Build the full query based on the provided search criteria
             if (query.getTitle() != null) {
-                fullQuery.append("bib.title adj \"").append(query.getTitle()).append("\" ");
+                fullQuery.append(URLEncoder.encode("bib.title adj \"","UTF-8")).append(URLEncoder.encode(query.getTitle(),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
             if (query.getIsbn() != null) {
-                fullQuery.append("and bib.isbn adj \"").append(query.getIsbn()).append("\" ");
+                fullQuery.append(URLEncoder.encode("and bib.isbn adj \"","UTF-8")).append(URLEncoder.encode(query.getIsbn(),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
+            }
+            else{
+                fullQuery.append(URLEncoder.encode("and bib.isbn all \"9\"","UTF-8"));
+
             }
             if (query.getGenre() != null) {
-                fullQuery.append("and bib.genre adj \"").append(query.getGenre()).append("\" ");
+                fullQuery.append(URLEncoder.encode("and bib.genre adj \"","UTF-8")).append(URLEncoder.encode(query.getGenre(),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
             if (query.getPublisher() != null) {
-                fullQuery.append("and bib.publisher adj \"").append(query.getPublisher()).append("\" ");
+                fullQuery.append(URLEncoder.encode("and bib.publisher adj \"","UTF-8")).append(URLEncoder.encode(query.getPublisher(),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
             if (query.getDatePublishing() != 0) {
-                fullQuery.append("and bib.date adj \"").append(query.getDatePublishing()).append("\" ");
+                fullQuery.append(URLEncoder.encode("and bib.date adj \"","UTF-8")).append(URLEncoder.encode(Integer.toString(query.getDatePublishing()),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
             if (query.getAuthor() != null) {
-                fullQuery.append("and bib.author adj \"").append(query.getAuthor()).append("\" ");
+                fullQuery.append(URLEncoder.encode("and bib.author adj \"","UTF-8")).append(URLEncoder.encode(query.getAuthor(),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
 
+            if (query.getMaximumRecords() != 0) {
+                fullQuery.append("&recordSchema=unimarcxchange&maximumRecords").append("=").append(URLEncoder.encode(Integer.toString(query.getMaximumRecords()),"UTF-8"));
+            }
+            else{
+                fullQuery.append("&recordSchema=unimarcxchange&maximumRecords").append("=10");
+
+            }
+            fullQuery.append("&startRecord").append("=").append(URLEncoder.encode(Integer.toString(query.getStartRecord()+1),"UTF-8"));
+
+
             String finalQuery = fullQuery.toString().trim();
-            if (finalQuery.startsWith("and")) {
+            if (finalQuery.startsWith("and+")) {
                 finalQuery = finalQuery.substring(4); // 4 char avec " and"
             }
 
-            String encodedQuery = URLEncoder.encode(finalQuery, "UTF-8");
-
-            return executeQuery(encodedQuery);
+            return executeQuery(finalQuery);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

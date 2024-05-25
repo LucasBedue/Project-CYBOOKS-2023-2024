@@ -1,16 +1,12 @@
 package com.example.cybooks.controllers;
 
-import com.example.cybooks.CYBooks;
-import com.example.cybooks.Request;
-import com.example.cybooks.SQLExecutor;
-import com.example.cybooks.Search;
+import com.example.cybooks.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainMenuController {
 
@@ -103,17 +99,25 @@ public class MainMenuController {
             sqlExecutor.executeFile("./CY-Books/src/main/resources/com/example/cybooks/BDDCreation.sql");
 
             Request request = new Request();
-
+            List<Book> booksToTreat=new ArrayList<Book>();
             // exemple du multi search multi
-            Search query = new Search.Builder()
+            Search query = new Search.Builder().setMaximumRecords(100).build();
+            ResultSet resultSet;
 
-                    .build();
-            String responseByQuery = request.search(query);
+            for(int iquery=0;iquery<10;iquery++){
+                query.changeStartRecord(iquery*100);
+                booksToTreat = request.search(query);//we are getting books
+                for (int i = 0; i < booksToTreat.size(); i++) {
+                    resultSet=statement.executeQuery("SELECT 1 FROM books WHERE isbn=\""+booksToTreat.get(i).getISBN()+"\";");
+                    if (!resultSet.isBeforeFirst() ) {
+                        statement.executeUpdate("INSERT INTO books (`isbn`) VALUES (\""+booksToTreat.get(i).getISBN()+"\");");
 
-            System.out.println(responseByQuery);
+                    }
+                }
+            }
 
 
-
+            System.out.println("End reset");
 
         }catch(Exception e){
             e.printStackTrace();

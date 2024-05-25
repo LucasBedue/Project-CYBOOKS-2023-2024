@@ -85,7 +85,7 @@ public class RegisterUserController {
              */
             String firstnametmp=firstNameField.getText().toString();
             SimpleStringProperty wrongField = new SimpleStringProperty("");
-            SimpleObjectProperty<LocalDate> wrongDate = new SimpleObjectProperty<LocalDate>();
+            SimpleObjectProperty<LocalDate> wrongDate = new SimpleObjectProperty<LocalDate>(null);
             if(firstnametmp.equals("")){
                 errorField.setText("Enter a firstname.");
                 return false;
@@ -143,18 +143,18 @@ public class RegisterUserController {
             /**
              * the date of birth
              */
-            LocalDate dobtmp;
+            String dobtmp;
             if(DOBField.getValue()==null){
                 errorField.setText("Enter a birth date.");
                 return false;
             }
             else {
-                dobtmp = DOBField.getValue();
-                if(tmpUser.setDOBVerification(dobtmp).equals(wrongDate)){
-                    errorField.setText("Enter a VALID date of birth");
+                if(DOBField.getValue().isAfter(LocalDate.now())){
+                    errorField.setText("Enter a VALID birth date.");
                     return false;
                 }
             }
+            dobtmp=DOBField.getValue().toString();
 
 
             /**
