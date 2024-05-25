@@ -1,13 +1,15 @@
 package com.example.cybooks.controllers;
 
+import com.example.cybooks.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import com.example.cybooks.CYBooks;
-import com.example.cybooks.Book;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookSearch2Controller {
 
@@ -47,6 +49,7 @@ public class BookSearch2Controller {
     @FXML
     private Label GenreLabel;
     private CYBooks cyBooks;
+    private Search search;
 
     @FXML
     private Label numberPageLabel;
@@ -82,9 +85,24 @@ public class BookSearch2Controller {
      * To call the main instance of CYBooks and the data to be shown
      * @param cyBooks the main instance of CYBooks
      */
-    public void setCYBooks(CYBooks cyBooks){
+    public void setCYBooks(CYBooks cyBooks, Search search){
+
         this.cyBooks = cyBooks;
-        BookList.setItems(cyBooks.getBookData());
+        this.cyBooks.emptyBookData();
+        this.search=search;
+        Request request=new Request();
+
+        List<Book> tmpBookList;
+        tmpBookList = request.search(search);
+
+
+            for (int i = 0; i < tmpBookList.size(); i++) {
+                this.cyBooks.addBook(tmpBookList.get(i));
+            }
+
+
+            BookList.setItems(this.cyBooks.getBookData());
+
     }
 
 
@@ -114,9 +132,67 @@ public class BookSearch2Controller {
     }
 
     public void previousPage(){
+        try{
+            this.cyBooks.emptyBookData();
+            Request request=new Request();
+            List<Book> tmpBookList;
+            int nbNextPage = Integer.parseInt(numberPageLabel.getText()) - 1;
+            this.search.changeStartRecord((nbNextPage-1)*10);
+            tmpBookList = request.search(this.search);
 
+            if(nbNextPage<1){
+                nbNextPage=1;
+            }
+
+
+            this.search.changeStartRecord((nbNextPage-1)*10);
+            tmpBookList = request.search(this.search);
+
+            if(tmpBookList!=null) {
+                numberPageLabel.setText(String.valueOf(nbNextPage));
+
+
+                for (int i = 0; i < tmpBookList.size(); i++) {
+                    this.cyBooks.addBook(tmpBookList.get(i));
+                }
+
+                BookList.setItems(this.cyBooks.getBookData());
+            }
+
+
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
-    public void nextPage(){
 
+    public void nextPage(){
+        try{
+
+            Request request=new Request();
+            List<Book> tmpBookList;
+            int nbNextPage = Integer.parseInt(numberPageLabel.getText()) + 1;
+            this.search.changeStartRecord((nbNextPage-1)*10);
+            tmpBookList = request.search(this.search);
+
+            if(tmpBookList!=null) {
+                this.cyBooks.emptyBookData();
+                numberPageLabel.setText(String.valueOf(nbNextPage));
+
+
+                for (int i = 0; i < tmpBookList.size(); i++) {
+                    this.cyBooks.addBook(tmpBookList.get(i));
+                }
+
+                BookList.setItems(this.cyBooks.getBookData());
+
+            }
+
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

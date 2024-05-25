@@ -164,12 +164,12 @@ public class CYBooks extends Application {
             throw new RuntimeException(e);
         }
     }
-    public Node createBookSearch2Scene() throws RuntimeException{
+    public Node createBookSearch2Scene(Search search) throws RuntimeException{
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("BookSearch2.fxml"));
             AnchorPane BookSearch2 = (AnchorPane) loader.load();
             BookSearch2Controller BookSearch2Controller = loader.getController();
-            BookSearch2Controller.setCYBooks(this);
+            BookSearch2Controller.setCYBooks(this,search);
             return BookSearch2;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -273,9 +273,9 @@ public class CYBooks extends Application {
         }
     }
     @FXML
-    public void switchBookSearch2Scene() {
+    public void switchBookSearch2Scene(Search search) {
         try{
-            rootLayout.setCenter(createBookSearch2Scene());
+            rootLayout.setCenter(createBookSearch2Scene(search));
 
         }
         catch(RuntimeException e){

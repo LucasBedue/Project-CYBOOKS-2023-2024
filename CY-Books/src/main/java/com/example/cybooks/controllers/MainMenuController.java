@@ -76,8 +76,8 @@ public class MainMenuController {
         cyBooks.switchRegisterUserScene();
     }
     @FXML
-    private void switchBookSearch2Scene() {
-        cyBooks.switchBookSearch2Scene();
+    private void switchBookSearch2Scene(Search search) {
+        cyBooks.switchBookSearch2Scene(search);
     }
 
 

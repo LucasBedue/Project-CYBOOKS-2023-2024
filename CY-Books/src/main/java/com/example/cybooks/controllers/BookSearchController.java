@@ -1,6 +1,8 @@
 package com.example.cybooks.controllers;
 
 import com.example.cybooks.CYBooks;
+import com.example.cybooks.Request;
+import com.example.cybooks.Search;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -39,6 +41,7 @@ public class BookSearchController {
      */
     public void setCYBooks(CYBooks cyBooks) {
         this.cyBooks = cyBooks;
+
     }
 
     /**
@@ -46,7 +49,34 @@ public class BookSearchController {
      */
     @FXML
     public void searchBook(){
-        cyBooks.switchBookSearch2Scene();
+        Search search = new Search.Builder()
+
+                .build();
+
+        if(!AuthorField.getText().equals("")){
+            search.changeAuthor(AuthorField.getText());
+
+        }
+        if(!GenreField.getText().equals("")){
+            search.changeAuthor(GenreField.getText());
+
+        }
+        if(!ISBNField.getText().equals("")){
+            search.changeAuthor(ISBNField.getText());
+
+        }
+        if(!TitleField.getText().equals("")){
+            search.changeAuthor(TitleField.getText());
+
+        }
+        if(!EditionField.getText().equals("")){
+            search.changeAuthor(EditionField.getText());
+
+        }
+
+
+
+        cyBooks.switchBookSearch2Scene(search);
     }
 }
 

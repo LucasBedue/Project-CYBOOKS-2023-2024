@@ -76,6 +76,8 @@ public class UserOverviewController {
         try {
             //initialize
             this.cyBooks = cyBooks;
+            this.cyBooks.emptyUserData();
+
             //make the statement
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
             PreparedStatement statement =connection.prepareStatement("SELECT * FROM user ORDER BY id LIMIT ? OFFSET ?");
