@@ -7,6 +7,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -77,6 +78,9 @@
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="958.0" BorderPane.alignment="CENTER">
                <buttons>
+                  <Label text="ID of the borrower" />
+                  <TextField fx:id="idUserField" />
+                  <Button mnemonicParsing="false" onAction="#borrow" text="Borrow" />
                   <Button mnemonicParsing="false" onAction="#previousPage" text="Previous Page" />
                   <Button mnemonicParsing="false" onAction="#nextPage" text="Next Page" />
                   <Label fx:id="numberPageLabel" alignment="CENTER_RIGHT" text="1" />

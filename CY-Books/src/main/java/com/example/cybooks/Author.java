@@ -35,7 +35,13 @@ public class Author extends Person {
         super(lastName, firstName, mail, telephone, address, DOB);
     }
 
+    /**
+     * Constructor for an Author
+    */
+    public Author(){
+        super();
 
+    }
 
     /**
      * Function to return this author

@@ -7,6 +7,9 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
 public class Borrow {
@@ -34,12 +37,29 @@ public class Borrow {
         this.returned = null;
     }
 
+
+
     /**
      * Constructor for borrowing a book
      */
     public Borrow(){
     }
 
+    public void createBorrowInDatabase(LocalDate borrowingDate, int idPerson, int id) {
+       try {
+           Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
+           PreparedStatement statement = connection.prepareStatement("SELECT * FROM user ORDER BY id LIMIT ? OFFSET ?");
+
+           statement.executeUpdate("INSERT INTO borrows (`borrowingDate`,`dateToBeReturnedBy`,`id_client`,`id_book`) VALUES (\""+borrowingDate.toString()+"\",\""+borrowingDate.plusDays(20)+"\",\""+idPerson+"\",\""+id+"\");");
+
+
+
+       }
+       catch(Exception e){
+           e.printStackTrace();
+
+       }
+    }
     /**
      * Function to verify if a book was returned late with the date of today
      */

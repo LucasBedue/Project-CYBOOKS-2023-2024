@@ -5,7 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,6 +55,8 @@ public class BookSearch2Controller {
     private CYBooks cyBooks;
     private Search search;
 
+    @FXML
+    private TextField idUserField;
     @FXML
     private Label numberPageLabel;
     /**
@@ -110,6 +116,7 @@ public class BookSearch2Controller {
      * To show more information for a given book
      * @param book
      */
+    @FXML
     private void showBookDetails(Book book){
         if( book != null ){
             TitleLabel.setText(book.getTitle());
@@ -130,7 +137,7 @@ public class BookSearch2Controller {
         }
 
     }
-
+    @FXML
     public void previousPage(){
         try{
             this.cyBooks.emptyBookData();
@@ -166,7 +173,7 @@ public class BookSearch2Controller {
             e.printStackTrace();
         }
     }
-
+    @FXML
     public void nextPage(){
         try{
 
@@ -193,6 +200,55 @@ public class BookSearch2Controller {
         }
         catch(Exception e){
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void borrow(){
+        try {
+            if (((!TitleLabel.getText().equals(""))
+                    || (!AuthorLabel.getText().equals(""))
+                    || (!ISBNLabel.getText().equals(""))
+                    || (!PublishingLabel.getText().equals(""))
+                    || (!EditionLabel.getText().equals(""))
+                    || (!GenreLabel.getText().equals("")))&&(!idUserField.getText().equals(""))) {
+                //Go to enter a username and execute a borrow
+                //To do later
+
+                User user = new User();
+                Author author = new Author();
+                Genre genre = new Genre(GenreLabel.getText());
+                author.setFirstName(AuthorLabel.getText());
+                user.setUserFromDatabase(Integer.parseInt(idUserField.getText()));
+
+                Book book = new Book(ISBNLabel.getText(), TitleLabel.getText(), author, genre, LocalDate.now(), true);
+
+                //search the book's id in our database
+                int bookId = 0;
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM user ORDER BY id LIMIT ? OFFSET ?");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM books WHERE isbn=\"" + ISBNLabel.getText() + "\";");
+                if (!resultSet.isBeforeFirst() ) {
+                    System.out.println("This book isn't in our database");
+
+                }
+                else {
+                    while(resultSet.next()) {
+                        bookId=resultSet.getInt("id");
+                    }
+
+                    Borrow borrow = new Borrow();
+                    borrow.createBorrowInDatabase(LocalDate.now(), user.getID(), bookId);
+
+                    System.out.println("Borrow success");
+                }
+            } else {
+                System.out.println("no book selected");
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+
         }
     }
 }

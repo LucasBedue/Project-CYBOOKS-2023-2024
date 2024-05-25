@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- Creating tables with borrows
 CREATE TABLE IF NOT EXISTS `borrows` (
-  `id` int,
+  `id` int NOT NULL AUTO_INCREMENT,
   `borrowingDate` varchar(50) NOT NULL,
   `dateToBeReturnedBy` varchar(50) NOT NULL,
   `dateReturn` varchar(50),

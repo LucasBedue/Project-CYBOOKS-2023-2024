@@ -3,12 +3,17 @@ package com.example.cybooks;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class User extends Person {
 
+    private int id;
     private IntegerProperty NbBorrowedBooks;
     private List<Borrow> borrowedBooks;
     private List<Borrow> borrowHistory;
@@ -62,6 +67,39 @@ public class User extends Person {
     }
 
 
+    public void setUserFromDatabase(int id){
+        try {
+
+
+            //make the statement
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE id=\""+(Integer.toString(id))+"\";");
+
+            if (resultSet.isBeforeFirst() ) {
+                while(resultSet.next()) {
+                    this.setID(resultSet.getInt("id"));
+                    this.setFirstName(resultSet.getString("firstName"));
+                    this.setLastName(resultSet.getString("lastName"));
+                    this.setMail(resultSet.getString("mail"));
+                    this.setPhone(resultSet.getString("phone"));
+                    this.setAddress(resultSet.getString("address"));
+                    //where is the DOB? we need another column.
+                    this.setDOB(resultSet.getDate("dob").toLocalDate());
+
+                }
+
+            }
+
+
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+
+        }
+    }
     /**
      * Method to borrow a book by checking its availability
      *
@@ -117,6 +155,13 @@ public class User extends Person {
         this.NbBorrowedBooks.set(nbBorrowedBooks);
     }
 
+    public void setId(int id){
+        this.id=id;
+    }
+
+    public int getId(){
+        return this.id;
+    }
 
     /**
      * Function to change the last name of a user
