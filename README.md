@@ -5,7 +5,14 @@ Bienvenue dans l'application de gestion de bibliothèque. Cette application offr
 
 Lancement et installation:
 
-Télécharger puis lancer CY-Books/src/main/java/com/example/cybooks/CYBooks.java
+Télécharger puis, à la racine du projet, lancer CY-Books/src/main/java/com/example/cybooks/CYBooks.java.
+
+Veuillez à ce que :
+- "Mysql" soit installer sur l'ordinateur
+- L'utilisateur "root" avec pour mot de passe "" existe
+- Les vérifications de mot de passe de "Mysql" soit désactivés
+- L'utilisateur par défaut de "Mysql" est l'utilisateur "root".
+- Votre connexion Internet soit fonctionnele pour faire des requête auprès de l'API de la BNF.
 
 Fonctionnalités de l'application
 
