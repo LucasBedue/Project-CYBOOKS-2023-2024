@@ -5,7 +5,7 @@ Bienvenue dans l'application de gestion de bibliothèque. Cette application offr
 
 Lancement et installation:
 
-Télécharger puis allez dans Project-CYBOOKS-2023-2024/CY-Books. Effectuez "$ mvn clean install" puis "$ mvn exec:java -Dexec.mainClass=com.example.cybooks.CYBooks".
+Télécharger puis allez dans "/Project-CYBOOKS-2023-2024/CY-Books". Effectuez "$ mvn clean install" puis "$ mvn exec:java -Dexec.mainClass=com.example.cybooks.CYBooks".
 
 Veuillez à ce que :
 - "Mysql" soit installer sur l'ordinateur
@@ -14,6 +14,8 @@ Veuillez à ce que :
 - L'utilisateur par défaut de "Mysql" est l'utilisateur "root".
 - Votre connexion Internet soit fonctionnele pour faire des requête auprès de l'API de la BNF.
 - Java version 17 ou plus. (installer le JDK et utiliser "$ sudo update-alternatives --config java")
+
+Vous pouvez aussi ouvrir "/Project-CYBOOKS-2023-2024/CY-Books" avec IntelliJ avec les parametres nécessaires.
 
 Fonctionnalités de l'application
 
