@@ -96,7 +96,7 @@ public class MainMenuController {
             statement.execute("DROP TABLE borrows;");
 
             SQLExecutor sqlExecutor = new SQLExecutor("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
-            sqlExecutor.executeFile("./CY-Books/src/main/resources/com/example/cybooks/BDDCreation.sql");
+            sqlExecutor.executeFile("./src/main/resources/com/example/cybooks/BDDCreation.sql");
 
             Request request = new Request();
             List<Book> booksToTreat=new ArrayList<Book>();
