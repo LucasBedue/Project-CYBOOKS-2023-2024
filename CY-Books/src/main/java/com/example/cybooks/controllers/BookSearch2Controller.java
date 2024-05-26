@@ -74,7 +74,6 @@ public class BookSearch2Controller {
         TitleColumn.setCellValueFactory(cellData -> cellData.getValue().TitleProperty());
         AuthorColumn.setCellValueFactory(cellData -> cellData.getValue().AuthorProperty().asString());
         PublishingDateColumn.setCellValueFactory(cellData -> cellData.getValue().PublishingProperty());
-
         /**
          * As default no detailed information will be shown as no book would have been chosen yet
          */
@@ -103,6 +102,7 @@ public class BookSearch2Controller {
 
 
             for (int i = 0; i < tmpBookList.size(); i++) {
+
                 this.cyBooks.addBook(tmpBookList.get(i));
             }
 
@@ -233,14 +233,32 @@ public class BookSearch2Controller {
 
                 }
                 else {
-                    while(resultSet.next()) {
-                        bookId=resultSet.getInt("id");
+                    //check if the user have more or equals 5 borrow
+                    PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM borrows WHERE id_client=\"" + user.getID() + "\" AND dateReturn IS NULL;");
+                    ResultSet resultSet2 = statement2.executeQuery();
+                    int countBorrow=0;
+                    if(resultSet2.isBeforeFirst()){
+
+                        while(resultSet2.next()){
+                            countBorrow++;
+
+                        }
                     }
+                    if(countBorrow>=5){
+                        System.out.println("This client already have 5 borrows.");
 
-                    Borrow borrow = new Borrow();
-                    borrow.createBorrowInDatabase(LocalDate.now(), user.getID(), bookId);
+                    }
+                    else {
 
-                    System.out.println("Borrow success");
+                        while (resultSet.next()) {
+                            bookId = resultSet.getInt("id");
+                        }
+
+                        Borrow borrow = new Borrow();
+                        borrow.createBorrowInDatabase(LocalDate.now(), user.getID(), bookId);
+
+                        System.out.println("Borrow success");
+                    }
                 }
             } else {
                 System.out.println("no book selected");

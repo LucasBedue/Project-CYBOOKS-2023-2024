@@ -119,6 +119,9 @@ public abstract class Person {
      */
     public void setID(Integer ID){ this.ID.set(ID);}
 
+    public Person getPerson(){
+        return this;
+    }
 
     /**
      * User last name getter

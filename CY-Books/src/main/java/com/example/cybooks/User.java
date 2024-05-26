@@ -13,7 +13,6 @@ import java.util.List;
 
 public class User extends Person {
 
-    private int id;
     private IntegerProperty NbBorrowedBooks;
     private List<Borrow> borrowedBooks;
     private List<Borrow> borrowHistory;
@@ -155,13 +154,11 @@ public class User extends Person {
         this.NbBorrowedBooks.set(nbBorrowedBooks);
     }
 
-    public void setId(int id){
-        this.id=id;
-    }
 
-    public int getId(){
-        return this.id;
-    }
+
+
+
+
 
     /**
      * Function to change the last name of a user

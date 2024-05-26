@@ -58,19 +58,19 @@ public class BookSearchController {
 
         }
         if(!GenreField.getText().equals("")){
-            search.changeAuthor(GenreField.getText());
+            search.changeGenre(GenreField.getText());
 
         }
         if(!ISBNField.getText().equals("")){
-            search.changeAuthor(ISBNField.getText());
+            search.changeIsbn(ISBNField.getText());
 
         }
         if(!TitleField.getText().equals("")){
-            search.changeAuthor(TitleField.getText());
+            search.changeTitle(TitleField.getText());
 
         }
         if(!EditionField.getText().equals("")){
-            search.changeAuthor(EditionField.getText());
+            search.changePublisher(EditionField.getText());
 
         }
 

@@ -2,10 +2,12 @@ package com.example.cybooks.controllers;
 
 
 import com.example.cybooks.*;
+import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,6 +23,10 @@ public class BorrowedBooksController {
      */
     @FXML
     private TableView<Book> BookList;
+    @FXML
+    private TableView<User> ClientList;
+
+    private int selecteduserId;
 
     /**
      * Values to be shown in the table containing the list of books
@@ -36,6 +42,8 @@ public class BorrowedBooksController {
     private TableColumn<Book, LocalDate> PublishingDateColumn;
     @FXML
     private TableColumn<Book, LocalDate> ReturnByColumn;
+    @FXML
+    private TableColumn<User, Integer> idClientColumn;
 
     /**
      * More detailed information about the chosen book
@@ -74,8 +82,8 @@ public class BorrowedBooksController {
         AuthorColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().AuthorProperty().asString());
         PublishingDateColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().PublishingProperty());
         ReturnByColumn.setCellValueFactory(cellData -> cellData.getValue().getBook().PublishingProperty());
-
-
+        idClientColumn.setCellValueFactory(cellData -> cellData.getValue().IDProperty().asObject());
+        this.selecteduserId=0;
         /**
          * As default no detailed information will be shown as no book would have been chosen yet
          */
@@ -84,8 +92,8 @@ public class BorrowedBooksController {
         /**
          * Update the left side by changing the listener when clicking on a book on the right
          */
-        BookList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> showBookDetails(newValue));
 
+        BookList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> showBookDetails(newValue));
     }
 
     /**
@@ -96,16 +104,18 @@ public class BorrowedBooksController {
         try{
             this.cyBooks = cyBooks;
             this.cyBooks.emptyBookData();
+            this.cyBooks.emptyUserData();
+
 
             List<Book> tmpBookList;
             Request request=new Request();
-            int nbNextPage = Integer.parseInt(labelPageNumber.getText()) - 1;
+            int nbNextPage = Integer.parseInt(labelPageNumber.getText()) ;
             Search search=new Search.Builder().build();
-            search.changeStartRecord((nbNextPage)*10);
+            search.changeStartRecord((nbNextPage-1)*10);
 
             //make the statement
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
-            PreparedStatement statement = connection.prepareStatement("SELECT isbn FROM books INNER JOIN borrows ON books.id=borrows.id_book AND borrows.dateReturn IS NULL ORDER BY books.id LIMIT ? OFFSET ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT books.isbn,borrows.id_client FROM books INNER JOIN borrows ON books.id=borrows.id_book AND borrows.dateReturn IS NULL ORDER BY books.id LIMIT ? OFFSET ?");
             //execute the retrive statement
 
             statement.setInt(1, 10);
@@ -116,11 +126,15 @@ public class BorrowedBooksController {
             if(resultSet.isBeforeFirst() ){
                 while(resultSet.next()){
 
-                    search.changeIsbn(resultSet.getString("isbn"));//search by ISBN
+                    search.changeIsbn(resultSet.getString("books.isbn"));//search by ISBN
+
 
                     tmpBookList = request.search(search);//we have the book
-                    if(tmpBookList.size()!=0) {
+                    if(tmpBookList!=null) {
                         this.cyBooks.addBook(tmpBookList.get(0));
+                        User tmpuser=new User();
+                        tmpuser.setID(resultSet.getInt("borrows.id_client"));
+                        this.cyBooks.addUser(tmpuser);
                     }
                     tmpBookList.clear();
 
@@ -130,7 +144,7 @@ public class BorrowedBooksController {
 
 
             BookList.setItems(this.cyBooks.getBookData());
-
+            ClientList.setItems(this.cyBooks.getUserData());
 
         }
         catch(Exception e){
@@ -156,6 +170,7 @@ public class BorrowedBooksController {
             EditionLabel.setText(book.getEdition());
             GenreLabel.setText(book.getGenre().toString());
 
+
         } else {
             TitleLabel.setText("");
             AuthorLabel.setText("");
@@ -163,6 +178,7 @@ public class BorrowedBooksController {
             PublishingLabel.setText("");
             EditionLabel.setText("");
             GenreLabel.setText("");
+            this.selecteduserId= 0;
 
         }
 
@@ -170,14 +186,125 @@ public class BorrowedBooksController {
 
     @FXML
     private void nextPage(){
+        try{
 
+            int nbNextPage = Integer.parseInt(labelPageNumber.getText()) +1;
+
+            List<Book> tmpBookList;
+            Request request=new Request();
+            Search search=new Search.Builder().build();
+            //search.changeStartRecord((nbNextPage-1)*10);
+
+            //make the statement
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
+            PreparedStatement statement = connection.prepareStatement("SELECT books.isbn,borrows.id_client FROM books INNER JOIN borrows ON books.id=borrows.id_book AND borrows.dateReturn IS NULL ORDER BY books.id LIMIT ? OFFSET ?");
+            //execute the retrive statement
+
+            statement.setInt(1, 10);
+            statement.setInt(2, (Integer.parseInt(labelPageNumber.getText()) ) * 10);
+
+            ResultSet resultSet = statement.executeQuery();//we have borrowed books isbn
+
+            if(resultSet.isBeforeFirst() ){
+                this.cyBooks.emptyBookData();
+                this.cyBooks.emptyUserData();
+                labelPageNumber.setText(Integer.toString(nbNextPage));
+                while(resultSet.next()){
+
+                    search.changeIsbn(resultSet.getString("books.isbn"));//search by ISBN
+
+
+                    tmpBookList = request.search(search);//we have the book
+                    if(tmpBookList!=null) {
+                        this.cyBooks.addBook(tmpBookList.get(0));
+                        User tmpuser=new User();
+                        tmpuser.setID(resultSet.getInt("borrows.id_client"));
+                        this.cyBooks.addUser(tmpuser);
+                        tmpBookList.clear();
+                    }
+
+
+                }
+                BookList.setItems(this.cyBooks.getBookData());
+                ClientList.setItems(this.cyBooks.getUserData());
+            }
+
+
+
+
+            }
+        catch(Exception e){
+            e.printStackTrace();
+
+        }
     }
     @FXML
     private void previousPage(){
+        try{
 
+            int nbNextPage = Integer.parseInt(labelPageNumber.getText()) -1;
+            if(nbNextPage>0) {
+                this.cyBooks.emptyBookData();
+                this.cyBooks.emptyUserData();
+
+
+                List<Book> tmpBookList;
+                Request request=new Request();
+
+
+                Search search = new Search.Builder().build();
+                //search.changeStartRecord((nbNextPage-1) * 10);
+
+                //make the statement
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");
+                PreparedStatement statement = connection.prepareStatement("SELECT books.isbn,borrows.id_client FROM books INNER JOIN borrows ON books.id=borrows.id_book AND borrows.dateReturn IS NULL ORDER BY books.id LIMIT ? OFFSET ?");
+                //execute the retrive statement
+
+                statement.setInt(1, 10);
+                statement.setInt(2, (Integer.parseInt(labelPageNumber.getText()) - 2) * 10);
+
+                ResultSet resultSet = statement.executeQuery();//we have borrowed books isbn
+
+                if (resultSet.isBeforeFirst()) {
+                    labelPageNumber.setText(Integer.toString(nbNextPage ));
+
+                    while (resultSet.next()) {
+
+                        search.changeIsbn(resultSet.getString("books.isbn"));//search by ISBN
+
+
+                        tmpBookList = request.search(search);//we have the book
+                        if (tmpBookList!=null) {
+                            this.cyBooks.addBook(tmpBookList.get(0));
+                            User tmpuser = new User();
+                            tmpuser.setID(resultSet.getInt("borrows.id_client"));
+                            this.cyBooks.addUser(tmpuser);
+                            tmpBookList.clear();
+                        }
+
+
+                    }
+                }
+
+
+                BookList.setItems(this.cyBooks.getBookData());
+                ClientList.setItems(this.cyBooks.getUserData());
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+
+        }
     }
     @FXML
     private void returnBook(){
+        try{
 
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+
+        }
     }
 }
