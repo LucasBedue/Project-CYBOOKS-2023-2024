@@ -29,6 +29,11 @@ public class SQLExecutor {
     }
 
 
+    /**
+     * return a database connection
+     * @return
+     * @throws SQLException
+     */
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, userName, password);
     }

@@ -196,36 +196,37 @@ public class Request {
             StringBuilder fullQuery = new StringBuilder();
             //fullQuery.append("(");
             // Build the full query based on the provided search criteria
-            if (query.getTitle() != null) {
+            if (query.getTitle() != null) {//the title
                 fullQuery.append(URLEncoder.encode("bib.title adj \"","UTF-8")).append(URLEncoder.encode(query.getTitle(),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
-            if (query.getIsbn() != null) {
+            if (query.getIsbn() != null) {//the isbn
                 fullQuery.append(URLEncoder.encode("and bib.isbn adj \"","UTF-8")).append(URLEncoder.encode(query.getIsbn(),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
-            else{
+            else{//to ensure all books have an isbn
                 fullQuery.append(URLEncoder.encode("and bib.isbn all \"9\"","UTF-8"));
 
             }
-            if (query.getGenre() != null) {
+            if (query.getGenre() != null) {//the genre
                 fullQuery.append(URLEncoder.encode("and bib.genre adj \"","UTF-8")).append(URLEncoder.encode(query.getGenre(),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
-            if (query.getPublisher() != null) {
+            if (query.getPublisher() != null) {//the publisher, refered sometimes as the edition
                 fullQuery.append(URLEncoder.encode("and bib.publisher adj \"","UTF-8")).append(URLEncoder.encode(query.getPublisher(),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
-            if (query.getDatePublishing() != 0) {
+            if (query.getDatePublishing() != 0) {//the publishing date
                 fullQuery.append(URLEncoder.encode("and bib.date adj \"","UTF-8")).append(URLEncoder.encode(Integer.toString(query.getDatePublishing()),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
-            if (query.getAuthor() != null) {
+            if (query.getAuthor() != null) {//the author
                 fullQuery.append(URLEncoder.encode("and bib.author adj \"","UTF-8")).append(URLEncoder.encode(query.getAuthor(),"UTF-8")).append(URLEncoder.encode("\" ","UTF-8"));
             }
 
-            if (query.getMaximumRecords() != 0) {
+            if (query.getMaximumRecords() != 0) {//max lenght of the returned values
                 fullQuery.append("&recordSchema=unimarcxchange&maximumRecords").append("=").append(URLEncoder.encode(Integer.toString(query.getMaximumRecords()),"UTF-8"));
             }
-            else{
+            else{//10 by default
                 fullQuery.append("&recordSchema=unimarcxchange&maximumRecords").append("=10");
 
             }
+            //always start somewhere
             fullQuery.append("&startRecord").append("=").append(URLEncoder.encode(Integer.toString(query.getStartRecord()+1),"UTF-8"));
 
 

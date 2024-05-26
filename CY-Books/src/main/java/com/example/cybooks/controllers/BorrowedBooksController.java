@@ -184,6 +184,9 @@ public class BorrowedBooksController {
 
     }
 
+    /**
+     * To show the informations of the next page
+     */
     @FXML
     private void nextPage(){
         try{
@@ -238,6 +241,10 @@ public class BorrowedBooksController {
 
         }
     }
+
+    /**
+     * To show the informations of the previous page
+     */
     @FXML
     private void previousPage(){
         try{
@@ -296,6 +303,10 @@ public class BorrowedBooksController {
 
         }
     }
+
+    /**
+     * To return a book, not functional
+     */
     @FXML
     private void returnBook(){
         try{

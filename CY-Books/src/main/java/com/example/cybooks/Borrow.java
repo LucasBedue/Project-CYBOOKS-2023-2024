@@ -45,6 +45,12 @@ public class Borrow {
     public Borrow(){
     }
 
+    /**
+     * To insert a borrow in the database
+     * @param borrowingDate
+     * @param idPerson
+     * @param id
+     */
     public void createBorrowInDatabase(LocalDate borrowingDate, int idPerson, int id) {
        try {
            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cy_Books_Database", "root", "");

@@ -66,6 +66,10 @@ public class User extends Person {
     }
 
 
+    /**
+     * to fill this user with information in the database. Need his ID.
+     * @param id
+     */
     public void setUserFromDatabase(int id){
         try {
 
@@ -153,12 +157,6 @@ public class User extends Person {
     public void setNbBorrowedBooks(int nbBorrowedBooks) {
         this.NbBorrowedBooks.set(nbBorrowedBooks);
     }
-
-
-
-
-
-
 
     /**
      * Function to change the last name of a user

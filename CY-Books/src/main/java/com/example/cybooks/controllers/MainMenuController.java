@@ -100,15 +100,15 @@ public class MainMenuController {
 
             Request request = new Request();
             List<Book> booksToTreat=new ArrayList<Book>();
-            // exemple du multi search multi
+            //multi search multi
             Search query = new Search.Builder().setMaximumRecords(100).build();
             ResultSet resultSet;
 
-            for(int iquery=0;iquery<10;iquery++){
+            for(int iquery=0;iquery<10;iquery++){//we could retrieve all the books, but it would be too long, so let's take only the first 1000
                 query.changeStartRecord(iquery*100);
                 booksToTreat = request.search(query);//we are getting books
                 for (int i = 0; i < booksToTreat.size(); i++) {
-                    resultSet=statement.executeQuery("SELECT 1 FROM books WHERE isbn=\""+booksToTreat.get(i).getISBN()+"\";");
+                    resultSet=statement.executeQuery("SELECT 1 FROM books WHERE isbn=\""+booksToTreat.get(i).getISBN()+"\";");//to not take duplicates
                     if (!resultSet.isBeforeFirst() ) {
                         statement.executeUpdate("INSERT INTO books (`isbn`) VALUES (\""+booksToTreat.get(i).getISBN()+"\");");
 
@@ -116,9 +116,7 @@ public class MainMenuController {
                 }
             }
 
-
             System.out.println("End reset");
-
         }catch(Exception e){
             e.printStackTrace();
         }

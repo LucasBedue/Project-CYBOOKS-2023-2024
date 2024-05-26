@@ -137,6 +137,10 @@ public class BookSearch2Controller {
         }
 
     }
+
+    /**
+     * To show informations about the previous page
+     */
     @FXML
     public void previousPage(){
         try{
@@ -147,32 +151,31 @@ public class BookSearch2Controller {
             this.search.changeStartRecord((nbNextPage-1)*10);
             tmpBookList = request.search(this.search);
 
-            if(nbNextPage<1){
+            if(nbNextPage<1){//if we are going too much backward
                 nbNextPage=1;
             }
 
-
             this.search.changeStartRecord((nbNextPage-1)*10);
-            tmpBookList = request.search(this.search);
+            tmpBookList = request.search(this.search);//the bnf query
 
             if(tmpBookList!=null) {
                 numberPageLabel.setText(String.valueOf(nbNextPage));
 
-
                 for (int i = 0; i < tmpBookList.size(); i++) {
                     this.cyBooks.addBook(tmpBookList.get(i));
                 }
-
                 BookList.setItems(this.cyBooks.getBookData());
             }
-
-
 
         }
         catch(Exception e){
             e.printStackTrace();
         }
     }
+
+    /**
+     * To show informations about the next page
+     */
     @FXML
     public void nextPage(){
         try{
@@ -183,19 +186,15 @@ public class BookSearch2Controller {
             this.search.changeStartRecord((nbNextPage-1)*10);
             tmpBookList = request.search(this.search);
 
-            if(tmpBookList!=null) {
+            if(tmpBookList!=null) {//if there is something to show
                 this.cyBooks.emptyBookData();
                 numberPageLabel.setText(String.valueOf(nbNextPage));
-
 
                 for (int i = 0; i < tmpBookList.size(); i++) {
                     this.cyBooks.addBook(tmpBookList.get(i));
                 }
-
                 BookList.setItems(this.cyBooks.getBookData());
-
             }
-
 
         }
         catch(Exception e){
@@ -203,6 +202,9 @@ public class BookSearch2Controller {
         }
     }
 
+    /**
+     * To borrow a book shown on the TableView
+     */
     @FXML
     private void borrow(){
         try {
@@ -244,7 +246,7 @@ public class BookSearch2Controller {
 
                         }
                     }
-                    if(countBorrow>=5){
+                    if(countBorrow>=5){//if he already have 5 borrows
                         System.out.println("This client already have 5 borrows.");
 
                     }
@@ -255,13 +257,13 @@ public class BookSearch2Controller {
                         }
 
                         Borrow borrow = new Borrow();
-                        borrow.createBorrowInDatabase(LocalDate.now(), user.getID(), bookId);
+                        borrow.createBorrowInDatabase(LocalDate.now(), user.getID(), bookId);//create the borrow
 
                         System.out.println("Borrow success");
                     }
                 }
             } else {
-                System.out.println("no book selected");
+                System.out.println("no book or no user selected ");
             }
         }
         catch(Exception e){

@@ -286,7 +286,6 @@ public class CYBooks extends Application {
 
     /**
      * Constructor
-     * TEMPORARILY USED TO SET DUMMY VALUES
      */
     public CYBooks(){
     }

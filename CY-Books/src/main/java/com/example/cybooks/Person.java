@@ -144,6 +144,11 @@ public abstract class Person {
      */
     public void setLastName(String LastName){ this.LastName.set(LastName);}
 
+    /**
+     * It check if the inserted lastname is correct
+     * @param Name
+     * @return
+     */
     public StringProperty setLastNameConstruct(String Name){
         String regex = "([a-zA-Zéèîûïüæøåíñóúőűð&ýçąćęłńśżõã]+\s?)*";
         Pattern pattern = Pattern.compile(regex);
@@ -179,6 +184,11 @@ public abstract class Person {
      */
     public void setFirstName(String FirstName){ this.FirstName.set(FirstName);}
 
+    /**
+     * It check if the inserted firstname is correct
+     * @param Name
+     * @return
+     */
     public StringProperty setFirstNameConstruct(String Name){
         String regex = "([a-zA-Zéèîûïüæøåíñóúőűð&ýçąćęłńśżõã]+\s?)*";
         Pattern pattern = Pattern.compile(regex);
@@ -213,6 +223,11 @@ public abstract class Person {
      */
     public void setMail(String Mail){ this.Mail.set(Mail);}
 
+    /**
+     * It check if the inserted mail is correct
+     * @param Mail
+     * @return
+     */
     public StringProperty setMailConstruct(String Mail){
         String regex = "(.+@.+)?";
         Pattern pattern = Pattern.compile(regex);
@@ -248,6 +263,11 @@ public abstract class Person {
     public void setPhone(String Phone){ this.Phone.set(Phone);}
 
 
+    /**
+     * It check if the inserted phone is correct
+     * @param Phone
+     * @return
+     */
     public StringProperty setPhoneConstruct(String Phone){
 
         String regex = "^((?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$)?";

@@ -101,7 +101,7 @@ public class UserOverviewController {
                     userRetrieve.setDOB(resultSet.getDate("dob").toLocalDate());
 
 
-                    //Add the number of book
+                    //Add the user
                     this.cyBooks.addUser(userRetrieve);
                 }
 

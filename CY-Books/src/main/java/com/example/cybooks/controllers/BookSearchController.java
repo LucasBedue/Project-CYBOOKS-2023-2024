@@ -45,7 +45,7 @@ public class BookSearchController {
     }
 
     /**
-     * TEST FUNCTION
+     * To create a search for the API and return the result in the next page
      */
     @FXML
     public void searchBook(){
